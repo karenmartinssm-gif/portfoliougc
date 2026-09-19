@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karen Martins | Portfólio UGC Creator</title>
+<meta name="description" content="Portfólio de Karen Martins, criadora de conteúdo UGC para marcas de skincare, casa e decoração, fitness e tech.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ===== Tokens ===== */
+  :root{
+    --cream: #f3eee9;
+    --cream-2: #ebe3d9;
+    --paper: #fbf8f4;
+    --ink: #14110d;
+    --ink-soft: #4a4640;
+    --blue: #0049a4;
+    --blue-dark: #003778;
+    --orange: #df7900;
+    --line: rgba(20,17,13,0.12);
+    --shadow-sm: 0 4px 14px rgba(20,17,13,0.06);
+    --shadow-md: 0 14px 34px rgba(20,17,13,0.10);
+    --radius-lg: 22px;
+    --radius-md: 14px;
+    --radius-sm: 8px;
+    --container: 1160px;
+    --nav-h: 76px;
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+
+  *,*::before,*::after{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color: inherit; text-decoration: none; }
+  ul{ margin:0; padding:0; list-style:none; }
+  h1,h2,h3,h4{
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    line-height: 1.12;
+    margin: 0 0 .5em;
+    letter-spacing: -0.01em;
+  }
+  h1 em, h2 em, h3 em, .accent-italic{
+    font-style: italic;
+    font-weight: 500;
+    color: var(--blue);
+  }
+  p{ margin: 0 0 1em; color: var(--ink-soft); }
+  .container{ max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+  section{ position: relative; }
+  .section{ padding: 96px 0; }
+  .section-head{ max-width: 640px; margin-bottom: 48px; }
+  .eyebrow{
+    display:inline-block;
+    font-family:"Plus Jakarta Sans", sans-serif;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 14px;
+  }
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+    outline: 3px solid var(--blue);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .skip-link{
+    position:absolute; left:12px; top:-60px;
+    background: var(--ink); color:#fff; padding:10px 16px;
+    border-radius: var(--radius-sm); z-index: 999; transition: top .2s var(--ease);
+  }
+  .skip-link:focus{ top:12px; }
+
+  /* ===== Buttons ===== */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding: 14px 26px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: .95rem;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease), color .25s var(--ease);
+  }
+  .btn-primary{ background: var(--blue); color: #fff; box-shadow: var(--shadow-sm); }
+  .btn-primary:hover{ background: var(--blue-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .btn-ghost{ background: transparent; color: var(--ink); border-color: var(--ink); }
+  .btn-ghost:hover{ background: var(--ink); color: var(--cream); transform: translateY(-2px); }
+  .btn-orange{ background: var(--orange); color:#fff; box-shadow: var(--shadow-sm); }
+  .btn-orange:hover{ transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .btn-outline-blue{ background: transparent; color: var(--blue); border-color: var(--blue); }
+  .btn-outline-blue:hover{ background: var(--blue); color:#fff; transform: translateY(-2px); }
+  .btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
+
+  /* ===== Header / Nav ===== */
+  .site-header{
+    position: fixed; top:0; left:0; right:0; z-index: 500;
+    height: var(--nav-h);
+    background: rgba(243,238,233,0.86);
+    backdrop-filter: blur(10px) saturate(140%);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-wrap{ height:100%; display:flex; align-items:center; justify-content:space-between; }
+  .brand{
+    font-family:"Fraunces", serif; font-size: 1.35rem; font-weight:600; letter-spacing:-.01em;
+  }
+  .primary-nav ul{ display:flex; gap: 8px; }
+  .primary-nav a{
+    display:block; padding: 10px 16px; border-radius: 999px;
+    font-weight:600; font-size:.92rem; color: var(--ink-soft);
+    transition: background .2s var(--ease), color .2s var(--ease);
+  }
+  .primary-nav a:hover{ background: var(--cream-2); color: var(--ink); }
+  .nav-toggle{
+    display:none; flex-direction:column; justify-content:center; align-items:center;
+    gap:5px; width:44px; height:44px; background:transparent; border: none; cursor:pointer; border-radius: var(--radius-sm);
+  }
+  .nav-toggle span{ width:22px; height:2px; background: var(--ink); border-radius: 2px; transition: transform .25s var(--ease), opacity .25s var(--ease); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+  /* ===== Hero ===== */
+  .hero{ padding-top: calc(var(--nav-h) + 64px); padding-bottom: 0; }
+  .hero-grid{
+    display:grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items:center;
+    padding-bottom: 64px;
+  }
+  .hero h1{ font-size: clamp(2.6rem, 6vw, 4.4rem); margin-bottom: .3em; }
+  .hero-phrase{ font-size: 1.15rem; max-width: 46ch; }
+  .hero-actions{ display:flex; flex-wrap:wrap; gap:14px; margin: 28px 0 40px; }
+  .hero-stats{ display:flex; gap: 32px; flex-wrap:wrap; margin:0; }
+  .hero-stats > div{ min-width: 100px; }
+  .hero-stats dt{ font-size:.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing:.06em; margin-bottom:4px; }
+  .hero-stats dd{ margin:0; font-family:"Fraunces", serif; font-size:1.7rem; font-weight:600; color: var(--blue); }
+
+  .media-placeholder{
+    border-radius: var(--radius-lg);
+    background: linear-gradient(155deg, #cddbee 0%, #0049a4 46%, #df7900 100%);
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    color:#fff; font-weight:600; font-size:.92rem; padding: 24px;
+    box-shadow: var(--shadow-md);
+    position: relative; overflow:hidden;
+  }
+  .media-placeholder span{ position:relative; z-index:2; max-width: 22ch; }
+  .media-placeholder::after{
+    content:""; position:absolute; inset:0;
+    background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.35), transparent 55%);
+  }
+  .ratio-4-5{ aspect-ratio: 4/5; }
+  .ratio-1-1{ aspect-ratio: 1/1; }
+  .ratio-9-16{ aspect-ratio: 9/16; }
+  .ratio-16-9{ aspect-ratio: 16/9; }
+
+  .brand-strip{
+    border-top: 1px solid var(--line);
+    background: var(--paper);
+    overflow: hidden;
+    padding: 22px 0;
+  }
+  .brand-track{
+    display:flex; align-items:center; gap: 56px;
+    width: max-content;
+    animation: scrollBrands 30s linear infinite;
+  }
+  .brand-track span{
+    font-family:"Fraunces", serif; font-style: italic; font-size:1.1rem; color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  @keyframes scrollBrands{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+
+  /* ===== Reveal on scroll ===== */
+  .reveal{ opacity:0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  .reveal.is-visible{ opacity:1; transform: translateY(0); }
+
+  /* ===== Sobre ===== */
+  .sobre{ background: var(--cream); }
+  .sobre-grid{ display:grid; grid-template-columns: .8fr 1.2fr; gap: 56px; align-items:center; }
+  .promises{ margin: 22px 0; display:flex; flex-direction:column; gap:14px; }
+  .promises li{
+    display:flex; gap:12px; align-items:flex-start;
+    background: var(--paper); border:1px solid var(--line); border-radius: var(--radius-md);
+    padding: 16px 18px; box-shadow: var(--shadow-sm); color: var(--ink-soft);
+  }
+  .promises li::before{
+    content:"✓"; flex:none; width:26px; height:26px; border-radius:50%;
+    background: var(--blue); color:#fff; font-size:.8rem; font-weight:700;
+    display:flex; align-items:center; justify-content:center; margin-top:2px;
+  }
+  .promises li strong{ color: var(--ink); }
+  .signature{ font-family:"Fraunces", serif; font-style: italic; font-size:1.4rem; color: var(--blue); margin-top: 18px; }
+
+  /* ===== Destaques ===== */
+  .destaques{ background: var(--cream-2); }
+  .highlights-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .highlight-card{
+    display:block; border-radius: var(--radius-lg); overflow:hidden;
+    background: var(--paper); box-shadow: var(--shadow-sm);
+    border: 1px solid var(--line);
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+  }
+  .highlight-card:hover{ transform: translateY(-6px); box-shadow: var(--shadow-md); }
+  .highlight-cover{ position:relative; }
+  .highlight-cover .media-placeholder{ border-radius:0; }
+  .play-btn{
+    position:absolute; top:50%; left:50%; transform: translate(-50%,-50%);
+    width:64px; height:64px; border-radius:50%;
+    background: rgba(255,255,255,0.92); color: var(--blue);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: var(--shadow-md); z-index:3;
+    transition: transform .25s var(--ease), background .25s var(--ease);
+  }
+  .highlight-card:hover .play-btn{ transform: translate(-50%,-50%) scale(1.08); background:#fff; }
+  .highlight-body{ padding: 20px 22px 24px; }
+  .highlight-number{ font-family:"Fraunces", serif; font-size:1.9rem; font-weight:600; color: var(--orange); margin-bottom:2px; }
+  .highlight-number-label{ font-size:.8rem; color: var(--ink-soft); text-transform:uppercase; letter-spacing:.05em; margin-bottom:14px; }
+  .highlight-title{ font-family:"Fraunces", serif; font-size:1.15rem; font-weight:600; margin-bottom:6px; }
+  .highlight-context{ font-size:.92rem; margin:0; }
+
+  /* ===== Trabalhos ===== */
+  .trabalhos{ background: var(--cream); }
+  .filter-bar{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom: 36px; }
+  .filter-btn{
+    padding: 10px 20px; border-radius: 999px; border:1.5px solid var(--line);
+    background: var(--paper); font-weight:600; font-size:.88rem; color: var(--ink-soft);
+    cursor:pointer; transition: all .25s var(--ease);
+  }
+  .filter-btn:hover{ border-color: var(--blue); color: var(--blue); }
+  .filter-btn.is-active{ background: var(--ink); border-color: var(--ink); color: var(--cream); }
+  .works-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .work-card{
+    border-radius: var(--radius-md); overflow:hidden; background: var(--paper);
+    border:1px solid var(--line); box-shadow: var(--shadow-sm);
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease), opacity .3s var(--ease);
+  }
+  .work-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .work-card.is-hidden{ display:none; }
+  .work-media .media-placeholder{ border-radius:0; }
+  .work-info{ padding: 16px 18px 20px; }
+  .work-niche{ font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color: var(--blue); margin-bottom:6px; }
+  .work-title{ font-family:"Fraunces", serif; font-size:1.02rem; font-weight:600; margin-bottom:2px; }
+  .work-brand{ font-size:.85rem; margin:0; color: var(--ink-soft); }
+
+  /* ===== Serviços ===== */
+  .servicos{ background: var(--cream-2); }
+  .services-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .service-card{
+    background: var(--paper); border:1px solid var(--line); border-radius: var(--radius-lg);
+    padding: 30px 26px; box-shadow: var(--shadow-sm);
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+  }
+  .service-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .service-number{ font-family:"Fraunces", serif; font-style: italic; font-size:1.6rem; color: var(--orange); margin-bottom:10px; }
+  .service-title{ font-family:"Fraunces", serif; font-size:1.2rem; font-weight:600; margin-bottom:8px; }
+  .service-desc{ font-size:.92rem; margin:0; }
+
+  /* ===== Números e depoimentos ===== */
+  .numeros{ background: var(--ink); color: var(--cream); }
+  .numeros .section-head p{ color: rgba(243,238,233,0.72); }
+  .numeros h2{ color: var(--cream); }
+  .metrics-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 72px; }
+  .metric-card{ text-align:center; padding: 30px 16px; border-radius: var(--radius-md); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); }
+  .metric-value{ font-family:"Fraunces", serif; font-size: 2.6rem; font-weight:600; color: var(--orange); }
+  .metric-label{ font-size:.82rem; text-transform:uppercase; letter-spacing:.06em; color: rgba(243,238,233,0.72); margin-top:6px; }
+
+  .subhead-mini{ font-family:"Fraunces", serif; font-style: italic; font-size:1.3rem; color: var(--cream); margin-bottom: 22px; }
+  .campaigns-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-bottom: 72px; }
+  .campaign-card{ background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius: var(--radius-md); padding: 26px 24px; }
+  .campaign-title{ font-family:"Fraunces", serif; font-weight:600; font-size:1.08rem; margin-bottom:8px; color: var(--cream); }
+  .campaign-desc{ font-size:.9rem; color: rgba(243,238,233,0.72); margin-bottom:14px; }
+  .campaign-metric{ font-family:"Fraunces", serif; font-size:1.8rem; color: var(--blue); background: var(--cream); display:inline-block; padding:2px 14px; border-radius: 999px; }
+
+  .testimonials-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .testimonial-card{ background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius: var(--radius-md); padding: 24px 20px; display:flex; flex-direction:column; gap:14px; }
+  .testimonial-quote{ font-size:.9rem; color: rgba(243,238,233,0.85); margin:0; flex:1; }
+  .testimonial-quote::before{ content:"“"; color: var(--orange); font-family:"Fraunces", serif; font-size:1.4rem; }
+  .testimonial-name{ font-weight:700; font-size:.92rem; color: var(--cream); }
+  .testimonial-company{ font-size:.8rem; color: rgba(243,238,233,0.6); }
+
+  /* ===== Contato ===== */
+  .contato{ background: var(--cream); }
+  .contato-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items:start; }
+  .contact-form{ display:flex; flex-direction:column; gap:16px; background: var(--paper); border:1px solid var(--line); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm); }
+  .form-row{ display:flex; flex-direction:column; gap:6px; }
+  .form-row label{ font-size:.85rem; font-weight:700; }
+  .form-row input, .form-row textarea{
+    font-family: inherit; font-size:1rem; padding: 12px 14px;
+    border-radius: var(--radius-sm); border: 1.5px solid var(--line);
+    background: #fff; color: var(--ink);
+  }
+  .form-row textarea{ resize: vertical; min-height: 110px; }
+  .form-note{ font-size:.78rem; color: var(--ink-soft); }
+  .form-confirm{
+    display:none; text-align:center; padding: 40px 20px; background: var(--paper);
+    border: 1.5px solid var(--blue); border-radius: var(--radius-lg);
+  }
+  .form-confirm.is-visible{ display:block; }
+  .contact-form.is-hidden{ display:none; }
+  .contact-links{ display:flex; flex-direction:column; gap: 16px; }
+  .contact-link{
+    display:flex; align-items:center; gap:14px; padding: 18px 20px;
+    background: var(--paper); border:1px solid var(--line); border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm); transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .contact-link:hover{ transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .contact-icon{
+    flex:none; width:44px; height:44px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background: var(--blue); color:#fff; font-weight:700;
+  }
+  .contact-link.whatsapp .contact-icon{ background:#25963f; }
+  .contact-link.instagram .contact-icon{ background: var(--orange); }
+  .contact-link strong{ display:block; font-size:.95rem; }
+  .contact-link span{ display:block; font-size:.82rem; color: var(--ink-soft); }
+
+  /* ===== Footer ===== */
+  .site-footer{ background: var(--ink); color: var(--cream); padding: 44px 0; }
+  .footer-grid{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap: 20px; }
+  .footer-brand{ font-family:"Fraunces", serif; font-size:1.2rem; }
+  .footer-links{ display:flex; gap: 22px; flex-wrap:wrap; }
+  .footer-links a{ font-size:.9rem; color: rgba(243,238,233,0.8); transition: color .2s var(--ease); }
+  .footer-links a:hover{ color: var(--orange); }
+  .footer-copy{ font-size:.78rem; color: rgba(243,238,233,0.55); width:100%; margin-top: 18px; text-align:center; }
+
+  /* ===== Capture modal ===== */
+  .capture-overlay{
+    position: fixed; inset:0; background: rgba(20,17,13,0.62);
+    display:flex; align-items:center; justify-content:center; padding: 20px;
+    z-index: 900; opacity:0; pointer-events:none; transition: opacity .3s var(--ease);
+  }
+  .capture-overlay.is-open{ opacity:1; pointer-events:auto; }
+  .capture-card{
+    position: relative; width:100%; max-width: 420px;
+    background: var(--paper); border-radius: var(--radius-lg);
+    padding: 36px 30px; box-shadow: var(--shadow-md);
+    transform: translateY(16px) scale(.97); transition: transform .3s var(--ease);
+    border: 1px solid var(--line);
+  }
+  .capture-overlay.is-open .capture-card{ transform: translateY(0) scale(1); }
+  .capture-close{
+    position:absolute; top:14px; right:14px; width:36px; height:36px; border-radius:50%;
+    background: var(--cream-2); border:none; cursor:pointer; font-size:1.1rem; color: var(--ink);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .capture-card h3{ font-size:1.4rem; margin-bottom:10px; padding-right: 30px; }
+  .capture-card p{ font-size:.92rem; margin-bottom: 18px; }
+  .capture-form{ display:flex; flex-direction:column; gap:12px; }
+  .capture-form input{
+    font-family: inherit; font-size:1rem; padding: 12px 14px;
+    border-radius: var(--radius-sm); border: 1.5px solid var(--line); background:#fff;
+  }
+  .capture-confirm{ display:none; text-align:center; font-weight:700; color: var(--blue); }
+  .capture-confirm.is-visible{ display:block; }
+  .capture-form.is-hidden{ display:none; }
+
+  /* ===== Mobile nav ===== */
+  @media (max-width: 900px){
+    .nav-toggle{ display:flex; }
+    .primary-nav{
+      position: fixed; top: var(--nav-h); left:0; right:0;
+      background: var(--paper); border-bottom: 1px solid var(--line);
+      transform: translateY(-120%); opacity:0; transition: transform .3s var(--ease), opacity .3s var(--ease);
+      box-shadow: var(--shadow-md);
+    }
+    .primary-nav.is-open{ transform: translateY(0); opacity:1; }
+    .primary-nav ul{ flex-direction:column; padding: 16px; gap:4px; }
+    .primary-nav a{ padding: 14px 16px; }
+
+    .hero-grid, .sobre-grid, .contato-grid{ grid-template-columns: 1fr; }
+    .hero-grid{ padding-bottom: 40px; }
+    .sobre-grid{ gap: 32px; }
+    .sobre-media{ order: -1; }
+    .highlights-grid{ grid-template-columns: 1fr; }
+    .works-grid{ grid-template-columns: repeat(2, 1fr); }
+    .services-grid{ grid-template-columns: repeat(2, 1fr); }
+    .metrics-grid{ grid-template-columns: repeat(2, 1fr); }
+    .campaigns-grid{ grid-template-columns: 1fr; }
+    .testimonials-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px){
+    .section{ padding: 64px 0; }
+    .hero{ padding-top: calc(var(--nav-h) + 36px); }
+    .hero-actions{ flex-direction:column; align-items:stretch; }
+    .hero-stats{ gap: 22px; }
+    .works-grid{ grid-template-columns: 1fr; }
+    .services-grid{ grid-template-columns: 1fr; }
+    .metrics-grid{ grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .testimonials-grid{ grid-template-columns: 1fr; }
+    .footer-grid{ flex-direction:column; align-items:flex-start; }
+  }
+
+  /* ===== Reduced motion ===== */
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+    .reveal{ opacity:1; transform:none; }
+    .brand-track{ animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+
+<!-- ============ CABEÇALHO / MENU ============ -->
+<header class="site-header" id="top">
+  <div class="container nav-wrap">
+    <a class="brand" href="#top">Karen <em>Martins</em></a>
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="primaryNav" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="primary-nav" id="primaryNav" aria-label="Navegação principal">
+      <ul>
+        <li><a class="nav-link" href="#sobre">Sobre</a></li>
+        <li><a class="nav-link" href="#destaques">Destaques</a></li>
+        <li><a class="nav-link" href="#trabalhos">Trabalhos</a></li>
+        <li><a class="nav-link" href="#servicos">Serviços</a></li>
+        <li><a class="nav-link" href="#numeros">Números</a></li>
+        <li><a class="nav-link" href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo-principal">
+
+  <!-- ============ 1. CAPA ============ -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">UGC Creator de skincare, casa e decoração, fitness e tech</p>
+        <h1>Karen <em>Martins</em></h1>
+        <p class="hero-phrase">Eu crio vídeos e fotos autênticos que fazem sua marca soar humana, gerar confiança e vender mais em qualquer plataforma.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contato">Falar comigo</a>
+          <a class="btn btn-ghost" href="#trabalhos">Ver os trabalhos</a>
+        </div>
+        <dl class="hero-stats">
+          <div><dt>Vídeos entregues</dt><dd>000+</dd></div>
+          <div><dt>Marcas atendidas</dt><dd>000+</dd></div>
+          <div><dt>Views somadas</dt><dd>000+</dd></div>
+        </dl>
+      </div>
+      <div class="hero-media reveal">
+        <!-- Troque o bloco abaixo por: <img src="sua-foto.jpg" alt="Karen Martins sorrindo para a câmera"> mantendo a proporção 4:5 -->
+        <div class="media-placeholder ratio-4-5"><span>Foto da creator, formato 4:5</span></div>
+      </div>
+    </div>
+    <div class="brand-strip" aria-label="Marcas que já trabalharam comigo">
+      <div class="brand-track" id="brandTrack"></div>
+    </div>
+  </section>
+
+  <!-- ============ 2. SOBRE MIM ============ -->
+  <section id="sobre" class="section sobre">
+    <div class="container sobre-grid">
+      <div class="sobre-media reveal">
+        <!-- Troque o bloco abaixo por: <img src="sua-foto-sobre.jpg" alt="Karen Martins em um dia de gravação"> mantendo a proporção 1:1 -->
+        <div class="media-placeholder ratio-1-1"><span>Foto da creator, formato 1:1</span></div>
+      </div>
+      <div class="sobre-copy reveal">
+        <h2>Sobre <em>mim</em></h2>
+        <p>Oi, eu sou a Karen. Eu crio conteúdo para marcas há um tempo e o que mais gosto é transformar um produto em uma cena real, do jeito que ele apareceria na câmera de uma pessoa de verdade. Trabalho com skincare, casa e decoração, fitness e tech, sempre buscando um vídeo que pareça recomendação de amiga e não anúncio.</p>
+        <p>Gosto de processo claro: a gente alinha o roteiro antes de gravar, eu entrego rápido e deixo espaço para ajuste, porque sei que o resultado final precisa bater com a identidade da sua marca.</p>
+        <ul class="promises">
+          <li><strong>Roteiro aprovado antes de gravar.</strong> Você vê e aprova a ideia do vídeo antes de eu gravar qualquer coisa.</li>
+          <li><strong>Uma rodada de ajuste inclusa.</strong> Se algo não ficou do jeito combinado, eu ajusto sem custo extra.</li>
+          <li><strong>Entrega em até 72 horas úteis.</strong> Prazo curto para você poder publicar sem perder o timing da campanha.</li>
+        </ul>
+        <p class="signature">Karen Martins</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. CONTEÚDOS DE DESTAQUE ============ -->
+  <section id="destaques" class="section destaques">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Destaques</p>
+        <h2>Conteúdos que <em>performaram</em></h2>
+        <p>Uma seleção dos vídeos que mais geraram resultado para as marcas com quem trabalhei.</p>
+      </div>
+      <div class="highlights-grid" id="highlightsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ 4. TRABALHOS POR NICHO ============ -->
+  <section id="trabalhos" class="section trabalhos">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Portfólio</p>
+        <h2>Trabalhos por <em>nicho</em></h2>
+        <p>Filtre por área para ver exemplos de conteúdo em cada nicho que atendo.</p>
+      </div>
+      <div class="filter-bar" id="filterBar" role="group" aria-label="Filtrar trabalhos por nicho"></div>
+      <div class="works-grid" id="worksGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ 5. COMO EU TE AJUDO ============ -->
+  <section id="servicos" class="section servicos">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Serviços</p>
+        <h2>Como eu te <em>ajudo</em></h2>
+        <p>Pacotes de conteúdo pensados para diferentes momentos da sua marca.</p>
+      </div>
+      <div class="services-grid" id="servicesGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ 6. NÚMEROS E DEPOIMENTOS ============ -->
+  <section id="numeros" class="section numeros">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Resultados</p>
+        <h2>Números e <em>depoimentos</em></h2>
+        <p>Alguns indicadores do meu trabalho e o que as marcas dizem sobre a parceria.</p>
+      </div>
+
+      <div class="metrics-grid" id="metricsGrid"></div>
+
+      <p class="subhead-mini reveal">Resultados de campanha</p>
+      <div class="campaigns-grid" id="campaignsGrid"></div>
+
+      <p class="subhead-mini reveal">O que dizem sobre mim</p>
+      <div class="testimonials-grid" id="testimonialsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ 7. BORA CRIAR JUNTOS ============ -->
+  <section id="contato" class="section contato">
+    <div class="container contato-grid">
+      <div class="reveal">
+        <p class="eyebrow">Contato</p>
+        <h2>Bora criar <em>juntos</em></h2>
+        <p>Me conta um pouco sobre a sua marca e o que você precisa. Eu respondo rápido.</p>
+
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="form-row">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" required autocomplete="name">
+          </div>
+          <div class="form-row">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+          </div>
+          <div class="form-row">
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" name="mensagem" required></textarea>
+          </div>
+          <p class="form-note">Os campos são obrigatórios. Este formulário não envia dados de verdade, apenas confirma o recebimento na tela.</p>
+          <button class="btn btn-primary" type="submit">Enviar mensagem</button>
+        </form>
+        <div class="form-confirm" id="formConfirm" role="status">
+          <h3>Mensagem recebida!</h3>
+          <p>Obrigada por chamar. Eu volto o quanto antes pelo e-mail ou WhatsApp que você deixou.</p>
+        </div>
+      </div>
+
+      <div class="contact-links reveal" aria-label="Outros canais de contato">
+        <a class="contact-link whatsapp" id="whatsappLink" href="#" target="_blank" rel="noopener">
+          <span class="contact-icon" aria-hidden="true">W</span>
+          <span>
+            <strong>WhatsApp</strong>
+            <span id="whatsappLabel">(00) 00000-0000</span>
+          </span>
+        </a>
+        <a class="contact-link" id="emailLink" href="#">
+          <span class="contact-icon" aria-hidden="true">@</span>
+          <span>
+            <strong>E-mail</strong>
+            <span id="emailLabel">seuemail@email.com</span>
+          </span>
+        </a>
+        <a class="contact-link instagram" id="instagramLink" href="#" target="_blank" rel="noopener">
+          <span class="contact-icon" aria-hidden="true">IG</span>
+          <span>
+            <strong>Instagram</strong>
+            <span id="instagramLabel">@seuusuario</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ 8. RODAPÉ ============ -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <p class="footer-brand">Karen Martins</p>
+    <nav class="footer-links" aria-label="Redes sociais">
+      <a id="footerInstagram" href="#" target="_blank" rel="noopener">Instagram</a>
+      <a id="footerWhatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a>
+      <a id="footerEmail" href="#">E-mail</a>
+    </nav>
+    <p class="footer-copy">© <span id="anoAtual"></span> Karen Martins. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<!-- ============ CARD DE CAPTURA (mídia kit) ============ -->
+<div class="capture-overlay" id="captureOverlay" role="dialog" aria-modal="true" aria-labelledby="captureTitle" hidden>
+  <div class="capture-card">
+    <button class="capture-close" id="captureClose" type="button" aria-label="Fechar">✕</button>
+    <h3 id="captureTitle">Quer meu mídia kit completo?</h3>
+    <p>Deixa seu nome e e-mail que eu te envio o mídia kit com todos os detalhes do meu trabalho.</p>
+    <form class="capture-form" id="captureForm">
+      <input type="text" id="captureNome" name="captureNome" placeholder="Seu nome" required autocomplete="name" aria-label="Seu nome">
+      <input type="email" id="captureEmail" name="captureEmail" placeholder="Seu e-mail" required autocomplete="email" aria-label="Seu e-mail">
+      <button class="btn btn-orange" type="submit">Quero receber</button>
+    </form>
+    <p class="capture-confirm" id="captureConfirm">Recebido! Em breve o mídia kit chega no seu e-mail.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* =========================================================
+     DADOS EDITÁVEIS
+     Troque os valores abaixo para atualizar o site sem mexer
+     no HTML. Números marcados como "000" são placeholders:
+     substitua pelos seus números reais quando tiver.
+  ========================================================= */
+
+  // Marcas que já trabalharam com você (usado na faixa da capa)
+  var brands = [
+    "Marca 01","Marca 02","Marca 03","Marca 04","Marca 05","Marca 06",
+    "Marca 07","Marca 08","Marca 09","Marca 10","Marca 11","Marca 12"
+  ];
+
+  // Conteúdos de destaque (seção 3). Para cada item:
+  // - videoUrl: coloque aqui o link do vídeo (Reels, TikTok, YouTube etc.)
+  // - coverGradient: deixe como está, ou troque o bloco no HTML gerado por uma <img>/<video> real
+  // - numberValue / numberLabel: número forte e o que ele representa (ex: "+2,4M" / "views no reels")
+  var highlightVideos = [
+    {
+      videoUrl: "#", // TROQUE pelo link do vídeo 1
+      format: "Capa vertical 9:16", // TROQUE pela capa real do vídeo 1 (imagem ou thumbnail)
+      numberValue: "+000",
+      numberLabel: "views no reels",
+      title: "Rotina de skincare noturna",
+      context: "Vídeo de uso real do produto, gravado como storytime de rotina."
+    },
+    {
+      videoUrl: "#", // TROQUE pelo link do vídeo 2
+      format: "Capa vertical 9:16", // TROQUE pela capa real do vídeo 2 (imagem ou thumbnail)
+      numberValue: "+000",
+      numberLabel: "visualizações no tiktok",
+      title: "Unboxing de decoração",
+      context: "Primeira impressão do produto assim que a caixa chega em casa."
+    },
+    {
+      videoUrl: "#", // TROQUE pelo link do vídeo 3
+      format: "Capa vertical 9:16", // TROQUE pela capa real do vídeo 3 (imagem ou thumbnail)
+      numberValue: "+000",
+      numberLabel: "salvamentos",
+      title: "Treino com produto fitness",
+      context: "Demonstração de uso durante o treino, com dica prática incluída."
+    }
+  ];
+
+  // Trabalhos por nicho (seção 4). "niche" precisa ser um dos valores usados em niches abaixo.
+  var niches = [
+    { id: "todos", label: "Todos" },
+    { id: "skincare", label: "Skincare" },
+    { id: "casa", label: "Casa e decoração" },
+    { id: "fitness", label: "Fitness" },
+    { id: "tech", label: "Tech" }
+  ];
+
+  var works = [
+    { niche: "skincare", brand: "Marca 01", title: "Rotina matinal de skincare", format: "Foto do produto 4:5" },
+    { niche: "skincare", brand: "Marca 02", title: "Resenha de sérum facial", format: "Reels 9:16" },
+    { niche: "casa",     brand: "Marca 03", title: "Tour de decoração de sala", format: "Reels 9:16" },
+    { niche: "casa",     brand: "Marca 04", title: "Unboxing de peça de decoração", format: "Foto do produto 4:5" },
+    { niche: "fitness",  brand: "Marca 05", title: "Treino em casa com equipamento", format: "Reels 9:16" },
+    { niche: "fitness",  brand: "Marca 06", title: "Resenha de roupa fitness", format: "Foto do produto 4:5" },
+    { niche: "tech",     brand: "Marca 07", title: "Unboxing de acessório tech", format: "Reels 9:16" },
+    { niche: "tech",     brand: "Marca 08", title: "Review de gadget no dia a dia", format: "Foto do produto 4:5" }
+  ];
+
+  // Serviços (seção 5)
+  var services = [
+    { number: "01", title: "Vídeo UGC", desc: "Vídeo autêntico de uso do produto, gravado e editado no estilo criado por consumidor." },
+    { number: "02", title: "Corte para anúncio", desc: "Versão curta e direta, pensada para performar como anúncio pago." },
+    { number: "03", title: "Fotos do produto", desc: "Ensaio fotográfico do produto em cenário real, pronto para feed e loja." },
+    { number: "04", title: "Unboxing", desc: "Vídeo de primeira impressão, mostrando a experiência de abrir a embalagem." },
+    { number: "05", title: "Publicação no meu perfil", desc: "Conteúdo publicado no meu Instagram, alcançando a minha própria audiência." },
+    { number: "06", title: "Pacote mensal", desc: "Combinado de entregas recorrentes para manter o conteúdo da marca sempre ativo." }
+  ];
+
+  // Métricas com contador animado (seção 6). target = 000 até você ter os números reais.
+  var metrics = [
+    { label: "Vídeos entregues", target: 0, suffix: "+" },
+    { label: "Marcas atendidas", target: 0, suffix: "+" },
+    { label: "Views somadas", target: 0, suffix: "+" },
+    { label: "Marcas recorrentes", target: 0, suffix: "+" }
+  ];
+
+  // Resultados de campanha (seção 6). Preencha com casos reais quando tiver.
+  var campaignResults = [
+    { title: "Campanha 01", desc: "Descreva aqui o desafio e o que foi entregue nesta campanha.", metric: "000" },
+    { title: "Campanha 02", desc: "Descreva aqui o desafio e o que foi entregue nesta campanha.", metric: "000" },
+    { title: "Campanha 03", desc: "Descreva aqui o desafio e o que foi entregue nesta campanha.", metric: "000" }
+  ];
+
+  // Depoimentos (seção 6)
+  var testimonials = [
+    { name: "Cliente 01", company: "Empresa 01", quote: "Escreva aqui o depoimento real desse cliente sobre o seu trabalho." },
+    { name: "Cliente 02", company: "Empresa 02", quote: "Escreva aqui o depoimento real desse cliente sobre o seu trabalho." },
+    { name: "Cliente 03", company: "Empresa 03", quote: "Escreva aqui o depoimento real desse cliente sobre o seu trabalho." },
+    { name: "Cliente 04", company: "Empresa 04", quote: "Escreva aqui o depoimento real desse cliente sobre o seu trabalho." }
+  ];
+
+  // Contato
+  var contactInfo = {
+    whatsappNumber: "5515997970141", // formato internacional, usado no link wa.me
+    whatsappDisplay: "(15) 99797-0141",
+    email: "contato.kaamartins@gmail.com",
+    instagramUser: "kaa.martins"
+  };
+
+  /* =========================================================
+     RENDERIZAÇÃO
+  ========================================================= */
+
+  function escapeHtml(str){
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  // Faixa de marcas (duplicada para o loop contínuo)
+  function renderBrands(){
+    var track = document.getElementById("brandTrack");
+    var doubled = brands.concat(brands);
+    track.innerHTML = doubled.map(function(b){
+      return "<span>" + escapeHtml(b) + "</span>";
+    }).join("");
+  }
+
+  // Conteúdos de destaque
+  function renderHighlights(){
+    var grid = document.getElementById("highlightsGrid");
+    grid.innerHTML = highlightVideos.map(function(item){
+      return (
+        '<a class="highlight-card reveal" href="' + escapeHtml(item.videoUrl) + '" target="_blank" rel="noopener" aria-label="Assistir: ' + escapeHtml(item.title) + '">' +
+          '<div class="highlight-cover">' +
+            '<div class="media-placeholder ratio-9-16"><span>' + escapeHtml(item.format) + '</span></div>' +
+            '<span class="play-btn" aria-hidden="true">▶</span>' +
+          '</div>' +
+          '<div class="highlight-body">' +
+            '<p class="highlight-number">' + escapeHtml(item.numberValue) + '</p>' +
+            '<p class="highlight-number-label">' + escapeHtml(item.numberLabel) + '</p>' +
+            '<h3 class="highlight-title">' + escapeHtml(item.title) + '</h3>' +
+            '<p class="highlight-context">' + escapeHtml(item.context) + '</p>' +
+          '</div>' +
+        '</a>'
+      );
+    }).join("");
+  }
+
+  // Filtro de nichos + galeria de trabalhos
+  function renderWorks(){
+    var filterBar = document.getElementById("filterBar");
+    var grid = document.getElementById("worksGrid");
+
+    filterBar.innerHTML = niches.map(function(n, i){
+      return '<button type="button" class="filter-btn' + (i === 0 ? ' is-active' : '') + '" data-filter="' + n.id + '">' + escapeHtml(n.label) + '</button>';
+    }).join("");
+
+    grid.innerHTML = works.map(function(w){
+      return (
+        '<div class="work-card reveal" data-niche="' + escapeHtml(w.niche) + '">' +
+          '<div class="work-media"><div class="media-placeholder ratio-4-5"><span>' + escapeHtml(w.format) + '</span></div></div>' +
+          '<div class="work-info">' +
+            '<p class="work-niche">' + escapeHtml(nicheLabel(w.niche)) + '</p>' +
+            '<h3 class="work-title">' + escapeHtml(w.title) + '</h3>' +
+            '<p class="work-brand">' + escapeHtml(w.brand) + '</p>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join("");
+
+    filterBar.addEventListener("click", function(e){
+      var btn = e.target.closest(".filter-btn");
+      if (!btn) return;
+      filterBar.querySelectorAll(".filter-btn").forEach(function(b){ b.classList.remove("is-active"); });
+      btn.classList.add("is-active");
+      var filter = btn.getAttribute("data-filter");
+      grid.querySelectorAll(".work-card").forEach(function(card){
+        var match = filter === "todos" || card.getAttribute("data-niche") === filter;
+        card.classList.toggle("is-hidden", !match);
+      });
+    });
+  }
+
+  function nicheLabel(id){
+    var found = niches.find(function(n){ return n.id === id; });
+    return found ? found.label : id;
+  }
+
+  // Serviços
+  function renderServices(){
+    var grid = document.getElementById("servicesGrid");
+    grid.innerHTML = services.map(function(s){
+      return (
+        '<div class="service-card reveal">' +
+          '<p class="service-number">' + escapeHtml(s.number) + '</p>' +
+          '<h3 class="service-title">' + escapeHtml(s.title) + '</h3>' +
+          '<p class="service-desc">' + escapeHtml(s.desc) + '</p>' +
+        '</div>'
+      );
+    }).join("");
+  }
+
+  // Métricas animadas
+  function renderMetrics(){
+    var grid = document.getElementById("metricsGrid");
+    grid.innerHTML = metrics.map(function(m, i){
+      return (
+        '<div class="metric-card reveal">' +
+          '<p class="metric-value" data-target="' + m.target + '" data-suffix="' + escapeHtml(m.suffix) + '" id="metric-' + i + '">0' + escapeHtml(m.suffix) + '</p>' +
+          '<p class="metric-label">' + escapeHtml(m.label) + '</p>' +
+        '</div>'
+      );
+    }).join("");
+  }
+
+  // Resultados de campanha
+  function renderCampaigns(){
+    var grid = document.getElementById("campaignsGrid");
+    grid.innerHTML = campaignResults.map(function(c){
+      return (
+        '<div class="campaign-card reveal">' +
+          '<p class="campaign-title">' + escapeHtml(c.title) + '</p>' +
+          '<p class="campaign-desc">' + escapeHtml(c.desc) + '</p>' +
+          '<span class="campaign-metric">' + escapeHtml(c.metric) + '</span>' +
+        '</div>'
+      );
+    }).join("");
+  }
+
+  // Depoimentos
+  function renderTestimonials(){
+    var grid = document.getElementById("testimonialsGrid");
+    grid.innerHTML = testimonials.map(function(t){
+      return (
+        '<div class="testimonial-card reveal">' +
+          '<p class="testimonial-quote">' + escapeHtml(t.quote) + '</p>' +
+          '<p class="testimonial-name">' + escapeHtml(t.name) + '</p>' +
+          '<p class="testimonial-company">' + escapeHtml(t.company) + '</p>' +
+        '</div>'
+      );
+    }).join("");
+  }
+
+  // Links de contato
+  function renderContactLinks(){
+    var waLink = document.getElementById("whatsappLink");
+    var waLabel = document.getElementById("whatsappLabel");
+    var emailLink = document.getElementById("emailLink");
+    var emailLabel = document.getElementById("emailLabel");
+    var igLink = document.getElementById("instagramLink");
+    var igLabel = document.getElementById("instagramLabel");
+
+    waLink.href = "https://wa.me/" + contactInfo.whatsappNumber;
+    waLabel.textContent = contactInfo.whatsappDisplay;
+
+    emailLink.href = "mailto:" + contactInfo.email;
+    emailLabel.textContent = contactInfo.email;
+
+    igLink.href = "https://instagram.com/" + contactInfo.instagramUser;
+    igLabel.textContent = "@" + contactInfo.instagramUser;
+
+    document.getElementById("footerInstagram").href = "https://instagram.com/" + contactInfo.instagramUser;
+    document.getElementById("footerWhatsapp").href = "https://wa.me/" + contactInfo.whatsappNumber;
+    document.getElementById("footerEmail").href = "mailto:" + contactInfo.email;
+  }
+
+  /* =========================================================
+     INTERAÇÕES: menu, scroll reveal, contadores, formulários
+  ========================================================= */
+
+  var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function setupNav(){
+    var toggle = document.getElementById("navToggle");
+    var nav = document.getElementById("primaryNav");
+
+    toggle.addEventListener("click", function(){
+      var isOpen = nav.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      toggle.setAttribute("aria-label", isOpen ? "Fechar menu" : "Abrir menu");
+    });
+
+    nav.querySelectorAll(".nav-link").forEach(function(link){
+      link.addEventListener("click", function(){
+        nav.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Abrir menu");
+      });
+    });
+  }
+
+  function setupReveal(){
+    var items = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window) || prefersReducedMotion){
+      items.forEach(function(el){ el.classList.add("is-visible"); });
+      return;
+    }
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    items.forEach(function(el){ observer.observe(el); });
+  }
+
+  function animateCounter(el){
+    var target = parseInt(el.getAttribute("data-target"), 10) || 0;
+    var suffix = el.getAttribute("data-suffix") || "";
+    if (prefersReducedMotion){
+      el.textContent = target + suffix;
+      return;
+    }
+    var start = 0;
+    var duration = 1200;
+    var startTime = null;
+    function step(timestamp){
+      if (startTime === null) startTime = timestamp;
+      var progress = Math.min((timestamp - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var value = Math.round(start + (target - start) * eased);
+      el.textContent = value + suffix;
+      if (progress < 1){
+        window.requestAnimationFrame(step);
+      }
+    }
+    window.requestAnimationFrame(step);
+  }
+
+  function setupCounters(){
+    var metricsGrid = document.getElementById("metricsGrid");
+    var values = metricsGrid.querySelectorAll(".metric-value");
+    if (!("IntersectionObserver" in window)){
+      values.forEach(animateCounter);
+      return;
+    }
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    values.forEach(function(el){ observer.observe(el); });
+  }
+
+  function setupContactForm(){
+    var form = document.getElementById("contactForm");
+    var confirm = document.getElementById("formConfirm");
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      if (!form.checkValidity()){
+        form.reportValidity();
+        return;
+      }
+      form.classList.add("is-hidden");
+      confirm.classList.add("is-visible");
+    });
+  }
+
+  function setupCaptureModal(){
+    var overlay = document.getElementById("captureOverlay");
+    var closeBtn = document.getElementById("captureClose");
+    var form = document.getElementById("captureForm");
+    var confirm = document.getElementById("captureConfirm");
+    var STORAGE_KEY = "ugcMidiaKitModalShown";
+
+    // Acesso defensivo ao sessionStorage: alguns navegadores (modo privado, iframes restritos)
+    // bloqueiam o storage e lançam erro só de ler ou escrever nele.
+    function wasAlreadyShown(){
+      try{ return !!sessionStorage.getItem(STORAGE_KEY); } catch(err){ return false; }
+    }
+    function markAsShown(){
+      try{ sessionStorage.setItem(STORAGE_KEY, "1"); } catch(err){}
+    }
+
+    function openModal(){
+      if (wasAlreadyShown()) return;
+      overlay.hidden = false;
+      requestAnimationFrame(function(){ overlay.classList.add("is-open"); });
+      markAsShown();
+    }
+
+    function closeModal(){
+      overlay.classList.remove("is-open");
+      window.setTimeout(function(){ overlay.hidden = true; }, 300);
+    }
+
+    closeBtn.addEventListener("click", closeModal);
+    overlay.addEventListener("click", function(e){
+      if (e.target === overlay) closeModal();
+    });
+    document.addEventListener("keydown", function(e){
+      if (e.key === "Escape" && overlay.classList.contains("is-open")) closeModal();
+    });
+
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      if (!form.checkValidity()){
+        form.reportValidity();
+        return;
+      }
+      form.classList.add("is-hidden");
+      confirm.classList.add("is-visible");
+    });
+
+    if (!wasAlreadyShown()){
+      window.setTimeout(openModal, 7000);
+    }
+  }
+
+  function setupFooterYear(){
+    document.getElementById("anoAtual").textContent = new Date().getFullYear();
+  }
+
+  /* =========================================================
+     INICIALIZAÇÃO
+  ========================================================= */
+  document.addEventListener("DOMContentLoaded", function(){
+    renderBrands();
+    renderHighlights();
+    renderWorks();
+    renderServices();
+    renderMetrics();
+    renderCampaigns();
+    renderTestimonials();
+    renderContactLinks();
+
+    setupNav();
+    setupReveal();
+    setupCounters();
+    setupContactForm();
+    setupCaptureModal();
+    setupFooterYear();
+  });
+})();
+</script>
+</body>
+</html>
