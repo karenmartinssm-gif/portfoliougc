@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Entrar | Painel Karen Martins</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/admin.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/banco.js"></script>
+</head>
+<body>
+
+<div class="login-wrap">
+  <div class="login-card">
+    <p class="login-marca">Karen <em>Martins</em></p>
+    <p class="login-sub" id="subtitulo">Entre para acessar o seu painel.</p>
+
+    <div id="faixaMensagem"></div>
+
+    <!-- Formulário normal de entrar -->
+    <form class="login-form" id="formLogin">
+      <div class="campo">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" required autocomplete="username">
+      </div>
+      <div class="campo">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" required autocomplete="current-password">
+      </div>
+      <button class="btn btn-primary" type="submit" id="btnEntrar" style="width:100%; padding:11px;">Entrar</button>
+    </form>
+
+    <p class="login-esqueci">
+      <button type="button" id="btnEsqueci">Esqueci minha senha</button>
+    </p>
+
+    <!-- Formulário que só aparece quando ela clica no link do e-mail
+         de recuperação. Fica escondido o tempo todo, e só é mostrado
+         se o Supabase detectar que essa visita veio de um link de
+         redefinição de senha (veja o "onAuthStateChange" no script). -->
+    <form class="login-form" id="formNovaSenha" style="display:none;">
+      <div class="campo">
+        <label for="novaSenha">Nova senha</label>
+        <input type="password" id="novaSenha" required autocomplete="new-password" minlength="6">
+      </div>
+      <div class="campo">
+        <label for="confirmaSenha">Confirme a nova senha</label>
+        <input type="password" id="confirmaSenha" required autocomplete="new-password" minlength="6">
+      </div>
+      <button class="btn btn-primary" type="submit" id="btnSalvarSenha" style="width:100%; padding:11px;">Salvar nova senha</button>
+    </form>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var form = document.getElementById("formLogin");
+  var btnEntrar = document.getElementById("btnEntrar");
+  var faixa = document.getElementById("faixaMensagem");
+  var btnEsqueci = document.getElementById("btnEsqueci");
+  var formNovaSenha = document.getElementById("formNovaSenha");
+  var subtitulo = document.getElementById("subtitulo");
+
+  function mostrarMensagem(texto, tipo){
+    faixa.innerHTML = '<p class="faixa faixa-' + tipo + '" style="margin-bottom:16px;">' + texto + '</p>';
+  }
+  function limparMensagem(){
+    faixa.innerHTML = "";
+  }
+
+  // Se já existe uma sessão aberta neste navegador, manda direto pro admin.
+  // Exceção: se essa sessão é uma sessão de RECUPERAÇÃO DE SENHA (a pessoa
+  // acabou de clicar no link do e-mail), não manda pro admin: mostra o
+  // formulário de nova senha aqui embaixo primeiro.
+  var emModoRecuperacao = false;
+
+  window.db.auth.onAuthStateChange(function(evento, sessao){
+    if (evento === "PASSWORD_RECOVERY"){
+      emModoRecuperacao = true;
+      form.style.display = "none";
+      document.querySelector(".login-esqueci").style.display = "none";
+      formNovaSenha.style.display = "";
+      subtitulo.textContent = "Escolha uma nova senha pra continuar.";
+      return;
+    }
+    if (evento === "SIGNED_IN" && sessao && !emModoRecuperacao){
+      window.location.href = "../admin/";
+    }
+  });
+
+  window.db.auth.getSession().then(function(resultado){
+    if (resultado.data && resultado.data.session && !emModoRecuperacao){
+      window.location.href = "../admin/";
+    }
+  });
+
+  form.addEventListener("submit", async function(e){
+    e.preventDefault();
+    limparMensagem();
+    btnEntrar.disabled = true;
+    btnEntrar.textContent = "Entrando...";
+
+    var email = document.getElementById("email").value.trim();
+    var senha = document.getElementById("senha").value;
+
+    var resultado = await window.db.auth.signInWithPassword({ email: email, password: senha });
+
+    if (resultado.error){
+      mostrarMensagem("E-mail ou senha incorretos.", "erro");
+      btnEntrar.disabled = false;
+      btnEntrar.textContent = "Entrar";
+      return;
+    }
+
+    window.location.href = "../admin/";
+  });
+
+  btnEsqueci.addEventListener("click", async function(){
+    limparMensagem();
+    var email = document.getElementById("email").value.trim();
+    if (!email){
+      mostrarMensagem("Digite seu e-mail no campo acima primeiro, depois clique em \"Esqueci minha senha\" de novo.", "aviso");
+      return;
+    }
+    btnEsqueci.disabled = true;
+    var resultado = await window.db.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin + window.location.pathname
+    });
+    btnEsqueci.disabled = false;
+    if (resultado.error){
+      mostrarMensagem("Não deu pra enviar o e-mail de recuperação agora. Tente de novo em alguns minutos.", "erro");
+      return;
+    }
+    mostrarMensagem("Se esse e-mail tiver uma conta, chega uma mensagem de recuperação de senha nele em instantes. Abra o link de dentro do e-mail nesse mesmo navegador.", "ok");
+  });
+
+  formNovaSenha.addEventListener("submit", async function(e){
+    e.preventDefault();
+    limparMensagem();
+    var nova = document.getElementById("novaSenha").value;
+    var confirma = document.getElementById("confirmaSenha").value;
+
+    if (nova !== confirma){
+      mostrarMensagem("As duas senhas digitadas são diferentes. Digite a mesma senha nos dois campos.", "erro");
+      return;
+    }
+
+    var btn = document.getElementById("btnSalvarSenha");
+    btn.disabled = true;
+    btn.textContent = "Salvando...";
+
+    var resultado = await window.db.auth.updateUser({ password: nova });
+
+    btn.disabled = false;
+    btn.textContent = "Salvar nova senha";
+
+    if (resultado.error){
+      mostrarMensagem("Não deu pra salvar a nova senha agora. Tente pedir o link de recuperação de novo.", "erro");
+      return;
+    }
+
+    mostrarMensagem("Senha alterada! Entrando no painel...", "ok");
+    window.setTimeout(function(){ window.location.href = "../admin/"; }, 1200);
+  });
+})();
+</script>
+</body>
+</html>

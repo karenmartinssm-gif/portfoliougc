@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Painel | Karen Martins</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/admin.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/banco.js"></script>
+</head>
+<body style="display:none;" id="corpoAdmin">
+
+<!-- A checagem de sessão roda antes de qualquer coisa aparecer.
+     Veja o primeiro <script> no fim do arquivo. -->
+
+<div class="admin-topbar">
+  <p class="admin-marca">Karen <em>Martins</em></p>
+  <button class="admin-menu-toggle" id="btnAbrirMenu" aria-label="Abrir menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<div class="admin-overlay" id="overlayMenu"></div>
+
+<div class="admin-shell">
+  <aside class="admin-sidebar" id="sidebarAdmin">
+    <div class="admin-sidebar-topo">
+      <p class="admin-marca">Karen <em>Martins</em></p>
+    </div>
+    <nav class="admin-nav" aria-label="Navegação do painel">
+      <div class="admin-nav-grupo">
+        <p class="admin-nav-titulo">Meu site</p>
+        <div class="admin-nav-item" data-aba="portfolio">
+          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M9 9l6 3-6 3z"/></svg>
+          Portfólio
+        </div>
+        <div class="admin-nav-item" data-aba="marcas">
+          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          Marcas
+        </div>
+      </div>
+      <div class="admin-nav-grupo">
+        <p class="admin-nav-titulo">Minha rotina</p>
+        <div class="admin-nav-item" data-aba="calendario">
+          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+          Calendário
+        </div>
+        <div class="admin-nav-item" data-aba="campanhas">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg>
+          Campanhas
+        </div>
+        <div class="admin-nav-item" data-aba="checklist">
+          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12l3 3 5-6"/></svg>
+          Checklist
+        </div>
+      </div>
+    </nav>
+    <div class="admin-sidebar-rodape">
+      <span class="admin-rodape-email" id="rodapeEmail">...</span>
+      <button class="btn-icon" id="btnSair" title="Sair" aria-label="Sair">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M15 4H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8"/><path d="M10 12h11M17 8l4 4-4 4"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+
+    <div id="avisoEstrutura"></div>
+
+    <!-- ===================== ABA: PORTFÓLIO ===================== -->
+    <section class="aba-conteudo" id="aba-portfolio">
+      <div class="admin-header">
+        <h1>Portfólio</h1>
+        <p>Os vídeos que aparecem no seu site e como as pessoas estão chegando até eles.</p>
+      </div>
+
+      <div class="kpi-faixa" id="kpiPortfolio"></div>
+
+      <div class="linha-paineis">
+        <div class="painel">
+          <h3>Visitas nos últimos 14 dias</h3>
+          <div id="graficoVisitas"></div>
+        </div>
+        <div class="painel">
+          <h3>De onde as pessoas vêm</h3>
+          <div id="listaOrigens"></div>
+        </div>
+      </div>
+
+      <div class="ferramentas">
+        <p style="font-weight:700; font-size:.86rem; margin:0;">Seus vídeos</p>
+        <div class="ferramentas-espaco"></div>
+        <button class="btn btn-primary" id="btnNovoVideo">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          Adicionar vídeo
+        </button>
+      </div>
+
+      <div class="tabela-wrap">
+        <table class="tabela">
+          <thead>
+            <tr>
+              <th style="width:30px;"></th>
+              <th>Título</th>
+              <th>Nicho</th>
+              <th>Formato</th>
+              <th>Marca</th>
+              <th>Destaque</th>
+              <th style="width:44px;">Visível</th>
+              <th style="width:80px;">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="corpoTabelaVideos"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================== ABA: MARCAS ===================== -->
+    <section class="aba-conteudo" id="aba-marcas" style="display:none;">
+      <div class="admin-header">
+        <h1>Marcas</h1>
+        <p>Sua base de contatos de empresas.</p>
+      </div>
+
+      <div class="ferramentas">
+        <div class="ferramentas-busca">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input type="text" id="buscaMarcas" placeholder="Buscar por nome, @ ou e-mail">
+        </div>
+        <select class="select-filtro" id="filtroSituacao">
+          <option value="">Todas as situações</option>
+          <option value="lead">Lead</option>
+          <option value="conversando">Conversando</option>
+          <option value="cliente">Cliente</option>
+          <option value="parada">Parada</option>
+        </select>
+        <div class="ferramentas-espaco"></div>
+        <button class="btn btn-ghost" id="btnBaixarMarcas">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 4v12M6 12l6 6 6-6"/><path d="M4 20h16"/></svg>
+          Baixar CSV
+        </button>
+        <button class="btn btn-primary" id="btnNovaMarca">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          Adicionar marca
+        </button>
+      </div>
+
+      <div class="tabela-wrap">
+        <table class="tabela">
+          <thead>
+            <tr>
+              <th>Marca</th>
+              <th>Instagram</th>
+              <th>E-mail</th>
+              <th>Situação</th>
+              <th>Último contato</th>
+              <th style="width:90px;">Contato</th>
+            </tr>
+          </thead>
+          <tbody id="corpoTabelaMarcas"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================== ABA: CALENDÁRIO ===================== -->
+    <section class="aba-conteudo" id="aba-calendario" style="display:none;">
+      <div class="admin-header">
+        <h1>Calendário</h1>
+        <p>Sua agenda de gravar, editar e postar.</p>
+      </div>
+
+      <div class="calendario-topo">
+        <div class="calendario-nav">
+          <button class="btn-icon" id="btnMesAnterior" aria-label="Mês anterior">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <p class="calendario-mes-nome" id="calendarioMesNome">-</p>
+          <button class="btn-icon" id="btnMesProximo" aria-label="Próximo mês">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+          <button class="btn btn-ghost btn-sm" id="btnHoje">Este mês</button>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <select class="select-filtro" id="filtroTipoCalendario">
+            <option value="">Todos os tipos</option>
+            <option value="gravar">Gravar</option>
+            <option value="editar">Editar</option>
+            <option value="postar">Postar</option>
+          </select>
+          <button class="btn btn-primary" id="btnNovoItemCalendario">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            Adicionar
+          </button>
+        </div>
+      </div>
+
+      <div class="calendario-grade" id="calendarioGrade"></div>
+
+      <div class="atrasados-bloco">
+        <h3 style="font-size:.86rem; margin-bottom:10px;">Ficou pra trás</h3>
+        <div class="atrasados-lista" id="listaAtrasados"></div>
+      </div>
+    </section>
+
+    <!-- ===================== ABA: CAMPANHAS ===================== -->
+    <section class="aba-conteudo" id="aba-campanhas" style="display:none;">
+      <div class="admin-header">
+        <h1>Campanhas</h1>
+        <p>Suas campanhas fechadas com marcas.</p>
+      </div>
+
+      <div class="kpi-faixa" id="kpiCampanhas"></div>
+
+      <div class="ferramentas">
+        <div class="chip-filtro ativo" data-filtro-campanha="todas">Todas</div>
+        <div class="chip-filtro" data-filtro-campanha="ativas">Ativas</div>
+        <div class="chip-filtro" data-filtro-campanha="finalizadas">Finalizadas</div>
+        <div class="ferramentas-busca">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input type="text" id="buscaCampanhas" placeholder="Buscar campanha ou cliente">
+        </div>
+        <div class="ferramentas-espaco"></div>
+        <button class="btn btn-ghost" id="btnBaixarCampanhas">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 4v12M6 12l6 6 6-6"/><path d="M4 20h16"/></svg>
+          Baixar CSV
+        </button>
+        <button class="btn btn-primary" id="btnNovaCampanha">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          Adicionar campanha
+        </button>
+      </div>
+
+      <div class="tabela-wrap">
+        <table class="tabela">
+          <thead>
+            <tr>
+              <th style="width:30px;"></th>
+              <th class="ordenavel" data-coluna="campanha">Campanha<span class="seta-ordem">▾</span></th>
+              <th class="ordenavel" data-coluna="cliente">Cliente<span class="seta-ordem">▾</span></th>
+              <th class="ordenavel" data-coluna="tipo">Tipo<span class="seta-ordem">▾</span></th>
+              <th class="ordenavel" data-coluna="status">Status<span class="seta-ordem">▾</span></th>
+              <th class="ordenavel" data-coluna="qtd">Qtd<span class="seta-ordem">▾</span></th>
+              <th class="ordenavel" data-coluna="valor">Valor<span class="seta-ordem">▾</span></th>
+              <th class="ordenavel" data-coluna="prazo">Prazo<span class="seta-ordem">▾</span></th>
+              <th class="ordenavel" data-coluna="pagamento">Pagamento<span class="seta-ordem">▾</span></th>
+            </tr>
+          </thead>
+          <tbody id="corpoTabelaCampanhas"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================== ABA: CHECKLIST ===================== -->
+    <section class="aba-conteudo" id="aba-checklist" style="display:none;">
+      <div class="admin-header">
+        <h1>Checklist do portfólio</h1>
+        <p>Seu material de consulta pra deixar o portfólio redondo.</p>
+      </div>
+
+      <div class="subtabs">
+        <button class="subtab-btn ativa" data-subaba="checklist">Checklist do portfólio</button>
+        <button class="subtab-btn" data-subaba="referencias">Referências de vídeo</button>
+        <button class="subtab-btn" data-subaba="roteiros">Roteiros</button>
+        <button class="subtab-btn" data-subaba="nichos">Ideias por nicho</button>
+        <button class="subtab-btn" data-subaba="revisar">Revisar meu roteiro</button>
+      </div>
+
+      <div class="sub-conteudo" id="sub-checklist">
+        <div class="progresso-geral">
+          <span class="progresso-geral-texto" id="progressoGeralTexto">0%</span>
+          <div class="barra-progresso"><div class="barra-progresso-preenche" id="progressoGeralBarra" style="width:0%;"></div></div>
+        </div>
+        <div id="listaSecoesChecklist"></div>
+      </div>
+
+      <div class="sub-conteudo" id="sub-referencias" style="display:none;">
+        <div class="grade-referencias" id="grade-referencias"></div>
+      </div>
+
+      <div class="sub-conteudo" id="sub-roteiros" style="display:none;">
+        <div class="grade-tipos" id="grade-tipos"></div>
+      </div>
+
+      <div class="sub-conteudo" id="sub-nichos" style="display:none;">
+        <div class="grade-nichos" id="grade-nichos"></div>
+      </div>
+
+      <div class="sub-conteudo" id="sub-revisar" style="display:none;">
+        <div class="cartao revisar-campo" style="padding:18px;">
+          <div class="campo">
+            <label for="textoRoteiroRevisar">Cole aqui o seu roteiro</label>
+            <textarea id="textoRoteiroRevisar" placeholder="Cole o texto do seu roteiro aqui pra conferir item por item ao lado de cada bloco."></textarea>
+          </div>
+        </div>
+        <div class="revisar-blocos" id="revisar-blocos"></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ===================== MODAIS (compartilhados) ===================== -->
+<div class="modal-overlay" id="modalVideo">
+  <div class="modal-card">
+    <div class="modal-topo">
+      <h2 id="tituloModalVideo">Adicionar vídeo</h2>
+      <button class="modal-fechar" data-fechar-modal="modalVideo">✕</button>
+    </div>
+    <form class="modal-form" id="formVideo">
+      <input type="hidden" id="videoId">
+      <div class="campo"><label for="videoTitulo">Título</label><input type="text" id="videoTitulo" required></div>
+      <div class="campo"><label for="videoLink">Link do vídeo</label><input type="url" id="videoLink" required placeholder="https://"></div>
+      <div class="campo-linha">
+        <div class="campo"><label for="videoNicho">Nicho</label><input type="text" id="videoNicho" required placeholder="skincare, fitness..."></div>
+        <div class="campo"><label for="videoFormato">Formato</label><input type="text" id="videoFormato" required placeholder="Reels 9:16"></div>
+      </div>
+      <div class="campo-linha">
+        <div class="campo"><label for="videoMarca">Marca</label><input type="text" id="videoMarca" required></div>
+        <div class="campo"><label for="videoDestaque">Destaque</label><input type="text" id="videoDestaque" placeholder="Ex: 2,4M views"></div>
+      </div>
+      <div class="campo-erro" id="erroVideo"></div>
+      <div class="modal-acoes-entre">
+        <button type="button" class="btn btn-danger btn-sm" id="btnApagarVideo" style="display:none;">Apagar</button>
+        <div class="modal-acoes" style="margin:0;">
+          <button type="button" class="btn btn-ghost" data-fechar-modal="modalVideo">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalMarca">
+  <div class="modal-card">
+    <div class="modal-topo">
+      <h2 id="tituloModalMarca">Adicionar marca</h2>
+      <button class="modal-fechar" data-fechar-modal="modalMarca">✕</button>
+    </div>
+    <form class="modal-form" id="formMarca">
+      <input type="hidden" id="marcaId">
+      <div class="campo"><label for="marcaNome">Marca</label><input type="text" id="marcaNome" required></div>
+      <div class="campo-linha">
+        <div class="campo"><label for="marcaInstagram">Instagram</label><input type="text" id="marcaInstagram" placeholder="@marca"></div>
+        <div class="campo"><label for="marcaTelefone">Telefone</label><input type="text" id="marcaTelefone" placeholder="(00) 00000-0000"></div>
+      </div>
+      <div class="campo"><label for="marcaEmail">E-mail</label><input type="email" id="marcaEmail"></div>
+      <div class="campo-linha">
+        <div class="campo">
+          <label for="marcaSituacao">Situação</label>
+          <select id="marcaSituacao">
+            <option value="lead">Lead</option>
+            <option value="conversando">Conversando</option>
+            <option value="cliente">Cliente</option>
+            <option value="parada">Parada</option>
+          </select>
+        </div>
+        <div class="campo"><label for="marcaUltimoContato">Último contato</label><input type="date" id="marcaUltimoContato"></div>
+      </div>
+      <div class="campo"><label for="marcaObs">Observação</label><textarea id="marcaObs"></textarea></div>
+      <div class="campo-erro" id="erroMarca"></div>
+      <div class="modal-acoes-entre">
+        <button type="button" class="btn btn-danger btn-sm" id="btnApagarMarca" style="display:none;">Apagar</button>
+        <div class="modal-acoes" style="margin:0;">
+          <button type="button" class="btn btn-ghost" data-fechar-modal="modalMarca">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalCalendario">
+  <div class="modal-card">
+    <div class="modal-topo">
+      <h2 id="tituloModalCalendario">Adicionar item</h2>
+      <button class="modal-fechar" data-fechar-modal="modalCalendario">✕</button>
+    </div>
+    <form class="modal-form" id="formCalendario">
+      <input type="hidden" id="itemCalendarioId">
+      <div class="campo"><label for="itemTitulo">Título</label><input type="text" id="itemTitulo" required></div>
+      <div class="campo"><label for="itemMarca">Marca</label><input type="text" id="itemMarca"></div>
+      <div class="campo-linha">
+        <div class="campo">
+          <label for="itemTipo">Tipo</label>
+          <select id="itemTipo">
+            <option value="gravar">Gravar</option>
+            <option value="editar">Editar</option>
+            <option value="postar">Postar</option>
+          </select>
+        </div>
+        <div class="campo"><label for="itemData">Data</label><input type="date" id="itemData" required></div>
+      </div>
+      <div class="campo">
+        <label for="itemStatus">Status</label>
+        <select id="itemStatus">
+          <option value="a_fazer">A fazer</option>
+          <option value="feito">Feito</option>
+        </select>
+      </div>
+      <div class="campo-erro" id="erroCalendario"></div>
+      <div class="modal-acoes-entre">
+        <button type="button" class="btn btn-danger btn-sm" id="btnApagarCalendario" style="display:none;">Apagar</button>
+        <div class="modal-acoes" style="margin:0;">
+          <button type="button" class="btn btn-ghost" data-fechar-modal="modalCalendario">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalDiaCalendario">
+  <div class="modal-card">
+    <div class="modal-topo">
+      <h2 id="tituloModalDia">Dia</h2>
+      <button class="modal-fechar" data-fechar-modal="modalDiaCalendario">✕</button>
+    </div>
+    <div id="listaDiaCompleta" style="display:flex; flex-direction:column; gap:8px;"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalCampanha">
+  <div class="modal-card">
+    <div class="modal-topo">
+      <h2 id="tituloModalCampanha">Adicionar campanha</h2>
+      <button class="modal-fechar" data-fechar-modal="modalCampanha">✕</button>
+    </div>
+    <form class="modal-form" id="formCampanha">
+      <input type="hidden" id="campanhaId">
+      <div class="campo-linha">
+        <div class="campo"><label for="campanhaNome">Campanha</label><input type="text" id="campanhaNome" required></div>
+        <div class="campo"><label for="campanhaCliente">Cliente</label><input type="text" id="campanhaCliente" required></div>
+      </div>
+      <div class="campo-linha">
+        <div class="campo">
+          <label for="campanhaTipo">Tipo</label>
+          <select id="campanhaTipo">
+            <option value="Conteúdo">Conteúdo</option>
+            <option value="Publicidade">Publicidade</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="campanhaStatus">Status</label>
+          <select id="campanhaStatus">
+            <option>Briefing</option>
+            <option>Roteiro</option>
+            <option>Aprovação Roteiro</option>
+            <option>Gravação</option>
+            <option>Edição</option>
+            <option>Aprovado</option>
+            <option>Entregue</option>
+          </select>
+        </div>
+      </div>
+      <div class="campo-linha">
+        <div class="campo"><label for="campanhaQtd">Quantidade de vídeos</label><input type="number" id="campanhaQtd" min="1" value="1"></div>
+        <div class="campo"><label for="campanhaValor">Valor total (R$)</label><input type="number" id="campanhaValor" min="0" step="0.01" value="0"></div>
+      </div>
+      <div class="campo-linha">
+        <div class="campo"><label for="campanhaPrazo">Prazo</label><input type="date" id="campanhaPrazo"></div>
+        <div class="campo">
+          <label for="campanhaPagamento">Pagamento</label>
+          <select id="campanhaPagamento">
+            <option value="pendente">Pendente</option>
+            <option value="pago">Pago</option>
+          </select>
+        </div>
+      </div>
+      <div class="campo-linha">
+        <label style="display:flex; align-items:center; gap:8px; font-size:.83rem; font-weight:600; color:var(--ink-soft);">
+          <input type="checkbox" id="campanhaAtiva" checked style="width:16px; height:16px; accent-color:var(--blue);"> Campanha ativa
+        </label>
+        <label style="display:flex; align-items:center; gap:8px; font-size:.83rem; font-weight:600; color:var(--ink-soft);">
+          <input type="checkbox" id="campanhaFavorita" style="width:16px; height:16px; accent-color:var(--orange);"> Marcar com estrela
+        </label>
+      </div>
+      <div class="campo-erro" id="erroCampanha"></div>
+      <div class="modal-acoes-entre">
+        <button type="button" class="btn btn-danger btn-sm" id="btnApagarCampanha" style="display:none;">Apagar</button>
+        <div class="modal-acoes" style="margin:0;">
+          <button type="button" class="btn btn-ghost" data-fechar-modal="modalCampanha">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalFichaReferencia">
+  <div class="modal-card modal-largo">
+    <div class="modal-topo">
+      <h2 id="tituloFichaReferencia">Referência</h2>
+      <button class="modal-fechar" data-fechar-modal="modalFichaReferencia">✕</button>
+    </div>
+    <div id="corpoFichaReferencia"></div>
+  </div>
+</div>
+
+<script src="../js/biblioteca.js"></script>
+<script src="../js/admin-core.js"></script>
+<script src="../js/admin-portfolio.js"></script>
+<script src="../js/admin-marcas.js"></script>
+<script src="../js/admin-calendario.js"></script>
+<script src="../js/admin-campanhas.js"></script>
+<script src="../js/admin-checklist.js"></script>
+<script>
+(function(){
+  "use strict";
+  // Primeira coisa: confere se existe sessão. Sem sessão, manda pro login
+  // e a página nunca chega a aparecer.
+  window.db.auth.getSession().then(function(resultado){
+    var sessao = resultado.data && resultado.data.session;
+    if (!sessao){
+      window.location.href = "../login/";
+      return;
+    }
+    document.getElementById("rodapeEmail").textContent = sessao.user.email || "";
+    document.getElementById("corpoAdmin").style.display = "";
+    window.AdminCore.iniciar();
+  });
+})();
+</script>
+</body>
+</html>

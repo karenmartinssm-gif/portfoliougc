@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/banco.js"></script>
 <style>
   /* ===== Tokens ===== */
   :root{
@@ -470,7 +472,7 @@
             <label for="mensagem" data-i18n="formLabelMensagem">Mensagem</label>
             <textarea id="mensagem" name="mensagem" required></textarea>
           </div>
-          <p class="form-note" data-i18n="formNote">Os campos são obrigatórios. Este formulário não envia dados de verdade, apenas confirma o recebimento na tela.</p>
+          <p class="form-note" data-i18n="formNote">Os campos são obrigatórios.</p>
           <button class="btn btn-primary" type="submit" data-i18n="formSubmit">Enviar mensagem</button>
         </form>
         <div class="form-confirm" id="formConfirm" role="status">
@@ -546,25 +548,15 @@
      porque o site tem alternância de idioma no cabeçalho.
   ========================================================= */
 
-  // Trabalhos por nicho (seção 4). "niche" precisa ser um dos valores usados em niches abaixo.
+  // Trabalhos por nicho (seção 4). Antes esses vídeos ficavam fixos aqui.
+  // Agora eles vêm do banco de dados (tabela "videos"), editados pelo
+  // admin em admin/index.html. Veja a função carregarVideosDoBanco()
+  // mais abaixo. "todos" é sempre a primeira opção do filtro; as demais
+  // aparecem sozinhas, de acordo com os nichos que existirem no banco.
   var niches = [
-    { id: "todos", label: { pt: "Todos", en: "All" } },
-    { id: "skincare", label: { pt: "Skincare", en: "Skincare" } },
-    { id: "casa", label: { pt: "Casa e decoração", en: "Home & decor" } },
-    { id: "fitness", label: { pt: "Fitness", en: "Fitness" } },
-    { id: "tech", label: { pt: "Tech", en: "Tech" } }
+    { id: "todos", label: { pt: "Todos", en: "All" } }
   ];
-
-  var works = [
-    { niche: "skincare", brand: { pt: "Marca 01", en: "Brand 01" }, title: { pt: "Rotina matinal de skincare", en: "Morning skincare routine" }, format: { pt: "Foto do produto 4:5", en: "Product photo 4:5" } },
-    { niche: "skincare", brand: { pt: "Marca 02", en: "Brand 02" }, title: { pt: "Resenha de sérum facial", en: "Facial serum review" }, format: { pt: "Reels 9:16", en: "Reels 9:16" } },
-    { niche: "casa",     brand: { pt: "Marca 03", en: "Brand 03" }, title: { pt: "Tour de decoração de sala", en: "Living room decor tour" }, format: { pt: "Reels 9:16", en: "Reels 9:16" } },
-    { niche: "casa",     brand: { pt: "Marca 04", en: "Brand 04" }, title: { pt: "Unboxing de peça de decoração", en: "Decor piece unboxing" }, format: { pt: "Foto do produto 4:5", en: "Product photo 4:5" } },
-    { niche: "fitness",  brand: { pt: "Marca 05", en: "Brand 05" }, title: { pt: "Treino em casa com equipamento", en: "At-home workout with equipment" }, format: { pt: "Reels 9:16", en: "Reels 9:16" } },
-    { niche: "fitness",  brand: { pt: "Marca 06", en: "Brand 06" }, title: { pt: "Resenha de roupa fitness", en: "Fitness apparel review" }, format: { pt: "Foto do produto 4:5", en: "Product photo 4:5" } },
-    { niche: "tech",     brand: { pt: "Marca 07", en: "Brand 07" }, title: { pt: "Unboxing de acessório tech", en: "Tech accessory unboxing" }, format: { pt: "Reels 9:16", en: "Reels 9:16" } },
-    { niche: "tech",     brand: { pt: "Marca 08", en: "Brand 08" }, title: { pt: "Review de gadget no dia a dia", en: "Everyday gadget review" }, format: { pt: "Foto do produto 4:5", en: "Product photo 4:5" } }
-  ];
+  var works = [];
 
   // Serviços (seção 5)
   var services = [
@@ -624,7 +616,7 @@
       formLabelNome: "Nome",
       formLabelEmail: "E-mail",
       formLabelMensagem: "Mensagem",
-      formNote: "Os campos são obrigatórios. Este formulário não envia dados de verdade, apenas confirma o recebimento na tela.",
+      formNote: "Os campos são obrigatórios.",
       formSubmit: "Enviar mensagem",
       formConfirmTitle: "Mensagem recebida!",
       formConfirmText: "Obrigada por chamar. Eu volto o quanto antes pelo e-mail ou WhatsApp que você deixou.",
@@ -677,7 +669,7 @@
       formLabelNome: "Name",
       formLabelEmail: "Email",
       formLabelMensagem: "Message",
-      formNote: "All fields are required. This form doesn't send real data, it just confirms receipt on screen.",
+      formNote: "All fields are required.",
       formSubmit: "Send message",
       formConfirmTitle: "Message received!",
       formConfirmText: "Thanks for reaching out. I'll get back to you soon via the email or WhatsApp you left.",
@@ -706,29 +698,69 @@
       .replace(/>/g, "&gt;");
   }
 
-  // Filtro de nichos + galeria de trabalhos
+  // Filtro de nichos + galeria de trabalhos.
+  // "title", "format" e "marca" vêm do banco em um idioma só (o que a
+  // Karen digitou no admin), por isso não usam [lang] como o resto do
+  // site: aparecem do mesmo jeito nas duas versões, pt e en.
   function renderWorks(lang){
     var filterBar = document.getElementById("filterBar");
     var grid = document.getElementById("worksGrid");
     var previousFilter = filterBar.querySelector(".filter-btn.is-active");
     var activeFilter = previousFilter ? previousFilter.getAttribute("data-filter") : "todos";
+    if (!niches.some(function(n){ return n.id === activeFilter; })) activeFilter = "todos";
 
     filterBar.innerHTML = niches.map(function(n){
-      return '<button type="button" class="filter-btn' + (n.id === activeFilter ? ' is-active' : '') + '" data-filter="' + n.id + '">' + escapeHtml(n.label[lang]) + '</button>';
+      return '<button type="button" class="filter-btn' + (n.id === activeFilter ? ' is-active' : '') + '" data-filter="' + escapeHtml(n.id) + '">' + escapeHtml(n.label[lang]) + '</button>';
     }).join("");
+
+    if (!works.length){
+      grid.innerHTML = '<p class="work-empty-state" style="color:var(--ink-soft); font-size:.95rem;">' +
+        (lang === "en" ? "New work is on its way. Check back soon." : "Novos trabalhos a caminho. Volte em breve.") +
+        '</p>';
+      return;
+    }
 
     grid.innerHTML = works.map(function(w){
       return (
-        '<div class="work-card reveal is-visible' + (activeFilter !== "todos" && w.niche !== activeFilter ? ' is-hidden' : '') + '" data-niche="' + escapeHtml(w.niche) + '">' +
-          '<div class="work-media"><div class="media-placeholder ratio-4-5"><span>' + escapeHtml(w.format[lang]) + '</span></div></div>' +
+        '<a class="work-card reveal is-visible' + (activeFilter !== "todos" && w.niche !== activeFilter ? ' is-hidden' : '') + '" data-niche="' + escapeHtml(w.niche) + '" href="' + escapeHtml(w.link || "#") + '" target="_blank" rel="noopener" style="display:block;">' +
+          '<div class="work-media"><div class="media-placeholder ratio-4-5"><span>' + escapeHtml(w.format) + '</span></div></div>' +
           '<div class="work-info">' +
-            '<p class="work-niche">' + escapeHtml(nicheLabel(w.niche, lang)) + '</p>' +
-            '<h3 class="work-title">' + escapeHtml(w.title[lang]) + '</h3>' +
-            '<p class="work-brand">' + escapeHtml(w.brand[lang]) + '</p>' +
+            '<p class="work-niche">' + escapeHtml(nicheLabel(w.niche, lang)) + (w.destaque ? ' · ' + escapeHtml(w.destaque) : '') + '</p>' +
+            '<h3 class="work-title">' + escapeHtml(w.title) + '</h3>' +
+            '<p class="work-brand">' + escapeHtml(w.brand) + '</p>' +
           '</div>' +
-        '</div>'
+        '</a>'
       );
     }).join("");
+  }
+
+  // Busca os vídeos publicados no admin (tabela "videos" do Supabase).
+  // Se o banco não responder por qualquer motivo, o site não quebra:
+  // a seção de trabalhos simplesmente mostra a mensagem de "em breve"
+  // acima, e o resto do portfólio continua funcionando normalmente.
+  async function carregarVideosDoBanco(){
+    if (!window.db) return;
+    try{
+      var resultado = await window.db.from("videos").select("*").eq("visivel", true).order("ordem", { ascending: true });
+      if (resultado.error || !resultado.data) return;
+
+      works = resultado.data.map(function(v){
+        return { niche: v.nicho, brand: v.marca, title: v.titulo, format: v.formato, link: v.link, destaque: v.destaque };
+      });
+
+      var nichosUnicos = [];
+      works.forEach(function(w){
+        if (w.niche && nichosUnicos.indexOf(w.niche) === -1) nichosUnicos.push(w.niche);
+      });
+      niches = [{ id: "todos", label: { pt: "Todos", en: "All" } }].concat(
+        nichosUnicos.map(function(n){ return { id: n, label: { pt: n, en: n } }; })
+      );
+
+      renderWorks(currentLang);
+    } catch(erroInesperado){
+      // Falhou por qualquer motivo (sem internet, banco fora do ar etc):
+      // não faz nada, o site segue funcionando com a mensagem de "em breve".
+    }
   }
 
   function setupWorksFilter(){
@@ -889,15 +921,50 @@
   function setupContactForm(){
     var form = document.getElementById("contactForm");
     var confirm = document.getElementById("formConfirm");
-    form.addEventListener("submit", function(e){
+    form.addEventListener("submit", async function(e){
       e.preventDefault();
       if (!form.checkValidity()){
         form.reportValidity();
         return;
       }
+
+      // Manda o contato pra tabela "marcas" do admin, como um lead novo.
+      // Se o banco falhar por qualquer motivo, a pessoa que preencheu o
+      // formulário nem percebe: ela sempre vê a confirmação na tela.
+      // A Karen só perde esse contato específico na base, e pode
+      // recuperar pelo e-mail que ela mesma recebe (se tiver configurado).
+      if (window.db){
+        try{
+          await window.db.from("marcas").insert({
+            marca: document.getElementById("nome").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            obs: document.getElementById("mensagem").value.trim(),
+            situacao: "lead"
+          });
+        } catch(erroInesperado){
+          // Silencioso de propósito: ver mensagem de erro técnica
+          // aqui assustaria a visitante sem ela poder fazer nada.
+        }
+      }
+
       form.classList.add("is-hidden");
       confirm.classList.add("is-visible");
     });
+  }
+
+  // Registro simples de visita, pra alimentar os números do admin.
+  // Não usa nenhum serviço de fora, não pede nada pra visitante e
+  // falha em silêncio se o banco não responder.
+  async function registrarVisita(){
+    if (!window.db) return;
+    try{
+      await window.db.from("visitas").insert({
+        pagina: window.location.pathname || "/",
+        origem: document.referrer ? (new URL(document.referrer)).hostname : "direto"
+      });
+    } catch(erroInesperado){
+      // Sem internet, banco fora do ar etc: apenas ignora.
+    }
   }
 
   function setupCaptureModal(){
@@ -971,6 +1038,9 @@
     setupFooterYear();
     setupLangToggle();
     applyLanguage(currentLang);
+
+    carregarVideosDoBanco();
+    registrarVisita();
   });
 })();
 </script>
