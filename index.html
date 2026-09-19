@@ -154,7 +154,7 @@
   .hero{ padding-top: calc(var(--nav-h) + 64px); padding-bottom: 0; }
   .hero-grid{
     display:grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items:center;
-    padding-bottom: 64px;
+    padding-bottom: 0;
   }
   .hero h1{ font-size: clamp(2.2rem, 4.6vw, 3.3rem); margin-bottom: .3em; }
   .hero-title-sm{ display:none; }
@@ -190,7 +190,7 @@
   .reveal.is-visible{ opacity:1; transform: translateY(0); }
 
   /* ===== Sobre ===== */
-  .sobre{ background: var(--cream); }
+  .sobre{ background: var(--cream-2); }
   .sobre-grid{ display:grid; grid-template-columns: .8fr 1.2fr; gap: 56px; align-items:center; }
   .signature{ font-family:"Fraunces", serif; font-style: italic; font-size:1.4rem; color: var(--blue); margin-top: 18px; }
 
@@ -341,7 +341,7 @@
     .primary-nav a{ padding: 14px 16px; }
 
     .hero-grid, .sobre-grid, .contato-grid{ grid-template-columns: 1fr; }
-    .hero-grid{ padding-bottom: 40px; }
+    .hero-grid{ padding-bottom: 0; }
     .sobre-grid{ gap: 32px; }
     .sobre-media{ order: -1; }
     .works-grid{ grid-template-columns: repeat(2, 1fr); }
