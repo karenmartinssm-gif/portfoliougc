@@ -217,6 +217,15 @@
   .work-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-md); }
   .work-card.is-hidden{ display:none; }
   .work-media .media-placeholder{ border-radius:0; }
+  .work-play{
+    position:absolute; top:50%; left:50%; transform: translate(-50%,-50%);
+    width:52px; height:52px; border-radius:50%;
+    background: rgba(255,255,255,0.92); color: var(--blue);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: var(--shadow-md); font-size:.95rem; padding-left:3px;
+    transition: transform .25s var(--ease), background .25s var(--ease);
+  }
+  .work-card:hover .work-play{ transform: translate(-50%,-50%) scale(1.08); background:#fff; }
   .work-info{ padding: 16px 18px 20px; }
   .work-niche{ font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color: var(--blue); margin-bottom:6px; }
   .work-title{ font-family:"Fraunces", serif; font-size:1.02rem; font-weight:600; margin-bottom:2px; }
@@ -698,6 +707,16 @@
       .replace(/>/g, "&gt;");
   }
 
+  // Se o link do vídeo for do YouTube, dá pra pegar a capa sozinho,
+  // sem precisar que a Karen cadastre nenhuma imagem. Instagram e
+  // TikTok não permitem isso de fora (trava das próprias plataformas),
+  // então esses continuam mostrando o degradê com o formato escrito.
+  function capaYoutube(link){
+    if (!link) return null;
+    var casamento = String(link).match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    return casamento ? ("https://img.youtube.com/vi/" + casamento[1] + "/hqdefault.jpg") : null;
+  }
+
   // Filtro de nichos + galeria de trabalhos.
   // "title", "format" e "marca" vêm do banco em um idioma só (o que a
   // Karen digitou no admin), por isso não usam [lang] como o resto do
@@ -721,9 +740,13 @@
     }
 
     grid.innerHTML = works.map(function(w){
+      var capa = capaYoutube(w.link);
+      var midia = capa
+        ? '<div class="work-media"><div class="media-placeholder ratio-4-5" style="background-image:url(\'' + capa + '\'); background-size:cover; background-position:center;"><span class="work-play" aria-hidden="true">▶</span></div></div>'
+        : '<div class="work-media"><div class="media-placeholder ratio-4-5"><span>' + escapeHtml(w.format) + '</span></div></div>';
       return (
         '<a class="work-card reveal is-visible' + (activeFilter !== "todos" && w.niche !== activeFilter ? ' is-hidden' : '') + '" data-niche="' + escapeHtml(w.niche) + '" href="' + escapeHtml(w.link || "#") + '" target="_blank" rel="noopener" style="display:block;">' +
-          '<div class="work-media"><div class="media-placeholder ratio-4-5"><span>' + escapeHtml(w.format) + '</span></div></div>' +
+          midia +
           '<div class="work-info">' +
             '<p class="work-niche">' + escapeHtml(nicheLabel(w.niche, lang)) + (w.destaque ? ' · ' + escapeHtml(w.destaque) : '') + '</p>' +
             '<h3 class="work-title">' + escapeHtml(w.title) + '</h3>' +
