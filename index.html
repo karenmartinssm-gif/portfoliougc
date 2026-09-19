@@ -144,10 +144,6 @@
   .hero h1{ font-size: clamp(2.6rem, 6vw, 4.4rem); margin-bottom: .3em; }
   .hero-phrase{ font-size: 1.15rem; max-width: 46ch; }
   .hero-actions{ display:flex; flex-wrap:wrap; gap:14px; margin: 28px 0 40px; }
-  .hero-stats{ display:flex; gap: 32px; flex-wrap:wrap; margin:0; }
-  .hero-stats > div{ min-width: 100px; }
-  .hero-stats dt{ font-size:.78rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing:.06em; margin-bottom:4px; }
-  .hero-stats dd{ margin:0; font-family:"Fraunces", serif; font-size:1.7rem; font-weight:600; color: var(--blue); }
 
   .media-placeholder{
     border-radius: var(--radius-lg);
@@ -166,26 +162,6 @@
   .ratio-1-1{ aspect-ratio: 1/1; }
   .ratio-9-16{ aspect-ratio: 9/16; }
   .ratio-16-9{ aspect-ratio: 16/9; }
-
-  .brand-strip{
-    border-top: 1px solid var(--line);
-    background: var(--paper);
-    overflow: hidden;
-    padding: 22px 0;
-  }
-  .brand-track{
-    display:flex; align-items:center; gap: 56px;
-    width: max-content;
-    animation: scrollBrands 30s linear infinite;
-  }
-  .brand-track span{
-    font-family:"Fraunces", serif; font-style: italic; font-size:1.1rem; color: var(--ink-soft);
-    white-space: nowrap;
-  }
-  @keyframes scrollBrands{
-    from{ transform: translateX(0); }
-    to{ transform: translateX(-50%); }
-  }
 
   /* ===== Reveal on scroll ===== */
   .reveal{ opacity:0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
@@ -208,32 +184,15 @@
   .promises li strong{ color: var(--ink); }
   .signature{ font-family:"Fraunces", serif; font-style: italic; font-size:1.4rem; color: var(--blue); margin-top: 18px; }
 
-  /* ===== Destaques ===== */
-  .destaques{ background: var(--cream-2); }
-  .highlights-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-  .highlight-card{
-    display:block; border-radius: var(--radius-lg); overflow:hidden;
-    background: var(--paper); box-shadow: var(--shadow-sm);
-    border: 1px solid var(--line);
-    transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+  .sobre-title{ font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 700; margin-bottom: .4em; }
+  .persona-badges{ display:flex; flex-wrap:wrap; gap:10px; margin: 22px 0; }
+  .persona-badges span{
+    display:inline-flex; align-items:center;
+    padding: 10px 18px; border-radius: 999px;
+    background: var(--paper); border:1px solid var(--line);
+    font-weight:600; font-size:.85rem; color: var(--ink-soft);
+    box-shadow: var(--shadow-sm);
   }
-  .highlight-card:hover{ transform: translateY(-6px); box-shadow: var(--shadow-md); }
-  .highlight-cover{ position:relative; }
-  .highlight-cover .media-placeholder{ border-radius:0; }
-  .play-btn{
-    position:absolute; top:50%; left:50%; transform: translate(-50%,-50%);
-    width:64px; height:64px; border-radius:50%;
-    background: rgba(255,255,255,0.92); color: var(--blue);
-    display:flex; align-items:center; justify-content:center;
-    box-shadow: var(--shadow-md); z-index:3;
-    transition: transform .25s var(--ease), background .25s var(--ease);
-  }
-  .highlight-card:hover .play-btn{ transform: translate(-50%,-50%) scale(1.08); background:#fff; }
-  .highlight-body{ padding: 20px 22px 24px; }
-  .highlight-number{ font-family:"Fraunces", serif; font-size:1.9rem; font-weight:600; color: var(--orange); margin-bottom:2px; }
-  .highlight-number-label{ font-size:.8rem; color: var(--ink-soft); text-transform:uppercase; letter-spacing:.05em; margin-bottom:14px; }
-  .highlight-title{ font-family:"Fraunces", serif; font-size:1.15rem; font-weight:600; margin-bottom:6px; }
-  .highlight-context{ font-size:.92rem; margin:0; }
 
   /* ===== Trabalhos ===== */
   .trabalhos{ background: var(--cream); }
@@ -388,7 +347,6 @@
     .hero-grid{ padding-bottom: 40px; }
     .sobre-grid{ gap: 32px; }
     .sobre-media{ order: -1; }
-    .highlights-grid{ grid-template-columns: 1fr; }
     .works-grid{ grid-template-columns: repeat(2, 1fr); }
     .services-grid{ grid-template-columns: repeat(2, 1fr); }
     .metrics-grid{ grid-template-columns: repeat(2, 1fr); }
@@ -400,7 +358,6 @@
     .section{ padding: 64px 0; }
     .hero{ padding-top: calc(var(--nav-h) + 36px); }
     .hero-actions{ flex-direction:column; align-items:stretch; }
-    .hero-stats{ gap: 22px; }
     .works-grid{ grid-template-columns: 1fr; }
     .services-grid{ grid-template-columns: 1fr; }
     .metrics-grid{ grid-template-columns: repeat(2, 1fr); gap: 14px; }
@@ -413,7 +370,6 @@
     html{ scroll-behavior:auto; }
     *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
     .reveal{ opacity:1; transform:none; }
-    .brand-track{ animation: none; }
   }
 </style>
 </head>
@@ -431,7 +387,6 @@
     <nav class="primary-nav" id="primaryNav" aria-label="Navegação principal">
       <ul>
         <li><a class="nav-link" href="#sobre">Sobre</a></li>
-        <li><a class="nav-link" href="#destaques">Destaques</a></li>
         <li><a class="nav-link" href="#trabalhos">Trabalhos</a></li>
         <li><a class="nav-link" href="#servicos">Serviços</a></li>
         <li><a class="nav-link" href="#numeros">Números</a></li>
@@ -447,26 +402,18 @@
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy reveal">
-        <p class="eyebrow">UGC Creator de skincare, casa e decoração, fitness e tech</p>
-        <h1>Karen <em>Martins</em></h1>
-        <p class="hero-phrase">Eu crio vídeos e fotos autênticos que fazem sua marca soar humana, gerar confiança e vender mais em qualquer plataforma.</p>
+        <p class="eyebrow">UGC Creator - Disponível 2026</p>
+        <h1>Conteúdo pensado para marcas, criado para <em>pessoas</em>.</h1>
+        <p class="hero-phrase">Do conceito à entrega, cada detalhe tem um propósito.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#contato">Falar comigo</a>
           <a class="btn btn-ghost" href="#trabalhos">Ver os trabalhos</a>
         </div>
-        <dl class="hero-stats">
-          <div><dt>Vídeos entregues</dt><dd>000+</dd></div>
-          <div><dt>Marcas atendidas</dt><dd>000+</dd></div>
-          <div><dt>Views somadas</dt><dd>000+</dd></div>
-        </dl>
       </div>
       <div class="hero-media reveal">
         <!-- Troque o bloco abaixo por: <img src="sua-foto.jpg" alt="Karen Martins sorrindo para a câmera"> mantendo a proporção 4:5 -->
         <div class="media-placeholder ratio-4-5"><span>Foto da creator, formato 4:5</span></div>
       </div>
-    </div>
-    <div class="brand-strip" aria-label="Marcas que já trabalharam comigo">
-      <div class="brand-track" id="brandTrack"></div>
     </div>
   </section>
 
@@ -478,28 +425,19 @@
         <div class="media-placeholder ratio-1-1"><span>Foto da creator, formato 1:1</span></div>
       </div>
       <div class="sobre-copy reveal">
-        <h2>Sobre <em>mim</em></h2>
-        <p>Oi, eu sou a Karen. Eu crio conteúdo para marcas há um tempo e o que mais gosto é transformar um produto em uma cena real, do jeito que ele apareceria na câmera de uma pessoa de verdade. Trabalho com skincare, casa e decoração, fitness e tech, sempre buscando um vídeo que pareça recomendação de amiga e não anúncio.</p>
-        <p>Gosto de processo claro: a gente alinha o roteiro antes de gravar, eu entrego rápido e deixo espaço para ajuste, porque sei que o resultado final precisa bater com a identidade da sua marca.</p>
-        <ul class="promises">
-          <li><strong>Roteiro aprovado antes de gravar.</strong> Você vê e aprova a ideia do vídeo antes de eu gravar qualquer coisa.</li>
-          <li><strong>Uma rodada de ajuste inclusa.</strong> Se algo não ficou do jeito combinado, eu ajusto sem custo extra.</li>
-          <li><strong>Entrega em até 72 horas úteis.</strong> Prazo curto para você poder publicar sem perder o timing da campanha.</li>
-        </ul>
+        <h2 class="sobre-title">Oi, eu sou a <em>Karen</em></h2>
+        <p><strong>Engenheira por formação, criadora por paixão.</strong></p>
+        <p>Sempre fui uma pessoa criativa, comunicativa e apaixonada por criar. Hoje, transformo essa criatividade em conteúdo UGC, unindo meu olhar estético e criativo à estratégia para criar vídeos que conectam marcas e pessoas.</p>
+        <p>Meu objetivo é produzir conteúdos que pareçam naturais e autênticos, mas que tenham intenção por trás de cada escolha, do hook ao CTA, para despertar interesse, gerar desejo e, claro, resultados.</p>
+        <div class="persona-badges">
+          <span>30 anos</span>
+          <span>Interior de SP</span>
+          <span>Bilíngue</span>
+          <span>Gateira</span>
+          <span>Geminiana</span>
+        </div>
         <p class="signature">Karen Martins</p>
       </div>
-    </div>
-  </section>
-
-  <!-- ============ 3. CONTEÚDOS DE DESTAQUE ============ -->
-  <section id="destaques" class="section destaques">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow">Destaques</p>
-        <h2>Conteúdos que <em>performaram</em></h2>
-        <p>Uma seleção dos vídeos que mais geraram resultado para as marcas com quem trabalhei.</p>
-      </div>
-      <div class="highlights-grid" id="highlightsGrid"></div>
     </div>
   </section>
 
@@ -644,43 +582,6 @@
      substitua pelos seus números reais quando tiver.
   ========================================================= */
 
-  // Marcas que já trabalharam com você (usado na faixa da capa)
-  var brands = [
-    "Marca 01","Marca 02","Marca 03","Marca 04","Marca 05","Marca 06",
-    "Marca 07","Marca 08","Marca 09","Marca 10","Marca 11","Marca 12"
-  ];
-
-  // Conteúdos de destaque (seção 3). Para cada item:
-  // - videoUrl: coloque aqui o link do vídeo (Reels, TikTok, YouTube etc.)
-  // - coverGradient: deixe como está, ou troque o bloco no HTML gerado por uma <img>/<video> real
-  // - numberValue / numberLabel: número forte e o que ele representa (ex: "+2,4M" / "views no reels")
-  var highlightVideos = [
-    {
-      videoUrl: "#", // TROQUE pelo link do vídeo 1
-      format: "Capa vertical 9:16", // TROQUE pela capa real do vídeo 1 (imagem ou thumbnail)
-      numberValue: "+000",
-      numberLabel: "views no reels",
-      title: "Rotina de skincare noturna",
-      context: "Vídeo de uso real do produto, gravado como storytime de rotina."
-    },
-    {
-      videoUrl: "#", // TROQUE pelo link do vídeo 2
-      format: "Capa vertical 9:16", // TROQUE pela capa real do vídeo 2 (imagem ou thumbnail)
-      numberValue: "+000",
-      numberLabel: "visualizações no tiktok",
-      title: "Unboxing de decoração",
-      context: "Primeira impressão do produto assim que a caixa chega em casa."
-    },
-    {
-      videoUrl: "#", // TROQUE pelo link do vídeo 3
-      format: "Capa vertical 9:16", // TROQUE pela capa real do vídeo 3 (imagem ou thumbnail)
-      numberValue: "+000",
-      numberLabel: "salvamentos",
-      title: "Treino com produto fitness",
-      context: "Demonstração de uso durante o treino, com dica prática incluída."
-    }
-  ];
-
   // Trabalhos por nicho (seção 4). "niche" precisa ser um dos valores usados em niches abaixo.
   var niches = [
     { id: "todos", label: "Todos" },
@@ -751,36 +652,6 @@
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
-  }
-
-  // Faixa de marcas (duplicada para o loop contínuo)
-  function renderBrands(){
-    var track = document.getElementById("brandTrack");
-    var doubled = brands.concat(brands);
-    track.innerHTML = doubled.map(function(b){
-      return "<span>" + escapeHtml(b) + "</span>";
-    }).join("");
-  }
-
-  // Conteúdos de destaque
-  function renderHighlights(){
-    var grid = document.getElementById("highlightsGrid");
-    grid.innerHTML = highlightVideos.map(function(item){
-      return (
-        '<a class="highlight-card reveal" href="' + escapeHtml(item.videoUrl) + '" target="_blank" rel="noopener" aria-label="Assistir: ' + escapeHtml(item.title) + '">' +
-          '<div class="highlight-cover">' +
-            '<div class="media-placeholder ratio-9-16"><span>' + escapeHtml(item.format) + '</span></div>' +
-            '<span class="play-btn" aria-hidden="true">▶</span>' +
-          '</div>' +
-          '<div class="highlight-body">' +
-            '<p class="highlight-number">' + escapeHtml(item.numberValue) + '</p>' +
-            '<p class="highlight-number-label">' + escapeHtml(item.numberLabel) + '</p>' +
-            '<h3 class="highlight-title">' + escapeHtml(item.title) + '</h3>' +
-            '<p class="highlight-context">' + escapeHtml(item.context) + '</p>' +
-          '</div>' +
-        '</a>'
-      );
-    }).join("");
   }
 
   // Filtro de nichos + galeria de trabalhos
@@ -1057,8 +928,6 @@
      INICIALIZAÇÃO
   ========================================================= */
   document.addEventListener("DOMContentLoaded", function(){
-    renderBrands();
-    renderHighlights();
     renderWorks();
     renderServices();
     renderMetrics();
