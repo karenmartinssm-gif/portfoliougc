@@ -154,7 +154,8 @@
     display:grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items:center;
     padding-bottom: 64px;
   }
-  .hero h1{ font-size: clamp(2.6rem, 6vw, 4.4rem); margin-bottom: .3em; }
+  .hero h1{ font-size: clamp(2.2rem, 4.6vw, 3.3rem); margin-bottom: .3em; }
+  .hero-title-sm{ display:none; }
   .hero-phrase{ font-size: 1.15rem; max-width: 46ch; }
   .hero-actions{ display:flex; flex-wrap:wrap; gap:14px; margin: 28px 0 40px; }
 
@@ -333,6 +334,9 @@
   @media (max-width: 640px){
     .section{ padding: 64px 0; }
     .hero{ padding-top: calc(var(--nav-h) + 36px); }
+    .hero h1{ font-size: 2.1rem; }
+    .hero-title-lg{ display:none; }
+    .hero-title-sm{ display:inline; }
     .hero-actions{ flex-direction:column; align-items:stretch; }
     .works-grid{ grid-template-columns: 1fr; }
     .services-grid{ grid-template-columns: 1fr; }
@@ -382,7 +386,7 @@
     <div class="container hero-grid">
       <div class="hero-copy reveal">
         <p class="eyebrow" data-i18n="heroEyebrow">UGC Creator - Disponível 2026</p>
-        <h1 data-i18n="heroTitle">Conteúdo pensado para marcas, criado para <em>pessoas</em>.</h1>
+        <h1 data-i18n="heroTitle"><span class="hero-title-lg">Conteúdo pensado para<br>marcas, criado para<br><em>pessoas</em>.</span><span class="hero-title-sm">Conteúdo pensado<br>para marcas, criado<br>para <em>pessoas</em>.</span></h1>
         <p class="hero-phrase" data-i18n="heroPhrase">Do conceito à entrega, cada detalhe tem um propósito.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#contato" data-i18n="heroBtnContact">Falar comigo</a>
@@ -592,7 +596,7 @@
       navToggleOpen: "Abrir menu",
       navToggleClose: "Fechar menu",
       heroEyebrow: "UGC Creator - Disponível 2026",
-      heroTitle: 'Conteúdo pensado para marcas, criado para <em>pessoas</em>.',
+      heroTitle: '<span class="hero-title-lg">Conteúdo pensado para<br>marcas, criado para<br><em>pessoas</em>.</span><span class="hero-title-sm">Conteúdo pensado<br>para marcas, criado<br>para <em>pessoas</em>.</span>',
       heroPhrase: "Do conceito à entrega, cada detalhe tem um propósito.",
       heroBtnContact: "Falar comigo",
       heroBtnWork: "Ver os trabalhos",
@@ -645,7 +649,7 @@
       navToggleOpen: "Open menu",
       navToggleClose: "Close menu",
       heroEyebrow: "UGC Creator - Available 2026",
-      heroTitle: 'Content made for brands, created for <em>people</em>.',
+      heroTitle: '<span class="hero-title-lg">Content made for<br>brands, created for<br><em>people</em>.</span><span class="hero-title-sm">Content made for<br>brands, created for<br><em>people</em>.</span>',
       heroPhrase: "From concept to delivery, every detail has a purpose.",
       heroBtnContact: "Get in touch",
       heroBtnWork: "See the work",
