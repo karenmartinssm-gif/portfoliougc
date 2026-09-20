@@ -22,6 +22,7 @@
     --blue: #d71a4c; /* nome da variável ficou, mas a cor agora é o rosa fechado pedido */
     --blue-dark: #a1123a;
     --orange: #ff902e;
+    --orange-dark: #c56f1f;
     --chumbo: #45454a;
     --line: rgba(20,17,13,0.12);
     --shadow-sm: 0 4px 14px rgba(20,17,13,0.06);
@@ -134,12 +135,12 @@
   .primary-nav a:hover{ background: var(--cream-2); color: var(--ink); }
   .lang-toggle{
     display:flex; align-items:center; flex:none;
-    background: var(--orange); border-radius: 999px; padding: 3px; gap:2px;
+    background: var(--blue); border-radius: 999px; padding: 3px; gap:2px;
   }
   .lang-toggle button{
     border:none; background:transparent; cursor:pointer;
     font-family:"Open Sans", sans-serif; font-weight:700; font-size:.74rem; letter-spacing:.04em;
-    color: rgba(20,17,13,0.55); padding: 6px 13px; border-radius: 999px;
+    color: rgba(255,255,255,0.65); padding: 6px 13px; border-radius: 999px;
     transition: background .2s var(--ease), color .2s var(--ease);
   }
   .lang-toggle button.is-active{ background: var(--cream); color: var(--ink); }
@@ -183,10 +184,11 @@
     -webkit-mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M8 12l3 3 5-6'/></svg>") center/contain no-repeat;
     mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M8 12l3 3 5-6'/></svg>") center/contain no-repeat;
   }
-  .foto-balao-1{ top:6%; right:-4%; }
-  .foto-balao-2{ top:52%; right:-10%; }
+  .foto-balao-1{ top:24%; left:-16%; }
+  .foto-balao-2{ top:32%; right:-8%; }
+  .foto-balao-3{ top:74%; left:-18%; }
 
-  .esteira-laranja{ background: var(--orange); overflow:hidden; padding: 15px 0; }
+  .esteira-laranja{ background: var(--orange-dark); overflow:hidden; padding: 15px 0; }
   .esteira-trilha{
     display:flex; align-items:center; gap:14px; width:max-content;
     animation: esteiraMove 24s linear infinite;
@@ -223,7 +225,6 @@
   /* ===== Sobre ===== */
   .sobre{ background: var(--cream-2); }
   .sobre-grid{ display:grid; grid-template-columns: .8fr 1.2fr; gap: 56px; align-items:center; }
-  .signature{ font-family:"Open Sans", system-ui, sans-serif; font-style: italic; font-size:1.4rem; color: var(--blue); margin-top: 18px; }
 
   .sobre-title{ font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 700; margin-bottom: .4em; }
   .persona-badges{ display:flex; flex-wrap:wrap; gap:10px; margin: 22px 0; }
@@ -268,54 +269,58 @@
   .work-title{ font-family:"Open Sans", system-ui, sans-serif; font-size:1.02rem; font-weight:600; margin-bottom:2px; }
   .work-brand{ font-size:.85rem; margin:0; color: var(--ink-soft); }
 
-  /* ===== Serviços ===== */
-  .servicos{ background: var(--cream-2); }
-  .services-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .service-card{
-    background: var(--paper); border:1px solid var(--line); border-radius: var(--radius-lg);
-    padding: 30px 26px; box-shadow: var(--shadow-sm);
-    transition: transform .3s var(--ease), box-shadow .3s var(--ease);
-  }
-  .service-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-md); }
-  .service-number{ font-family:"Open Sans", system-ui, sans-serif; font-style: italic; font-size:1.6rem; color: var(--orange); margin-bottom:10px; }
-  .service-title{ font-family:"Open Sans", system-ui, sans-serif; font-size:1.2rem; font-weight:600; margin-bottom:8px; }
-  .service-desc{ font-size:.92rem; margin:0; }
 
   /* ===== Contato ===== */
-  .contato{ background: var(--cream); }
+  .contato{ background: var(--blue); }
+  .contato .eyebrow{ color: rgba(255,255,255,0.85); }
+  .contato h2{ color:#fff; }
+  .contato h2 em{ color: var(--cream); }
+  .contato > .container > div > p:not(.form-note){ color: rgba(255,255,255,0.8); }
   .contato-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items:start; }
-  .contact-form{ display:flex; flex-direction:column; gap:16px; background: var(--paper); border:1px solid var(--line); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm); }
-  .form-row{ display:flex; flex-direction:column; gap:6px; }
-  .form-row label{ font-size:.85rem; font-weight:700; }
-  .form-row input, .form-row textarea{
-    font-family: inherit; font-size:1rem; padding: 12px 14px;
-    border-radius: var(--radius-sm); border: 1.5px solid var(--line);
-    background: #fff; color: var(--ink);
+  .contact-form{ display:flex; flex-direction:column; gap:16px; }
+  .form-linha-2{ display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+  .form-row{ display:flex; flex-direction:column; gap:7px; }
+  .form-row label{
+    font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em;
+    color: rgba(255,255,255,0.65);
   }
-  .form-row textarea{ resize: vertical; min-height: 110px; }
-  .form-note{ font-size:.78rem; color: var(--ink-soft); }
+  .form-row input, .form-row textarea{
+    font-family: inherit; font-size:.95rem; padding: 12px 14px;
+    border-radius: var(--radius-sm); border: 1.5px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.08); color:#fff;
+  }
+  .form-row input::placeholder, .form-row textarea::placeholder{ color: rgba(255,255,255,0.4); }
+  .form-row textarea{ resize: vertical; min-height: 100px; }
+  .form-note{ font-size:.75rem; color: rgba(255,255,255,0.55); }
+  .btn-contato{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding: 14px 26px; border-radius: 999px; font-weight:700; font-size:.95rem;
+    border:none; cursor:pointer; background:#fff; color: var(--blue);
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .btn-contato:hover{ transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .btn-contato::after{ content:"→"; font-size:1.1em; }
   .form-confirm{
-    display:none; text-align:center; padding: 40px 20px; background: var(--paper);
-    border: 1.5px solid var(--blue); border-radius: var(--radius-lg);
+    display:none; text-align:center; padding: 40px 20px; background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.3); border-radius: var(--radius-lg);
   }
   .form-confirm.is-visible{ display:block; }
+  .form-confirm h3{ color:#fff; }
+  .form-confirm p{ color: rgba(255,255,255,0.8); margin:0; }
   .contact-form.is-hidden{ display:none; }
-  .contact-links{ display:flex; flex-direction:column; gap: 16px; }
+  .contact-links{ display:flex; flex-direction:column; gap: 18px; padding-top: 6px; }
   .contact-link{
-    display:flex; align-items:center; gap:14px; padding: 18px 20px;
-    background: var(--paper); border:1px solid var(--line); border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm); transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+    display:flex; align-items:center; gap:14px; color:#fff; font-weight:600; font-size:.95rem;
+    transition: transform .2s var(--ease);
   }
-  .contact-link:hover{ transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .contact-link:hover{ transform: translateX(4px); }
   .contact-icon{
-    flex:none; width:44px; height:44px; border-radius:50%;
+    flex:none; width:40px; height:40px; border-radius:50%;
     display:flex; align-items:center; justify-content:center;
-    background: var(--blue); color:#fff; font-weight:700;
+    background: rgba(255,255,255,0.14); color:#fff; font-weight:700; font-size:.85rem;
   }
   .contact-link.whatsapp .contact-icon{ background:#25963f; }
   .contact-link.instagram .contact-icon{ background: var(--orange); }
-  .contact-link strong{ display:block; font-size:.95rem; }
-  .contact-link span{ display:block; font-size:.82rem; color: var(--ink-soft); }
 
   /* ===== Footer ===== */
   .site-footer{ background: var(--ink); color: var(--cream); padding: 44px 0; }
@@ -325,6 +330,28 @@
   .footer-links a{ font-size:.9rem; color: rgba(243,238,233,0.8); transition: color .2s var(--ease); }
   .footer-links a:hover{ color: var(--orange); }
   .footer-copy{ font-size:.78rem; color: rgba(243,238,233,0.55); width:100%; margin-top: 18px; text-align:center; }
+
+  /* ===== Modal de vídeo ===== */
+  .video-overlay{
+    position: fixed; inset:0; background: rgba(20,17,13,0.85);
+    display:flex; align-items:center; justify-content:center; padding: 24px;
+    z-index: 950; opacity:0; pointer-events:none; transition: opacity .3s var(--ease);
+  }
+  .video-overlay.aberto{ opacity:1; pointer-events:auto; }
+  .video-card{
+    position: relative; width:100%; max-width: 420px;
+    background:#000; border-radius: var(--radius-lg); overflow:hidden;
+    box-shadow: var(--shadow-md);
+    transform: translateY(16px) scale(.97); transition: transform .3s var(--ease);
+  }
+  .video-overlay.aberto .video-card{ transform: translateY(0) scale(1); }
+  .video-frame{ position:relative; width:100%; aspect-ratio: 9/16; }
+  .video-frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video-close{
+    position:absolute; top:-42px; right:0; width:34px; height:34px; border-radius:50%;
+    background: rgba(255,255,255,0.92); border:none; cursor:pointer; font-size:1rem; color: var(--ink);
+    display:flex; align-items:center; justify-content:center; z-index:2;
+  }
 
   /* ===== Capture modal ===== */
   .capture-overlay{
@@ -376,7 +403,6 @@
     .sobre-grid{ gap: 32px; }
     .sobre-media{ display:none; }
     .works-grid{ grid-template-columns: repeat(2, 1fr); }
-    .services-grid{ grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (max-width: 640px){
@@ -389,11 +415,11 @@
     .hero-foto{ max-height: 520px; }
     .foto-balao{ font-size:.72rem; padding:8px 13px; gap:6px; }
     .foto-balao::before{ width:15px; height:15px; }
-    .foto-balao-1{ top:4%; right:0; }
-    .foto-balao-2{ top:56%; right:0; }
+    .foto-balao-1{ top:2%; left:0; right:auto; }
+    .foto-balao-2{ top:36%; right:0; }
+    .foto-balao-3{ top:68%; left:0; right:auto; }
     .esteira-trilha span{ font-size:.78rem; }
     .works-grid{ grid-template-columns: 1fr; }
-    .services-grid{ grid-template-columns: 1fr; }
     .footer-grid{ flex-direction:column; align-items:flex-start; }
   }
 
@@ -419,7 +445,6 @@
         <ul>
           <li><a class="nav-link" href="#sobre" data-i18n="navSobre">Sobre</a></li>
           <li><a class="nav-link" href="#trabalhos" data-i18n="navTrabalhos">Trabalhos</a></li>
-          <li><a class="nav-link" href="#servicos" data-i18n="navServicos">Serviços</a></li>
           <li><a class="nav-link" href="#contato" data-i18n="navContato">Contato</a></li>
         </ul>
       </nav>
@@ -455,7 +480,8 @@
                já com fundo removido e mesmo nome, ou aponte o src abaixo pra outro arquivo. -->
           <img class="hero-foto" src="img/karen-foto-capa.webp" alt="Karen Martins sorrindo, sentada">
           <span class="foto-balao foto-balao-1" data-i18n="balaoFrase1">Criatividade que converte</span>
-          <span class="foto-balao foto-balao-2" data-i18n="balaoFrase2">Transformando ideias em conteúdo</span>
+          <span class="foto-balao foto-balao-2" data-i18n="balaoFrase2">Marcas na vida real.</span>
+          <span class="foto-balao foto-balao-3" data-i18n="balaoFrase3">Transformando ideias em conteúdo</span>
         </div>
       </div>
     </div>
@@ -498,7 +524,6 @@
           <span data-i18n="badgeGateira">Gateira</span>
           <span data-i18n="badgeGeminiana">Geminiana</span>
         </div>
-        <p class="signature">Karen Martins</p>
       </div>
     </div>
   </section>
@@ -508,7 +533,7 @@
     <div class="container">
       <div class="section-head reveal">
         <p class="eyebrow" data-i18n="trabalhosEyebrow">Portfólio</p>
-        <h2 data-i18n="trabalhosTitle">Trabalhos por <em>nicho</em></h2>
+        <h2 class="sobre-title" data-i18n="trabalhosTitle">Conteúdos UGC</h2>
         <p data-i18n="trabalhosDesc">Filtre por área para ver exemplos de conteúdo em cada nicho que atendo.</p>
       </div>
       <div class="filter-bar" id="filterBar" role="group" aria-label="Filtrar trabalhos por nicho" data-i18n-aria-label="filterAriaLabel"></div>
@@ -516,17 +541,6 @@
     </div>
   </section>
 
-  <!-- ============ 5. COMO EU TE AJUDO ============ -->
-  <section id="servicos" class="section servicos">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow" data-i18n="servicosEyebrow">Serviços</p>
-        <h2 data-i18n="servicosTitle">Como eu te <em>ajudo</em></h2>
-        <p data-i18n="servicosDesc">Pacotes de conteúdo pensados para diferentes momentos da sua marca.</p>
-      </div>
-      <div class="services-grid" id="servicesGrid"></div>
-    </div>
-  </section>
 
   <!-- ============ 7. BORA CRIAR JUNTOS ============ -->
   <section id="contato" class="section contato">
@@ -537,20 +551,30 @@
         <p data-i18n="contatoDesc">Me conta um pouco sobre a sua marca e o que você precisa. Eu respondo rápido.</p>
 
         <form class="contact-form" id="contactForm" novalidate>
-          <div class="form-row">
-            <label for="nome" data-i18n="formLabelNome">Nome</label>
-            <input type="text" id="nome" name="nome" required autocomplete="name">
+          <div class="form-linha-2">
+            <div class="form-row">
+              <label for="nome" data-i18n="formLabelNome">Nome</label>
+              <input type="text" id="nome" name="nome" required autocomplete="name">
+            </div>
+            <div class="form-row">
+              <label for="email" data-i18n="formLabelEmail">E-mail</label>
+              <input type="email" id="email" name="email" required autocomplete="email">
+            </div>
           </div>
           <div class="form-row">
-            <label for="email" data-i18n="formLabelEmail">E-mail</label>
-            <input type="email" id="email" name="email" required autocomplete="email">
+            <label for="marcaEmpresa" data-i18n="formLabelMarca">Marca / Empresa</label>
+            <input type="text" id="marcaEmpresa" name="marcaEmpresa" required autocomplete="organization">
           </div>
           <div class="form-row">
-            <label for="mensagem" data-i18n="formLabelMensagem">Mensagem</label>
-            <textarea id="mensagem" name="mensagem" required></textarea>
+            <label for="orcamento" data-i18n="formLabelOrcamento">Orçamento estimado</label>
+            <input type="text" id="orcamento" name="orcamento" data-i18n-placeholder="formPlaceholderOrcamento" placeholder="Ex: R$ 1.000 a R$ 5.000">
+          </div>
+          <div class="form-row">
+            <label for="mensagem" data-i18n="formLabelMensagem">Conta sobre o projeto</label>
+            <textarea id="mensagem" name="mensagem" required data-i18n-placeholder="formPlaceholderProjeto" placeholder="Categoria, formato, prazo, objetivo da campanha..."></textarea>
           </div>
           <p class="form-note" data-i18n="formNote">Os campos são obrigatórios.</p>
-          <button class="btn btn-primary" type="submit" data-i18n="formSubmit">Enviar mensagem</button>
+          <button class="btn btn-contato" type="submit" data-i18n="formSubmit">Enviar mensagem</button>
         </form>
         <div class="form-confirm" id="formConfirm" role="status">
           <h3 data-i18n="formConfirmTitle">Mensagem recebida!</h3>
@@ -559,26 +583,17 @@
       </div>
 
       <div class="contact-links reveal" aria-label="Outros canais de contato" data-i18n-aria-label="contactLinksAriaLabel">
-        <a class="contact-link whatsapp" id="whatsappLink" href="#" target="_blank" rel="noopener">
-          <span class="contact-icon" aria-hidden="true">W</span>
-          <span>
-            <strong>WhatsApp</strong>
-            <span id="whatsappLabel">(00) 00000-0000</span>
-          </span>
-        </a>
         <a class="contact-link" id="emailLink" href="#">
           <span class="contact-icon" aria-hidden="true">@</span>
-          <span>
-            <strong data-i18n="contactEmailLabel">E-mail</strong>
-            <span id="emailLabel">seuemail@email.com</span>
-          </span>
+          <span id="emailLabel">seuemail@email.com</span>
         </a>
         <a class="contact-link instagram" id="instagramLink" href="#" target="_blank" rel="noopener">
           <span class="contact-icon" aria-hidden="true">IG</span>
-          <span>
-            <strong>Instagram</strong>
-            <span id="instagramLabel">@seuusuario</span>
-          </span>
+          <span id="instagramLabel">@seuusuario</span>
+        </a>
+        <a class="contact-link whatsapp" id="whatsappLink" href="#" target="_blank" rel="noopener">
+          <span class="contact-icon" aria-hidden="true">W</span>
+          <span id="whatsappLabel">(00) 00000-0000</span>
         </a>
       </div>
     </div>
@@ -598,6 +613,14 @@
     <p class="footer-copy">© <span id="anoAtual"></span> Karen Martins. <span data-i18n="footerRights">Todos os direitos reservados.</span></p>
   </div>
 </footer>
+
+<!-- ============ MODAL DE VÍDEO (abre os vídeos do YouTube sem sair do portfólio) ============ -->
+<div class="video-overlay" id="videoOverlay" role="dialog" aria-modal="true" aria-label="Vídeo" hidden>
+  <div class="video-card">
+    <button class="video-close" id="videoClose" type="button" aria-label="Fechar vídeo">✕</button>
+    <div class="video-frame" id="videoFrame"></div>
+  </div>
+</div>
 
 <!-- ============ CARD DE CAPTURA (mídia kit) ============ -->
 <div class="capture-overlay" id="captureOverlay" role="dialog" aria-modal="true" aria-labelledby="captureTitle" hidden>
@@ -635,16 +658,6 @@
   ];
   var works = [];
 
-  // Serviços (seção 5)
-  var services = [
-    { number: "01", title: { pt: "Vídeo UGC", en: "UGC Video" }, desc: { pt: "Vídeo autêntico de uso do produto, gravado e editado no estilo criado por consumidor.", en: "Authentic product-use video, shot and edited in a consumer-generated style." } },
-    { number: "02", title: { pt: "Corte para anúncio", en: "Ad cutdown" }, desc: { pt: "Versão curta e direta, pensada para performar como anúncio pago.", en: "Short, direct version built to perform as a paid ad." } },
-    { number: "03", title: { pt: "Fotos do produto", en: "Product photos" }, desc: { pt: "Ensaio fotográfico do produto em cenário real, pronto para feed e loja.", en: "Product photo shoot in a real setting, ready for feed and store." } },
-    { number: "04", title: { pt: "Unboxing", en: "Unboxing" }, desc: { pt: "Vídeo de primeira impressão, mostrando a experiência de abrir a embalagem.", en: "First-impression video showing the unboxing experience." } },
-    { number: "05", title: { pt: "Publicação no meu perfil", en: "Post on my profile" }, desc: { pt: "Conteúdo publicado no meu Instagram, alcançando a minha própria audiência.", en: "Content posted on my own Instagram, reaching my own audience." } },
-    { number: "06", title: { pt: "Pacote mensal", en: "Monthly package" }, desc: { pt: "Combinado de entregas recorrentes para manter o conteúdo da marca sempre ativo.", en: "A recurring bundle of deliverables to keep your brand's content always active." } }
-  ];
-
   // Contato
   var contactInfo = {
     whatsappNumber: "5515997970141", // formato internacional, usado no link wa.me
@@ -660,7 +673,6 @@
       skipLink: "Pular para o conteúdo",
       navSobre: "Sobre",
       navTrabalhos: "Trabalhos",
-      navServicos: "Serviços",
       navContato: "Contato",
       navToggleOpen: "Abrir menu",
       navToggleClose: "Fechar menu",
@@ -670,7 +682,8 @@
       heroBtnContact: "Falar comigo",
       heroBtnWork: "Ver os trabalhos",
       balaoFrase1: "Criatividade que converte",
-      balaoFrase2: "Transformando ideias em conteúdo",
+      balaoFrase2: "Marcas na vida real.",
+      balaoFrase3: "Transformando ideias em conteúdo",
       esteira1: "Conteúdos que convencem e convertem",
       esteira2: "Estratégia",
       esteira3: "Criativos",
@@ -686,18 +699,19 @@
       badgeGateira: "Gateira",
       badgeGeminiana: "Geminiana",
       trabalhosEyebrow: "Portfólio",
-      trabalhosTitle: 'Trabalhos por <em>nicho</em>',
+      trabalhosTitle: 'Conteúdos UGC',
       trabalhosDesc: "Filtre por área para ver exemplos de conteúdo em cada nicho que atendo.",
       filterAriaLabel: "Filtrar trabalhos por nicho",
-      servicosEyebrow: "Serviços",
-      servicosTitle: 'Como eu te <em>ajudo</em>',
-      servicosDesc: "Pacotes de conteúdo pensados para diferentes momentos da sua marca.",
       contatoEyebrow: "Contato",
       contatoTitle: 'Bora criar <em>juntos</em>',
       contatoDesc: "Me conta um pouco sobre a sua marca e o que você precisa. Eu respondo rápido.",
       formLabelNome: "Nome",
       formLabelEmail: "E-mail",
-      formLabelMensagem: "Mensagem",
+      formLabelMarca: "Marca / Empresa",
+      formLabelOrcamento: "Orçamento estimado",
+      formPlaceholderOrcamento: "Ex: R$ 1.000 a R$ 5.000",
+      formLabelMensagem: "Conta sobre o projeto",
+      formPlaceholderProjeto: "Categoria, formato, prazo, objetivo da campanha...",
       formNote: "Os campos são obrigatórios.",
       formSubmit: "Enviar mensagem",
       formConfirmTitle: "Mensagem recebida!",
@@ -718,7 +732,6 @@
       skipLink: "Skip to content",
       navSobre: "About",
       navTrabalhos: "Work",
-      navServicos: "Services",
       navContato: "Contact",
       navToggleOpen: "Open menu",
       navToggleClose: "Close menu",
@@ -728,7 +741,8 @@
       heroBtnContact: "Get in touch",
       heroBtnWork: "See the work",
       balaoFrase1: "Creativity that converts",
-      balaoFrase2: "Turning ideas into content",
+      balaoFrase2: "Real brands, real life.",
+      balaoFrase3: "Turning ideas into content",
       esteira1: "Content that convinces and converts",
       esteira2: "Strategy",
       esteira3: "Creatives",
@@ -744,18 +758,19 @@
       badgeGateira: "Cat lover",
       badgeGeminiana: "Gemini",
       trabalhosEyebrow: "Portfolio",
-      trabalhosTitle: 'Work by <em>niche</em>',
+      trabalhosTitle: 'UGC Content',
       trabalhosDesc: "Filter by area to see content examples in each niche I work with.",
       filterAriaLabel: "Filter work by niche",
-      servicosEyebrow: "Services",
-      servicosTitle: 'How I can <em>help</em>',
-      servicosDesc: "Content packages designed for different moments of your brand.",
       contatoEyebrow: "Contact",
       contatoTitle: "Let's create <em>together</em>",
       contatoDesc: "Tell me a bit about your brand and what you need. I reply fast.",
       formLabelNome: "Name",
       formLabelEmail: "Email",
-      formLabelMensagem: "Message",
+      formLabelMarca: "Brand / Company",
+      formLabelOrcamento: "Estimated budget",
+      formPlaceholderOrcamento: "Ex: $200 to $1,000",
+      formLabelMensagem: "Tell me about the project",
+      formPlaceholderProjeto: "Category, format, deadline, campaign goal...",
       formNote: "All fields are required.",
       formSubmit: "Send message",
       formConfirmTitle: "Message received!",
@@ -789,10 +804,14 @@
   // sem precisar que a Karen cadastre nenhuma imagem. Instagram e
   // TikTok não permitem isso de fora (trava das próprias plataformas),
   // então esses continuam mostrando o degradê com o formato escrito.
-  function capaYoutube(link){
+  function idDoYoutube(link){
     if (!link) return null;
     var casamento = String(link).match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-    return casamento ? ("https://img.youtube.com/vi/" + casamento[1] + "/hqdefault.jpg") : null;
+    return casamento ? casamento[1] : null;
+  }
+  function capaYoutube(link){
+    var id = idDoYoutube(link);
+    return id ? ("https://img.youtube.com/vi/" + id + "/hqdefault.jpg") : null;
   }
 
   // Filtro de nichos + galeria de trabalhos.
@@ -818,12 +837,18 @@
     }
 
     grid.innerHTML = works.map(function(w){
-      var capa = capaYoutube(w.link);
+      var idYoutube = idDoYoutube(w.link);
+      var capa = idYoutube ? ("https://img.youtube.com/vi/" + idYoutube + "/hqdefault.jpg") : null;
       var midia = capa
         ? '<div class="work-media"><div class="media-placeholder ratio-4-5" style="background-image:url(\'' + capa + '\'); background-size:cover; background-position:center;"><span class="work-play" aria-hidden="true">▶</span></div></div>'
         : '<div class="work-media"><div class="media-placeholder ratio-4-5"><span>' + escapeHtml(w.format) + '</span></div></div>';
+      // Vídeos do YouTube abrem dentro do próprio portfólio, num modal.
+      // Os outros (Instagram, TikTok etc) continuam abrindo em outra aba,
+      // porque essas plataformas não deixam mostrar o vídeo dentro de outro site.
       return (
-        '<a class="work-card reveal is-visible' + (activeFilter !== "todos" && w.niche !== activeFilter ? ' is-hidden' : '') + '" data-niche="' + escapeHtml(w.niche) + '" href="' + escapeHtml(w.link || "#") + '" target="_blank" rel="noopener" style="display:block;">' +
+        '<a class="work-card reveal is-visible' + (activeFilter !== "todos" && w.niche !== activeFilter ? ' is-hidden' : '') + '" data-niche="' + escapeHtml(w.niche) + '"' +
+          (idYoutube ? ' data-youtube-id="' + escapeHtml(idYoutube) + '"' : '') +
+          ' href="' + escapeHtml(w.link || "#") + '" target="_blank" rel="noopener" style="display:block;">' +
           midia +
           '<div class="work-info">' +
             '<p class="work-niche">' + escapeHtml(nicheLabel(w.niche, lang)) + (w.destaque ? ' · ' + escapeHtml(w.destaque) : '') + '</p>' +
@@ -878,25 +903,51 @@
         card.classList.toggle("is-hidden", !match);
       });
     });
+
+    // Clicar num vídeo do YouTube abre ele num modal aqui dentro do
+    // portfólio, em vez de abrir o YouTube numa aba nova.
+    grid.addEventListener("click", function(e){
+      var card = e.target.closest(".work-card");
+      if (!card) return;
+      var idYoutube = card.getAttribute("data-youtube-id");
+      if (!idYoutube) return;
+      e.preventDefault();
+      abrirModalVideo(idYoutube);
+    });
+  }
+
+  function abrirModalVideo(idYoutube){
+    var overlay = document.getElementById("videoOverlay");
+    var frame = document.getElementById("videoFrame");
+    frame.innerHTML = '<iframe src="https://www.youtube.com/embed/' + idYoutube + '?autoplay=1&rel=0" title="Vídeo" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+    overlay.hidden = false;
+    requestAnimationFrame(function(){ overlay.classList.add("aberto"); });
+  }
+
+  function fecharModalVideo(){
+    var overlay = document.getElementById("videoOverlay");
+    var frame = document.getElementById("videoFrame");
+    overlay.classList.remove("aberto");
+    window.setTimeout(function(){
+      overlay.hidden = true;
+      frame.innerHTML = ""; // para o vídeo ao fechar
+    }, 300);
+  }
+
+  function setupModalVideo(){
+    var overlay = document.getElementById("videoOverlay");
+    document.getElementById("videoClose").addEventListener("click", fecharModalVideo);
+    overlay.addEventListener("click", function(e){
+      if (e.target === overlay) fecharModalVideo();
+    });
+    document.addEventListener("keydown", function(e){
+      if (e.key === "Escape" && overlay.classList.contains("aberto")) fecharModalVideo();
+    });
   }
 
   function nicheLabel(id, lang){
     var found = niches.find(function(n){ return n.id === id; });
     return found ? found.label[lang] : id;
-  }
-
-  // Serviços
-  function renderServices(lang){
-    var grid = document.getElementById("servicesGrid");
-    grid.innerHTML = services.map(function(s){
-      return (
-        '<div class="service-card reveal is-visible">' +
-          '<p class="service-number">' + escapeHtml(s.number) + '</p>' +
-          '<h3 class="service-title">' + escapeHtml(s.title[lang]) + '</h3>' +
-          '<p class="service-desc">' + escapeHtml(s.desc[lang]) + '</p>' +
-        '</div>'
-      );
-    }).join("");
   }
 
   // Links de contato
@@ -967,7 +1018,6 @@
     document.getElementById("langEn").setAttribute("aria-pressed", lang === "en" ? "true" : "false");
 
     renderWorks(lang);
-    renderServices(lang);
   }
 
   function setupLangToggle(){
@@ -1036,10 +1086,14 @@
       // recuperar pelo e-mail que ela mesma recebe (se tiver configurado).
       if (window.db){
         try{
+          var nome = document.getElementById("nome").value.trim();
+          var orcamento = document.getElementById("orcamento").value.trim();
+          var mensagem = document.getElementById("mensagem").value.trim();
+          var obs = "Nome: " + nome + (orcamento ? ("\nOrçamento: " + orcamento) : "") + "\n\n" + mensagem;
           await window.db.from("marcas").insert({
-            marca: document.getElementById("nome").value.trim(),
+            marca: document.getElementById("marcaEmpresa").value.trim(),
             email: document.getElementById("email").value.trim(),
-            obs: document.getElementById("mensagem").value.trim(),
+            obs: obs,
             situacao: "lead"
           });
         } catch(erroInesperado){
@@ -1128,10 +1182,10 @@
   ========================================================= */
   document.addEventListener("DOMContentLoaded", function(){
     renderWorks(currentLang);
-    renderServices(currentLang);
     renderContactLinks();
 
     setupWorksFilter();
+    setupModalVideo();
     setupNav();
     setupReveal();
     setupContactForm();
