@@ -272,6 +272,7 @@
 
   /* ===== Contato ===== */
   .contato{ background: var(--cream-2); }
+  .contato h2{ font-size: clamp(2.1rem, 3.9vw, 3rem); }
   .contato-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items:start; }
   .contact-form{ display:flex; flex-direction:column; gap:16px; }
   .form-linha-2{ display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
@@ -312,20 +313,18 @@
   .contact-icon{
     flex:none; width:40px; height:40px; border-radius:50%;
     display:flex; align-items:center; justify-content:center;
-    background: var(--blue); color:#fff; font-weight:700; font-size:.85rem;
+    background: var(--orange); color:#fff; font-weight:700; font-size:.85rem;
   }
   .contact-icon svg{ width:19px; height:19px; }
-  .contact-link.whatsapp .contact-icon{ background:#25963f; }
-  .contact-link.instagram .contact-icon{ background: var(--orange); }
 
   /* ===== Footer ===== */
-  .site-footer{ background: var(--ink); color: var(--cream); padding: 44px 0; }
+  .site-footer{ background: var(--orange); color: #fff; padding: 44px 0; }
   .footer-grid{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap: 20px; }
   .footer-brand{ font-family:"Open Sans", system-ui, sans-serif; font-size:1.2rem; }
   .footer-links{ display:flex; gap: 22px; flex-wrap:wrap; }
-  .footer-links a{ font-size:.9rem; color: rgba(243,238,233,0.8); transition: color .2s var(--ease); }
-  .footer-links a:hover{ color: var(--orange); }
-  .footer-copy{ font-size:.78rem; color: rgba(243,238,233,0.55); width:100%; margin-top: 18px; text-align:center; }
+  .footer-links a{ font-size:.9rem; color: rgba(255,255,255,0.85); transition: color .2s var(--ease); }
+  .footer-links a:hover{ color: var(--ink); }
+  .footer-copy{ font-size:.78rem; color: rgba(255,255,255,0.65); width:100%; margin-top: 18px; text-align:center; }
 
   /* ===== Modal de vídeo ===== */
   .video-overlay{
