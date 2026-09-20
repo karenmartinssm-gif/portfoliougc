@@ -59,30 +59,36 @@ window.AdminMarcas = (function(){
     return lista.slice().sort(function(a, b){ return (b.favorita ? 1 : 0) - (a.favorita ? 1 : 0); });
   }
 
+  // Monta os botõezinhos de WhatsApp/Instagram (usado no card de
+  // edição — na tabela, esses atalhos ficam só dentro do card).
+  function construirBotoesContato(m){
+    var telefoneLimpo = String(m.telefone || "").replace(/\D/g, "");
+    var instagramLimpo = String(m.instagram || "").replace(/^@/, "");
+    var botoes = "";
+    if (telefoneLimpo){
+      botoes += '<a href="https://wa.me/' + telefoneLimpo + '" target="_blank" rel="noopener" title="WhatsApp" onclick="event.stopPropagation()">W</a>';
+    }
+    if (instagramLimpo){
+      botoes += '<a href="https://instagram.com/' + Core.escaparHtml(instagramLimpo) + '" target="_blank" rel="noopener" title="Instagram" onclick="event.stopPropagation()">IG</a>';
+    }
+    return botoes;
+  }
+
   function renderizarTabela(){
     var corpo = document.getElementById("corpoTabelaMarcas");
     var lista = marcasFiltradas();
 
     if (!marcasEmMemoria.length){
-      corpo.innerHTML = '<tr><td colspan="8" class="estado-vazio">Nenhuma marca cadastrada ainda. Clique em "Adicionar marca" ou espere o formulário do site trazer o primeiro lead.</td></tr>';
+      corpo.innerHTML = '<tr><td colspan="6" class="estado-vazio">Nenhuma marca cadastrada ainda. Clique em "Adicionar marca" ou espere o formulário do site trazer o primeiro lead.</td></tr>';
       return;
     }
     if (!lista.length){
-      corpo.innerHTML = '<tr><td colspan="8" class="estado-vazio">Nada encontrado com esse filtro.</td></tr>';
+      corpo.innerHTML = '<tr><td colspan="6" class="estado-vazio">Nada encontrado com esse filtro.</td></tr>';
       return;
     }
 
     corpo.innerHTML = lista.map(function(m){
       var exemplo = ehExemplo(m.marca);
-      var telefoneLimpo = String(m.telefone || "").replace(/\D/g, "");
-      var instagramLimpo = String(m.instagram || "").replace(/^@/, "");
-      var botoesContato = "";
-      if (telefoneLimpo){
-        botoesContato += '<a href="https://wa.me/' + telefoneLimpo + '" target="_blank" rel="noopener" title="WhatsApp" onclick="event.stopPropagation()">W</a>';
-      }
-      if (instagramLimpo){
-        botoesContato += '<a href="https://instagram.com/' + Core.escaparHtml(instagramLimpo) + '" target="_blank" rel="noopener" title="Instagram" onclick="event.stopPropagation()">IG</a>';
-      }
       return '<tr data-id="' + m.id + '" class="' + (exemplo ? "linha-exemplo" : "") + (m.favorita ? " linha-favorita" : "") + '">' +
         '<td><button class="estrela-btn' + (m.favorita ? " ativa" : "") + '" data-id="' + m.id + '" data-favorita="' + !!m.favorita + '" title="Fixar no topo">' +
           '<svg class="icon" viewBox="0 0 24 24" fill="' + (m.favorita ? "currentColor" : "none") + '"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 6.9L12 17.8 5.7 21l1.2-6.9-5-4.9 7-1z"/></svg>' +
@@ -92,8 +98,6 @@ window.AdminMarcas = (function(){
         '<td>' + Core.escaparHtml(m.email || "-") + '</td>' +
         '<td>' + Core.escaparHtml(rotuloNicho[m.nicho] || "-") + '</td>' +
         '<td><span class="pilula pilula-' + m.situacao + '">' + (rotuloSituacao[m.situacao] || m.situacao) + '</span></td>' +
-        '<td>' + Core.formatarDataBR(m.ultimo_contato) + '</td>' +
-        '<td><div class="contato-rapido">' + (botoesContato || "-") + '</div></td>' +
       '</tr>';
     }).join("");
 
@@ -128,6 +132,12 @@ window.AdminMarcas = (function(){
     document.getElementById("marcaObs").value = marca.obs || "";
     document.getElementById("btnApagarMarca").style.display = "";
     document.getElementById("erroMarca").textContent = "";
+
+    var caixaContato = document.getElementById("marcaContatoRapido");
+    var botoesContato = construirBotoesContato(marca);
+    caixaContato.innerHTML = botoesContato;
+    caixaContato.style.display = botoesContato ? "flex" : "none";
+
     Core.abrirModal("modalMarca");
   }
 
@@ -138,6 +148,11 @@ window.AdminMarcas = (function(){
     document.getElementById("marcaSituacao").value = "lead";
     document.getElementById("btnApagarMarca").style.display = "none";
     document.getElementById("erroMarca").textContent = "";
+
+    var caixaContato = document.getElementById("marcaContatoRapido");
+    caixaContato.innerHTML = "";
+    caixaContato.style.display = "none";
+
     Core.abrirModal("modalMarca");
   }
 
