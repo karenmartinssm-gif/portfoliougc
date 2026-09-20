@@ -264,9 +264,9 @@
   /* ===== Contato ===== */
   .contato{ background: var(--cream-2); }
   .contato h2{ font-size: clamp(2.1rem, 3.9vw, 3rem); }
-  .contato-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items:start; }
-  .contact-form{ display:flex; flex-direction:column; gap:16px; }
-  .form-linha-2{ display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+  .contato-grid{ display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 56px; align-items:start; }
+  .contact-form{ display:flex; flex-direction:column; gap:16px; min-width:0; }
+  .form-linha-2{ display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap:16px; }
   .form-row{ display:flex; flex-direction:column; gap:7px; }
   .form-row label{
     font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em;
@@ -836,7 +836,7 @@
   function abrirModalVideo(idYoutube){
     var overlay = document.getElementById("videoOverlay");
     var frame = document.getElementById("videoFrame");
-    frame.innerHTML = '<iframe src="https://www.youtube.com/embed/' + idYoutube + '?autoplay=1&rel=0" title="Vídeo" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+    frame.innerHTML = '<iframe src="https://www.youtube.com/embed/' + idYoutube + '?autoplay=1&rel=0&controls=0&modestbranding=1" title="Vídeo" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
     overlay.hidden = false;
     requestAnimationFrame(function(){ overlay.classList.add("aberto"); });
   }
