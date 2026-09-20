@@ -46,13 +46,17 @@ window.AdminMarcas = (function(){
     var termo = document.getElementById("buscaMarcas").value.trim().toLowerCase();
     var situacao = document.getElementById("filtroSituacao").value;
     var nicho = document.getElementById("filtroNicho").value;
-    return marcasEmMemoria.filter(function(m){
+    var lista = marcasEmMemoria.filter(function(m){
       if (situacao && m.situacao !== situacao) return false;
       if (nicho && m.nicho !== nicho) return false;
       if (!termo) return true;
       var alvo = ((m.marca || "") + " " + (m.instagram || "") + " " + (m.email || "")).toLowerCase();
       return alvo.indexOf(termo) !== -1;
     });
+    // As favoritadas sempre sobem pro topo, mantendo a ordem (mais
+    // recente primeiro) dentro de cada grupo — por isso o sort só
+    // compara o "favorita", nunca embaralha o resto da lista.
+    return lista.slice().sort(function(a, b){ return (b.favorita ? 1 : 0) - (a.favorita ? 1 : 0); });
   }
 
   function renderizarTabela(){
@@ -60,11 +64,11 @@ window.AdminMarcas = (function(){
     var lista = marcasFiltradas();
 
     if (!marcasEmMemoria.length){
-      corpo.innerHTML = '<tr><td colspan="7" class="estado-vazio">Nenhuma marca cadastrada ainda. Clique em "Adicionar marca" ou espere o formulário do site trazer o primeiro lead.</td></tr>';
+      corpo.innerHTML = '<tr><td colspan="8" class="estado-vazio">Nenhuma marca cadastrada ainda. Clique em "Adicionar marca" ou espere o formulário do site trazer o primeiro lead.</td></tr>';
       return;
     }
     if (!lista.length){
-      corpo.innerHTML = '<tr><td colspan="7" class="estado-vazio">Nada encontrado com esse filtro.</td></tr>';
+      corpo.innerHTML = '<tr><td colspan="8" class="estado-vazio">Nada encontrado com esse filtro.</td></tr>';
       return;
     }
 
@@ -79,7 +83,10 @@ window.AdminMarcas = (function(){
       if (instagramLimpo){
         botoesContato += '<a href="https://instagram.com/' + Core.escaparHtml(instagramLimpo) + '" target="_blank" rel="noopener" title="Instagram" onclick="event.stopPropagation()">IG</a>';
       }
-      return '<tr data-id="' + m.id + '" class="' + (exemplo ? "linha-exemplo" : "") + '">' +
+      return '<tr data-id="' + m.id + '" class="' + (exemplo ? "linha-exemplo" : "") + (m.favorita ? " linha-favorita" : "") + '">' +
+        '<td><button class="estrela-btn' + (m.favorita ? " ativa" : "") + '" data-id="' + m.id + '" data-favorita="' + !!m.favorita + '" title="Fixar no topo">' +
+          '<svg class="icon" viewBox="0 0 24 24" fill="' + (m.favorita ? "currentColor" : "none") + '"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 6.9L12 17.8 5.7 21l1.2-6.9-5-4.9 7-1z"/></svg>' +
+        '</button></td>' +
         '<td>' + Core.escaparHtml(m.marca) + (exemplo ? '<span class="selo-exemplo">exemplo</span>' : '') + '</td>' +
         '<td>' + Core.escaparHtml(m.instagram || "-") + '</td>' +
         '<td>' + Core.escaparHtml(m.email || "-") + '</td>' +
@@ -93,6 +100,17 @@ window.AdminMarcas = (function(){
     corpo.querySelectorAll("tr[data-id]").forEach(function(linha){
       linha.addEventListener("click", function(){ abrirEdicao(linha.getAttribute("data-id")); });
     });
+    corpo.querySelectorAll(".estrela-btn").forEach(function(botao){
+      botao.addEventListener("click", function(e){
+        e.stopPropagation();
+        alternarFavorita(botao.getAttribute("data-id"), botao.getAttribute("data-favorita") !== "true");
+      });
+    });
+  }
+
+  async function alternarFavorita(id, novoValor){
+    await Core.consultar(window.db.from("marcas").update({ favorita: novoValor }).eq("id", id), "marcas");
+    await carregar();
   }
 
   function abrirEdicao(id){

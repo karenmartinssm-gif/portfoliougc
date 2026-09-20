@@ -57,6 +57,7 @@ create table public.marcas (
     check (nicho in ('beleza', 'moda', 'saude', 'culinaria', 'casa', 'tecnologia', 'pets', 'viagem', 'lifestyle', 'entretenimento')),
   situacao text not null default 'lead'
     check (situacao in ('lead', 'conversando', 'cliente', 'parada')),
+  favorita boolean not null default false,
   obs text,
   ultimo_contato date,
   criado_em timestamptz not null default now()
