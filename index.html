@@ -19,8 +19,8 @@
     --paper: #fbf8f4;
     --ink: #14110d;
     --ink-soft: #4a4640;
-    --blue: #d71a4c; /* nome da variável ficou, mas a cor agora é o rosa fechado pedido */
-    --blue-dark: #a1123a;
+    --blue: #002947; /* nome da variável ficou, mas a cor agora é o azul marinho pedido */
+    --blue-dark: #001f35;
     --orange: #ff902e;
     --orange-dark: #c56f1f;
     --chumbo: #45454a;
@@ -74,7 +74,7 @@
     font-weight: 700;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: var(--blue);
+    color: var(--orange-dark);
     margin-bottom: 14px;
   }
 
@@ -304,7 +304,7 @@
   .contact-icon{
     flex:none; width:40px; height:40px; border-radius:50%;
     display:flex; align-items:center; justify-content:center;
-    background: var(--orange); color:#fff; font-weight:700; font-size:.85rem;
+    background: var(--orange-dark); color:#fff; font-weight:700; font-size:.85rem;
   }
   .contact-icon svg{ width:19px; height:19px; }
 
@@ -338,37 +338,6 @@
     background: rgba(255,255,255,0.92); border:none; cursor:pointer; font-size:1rem; color: var(--ink);
     display:flex; align-items:center; justify-content:center; z-index:2;
   }
-
-  /* ===== Capture modal ===== */
-  .capture-overlay{
-    position: fixed; inset:0; background: rgba(20,17,13,0.62);
-    display:flex; align-items:center; justify-content:center; padding: 20px;
-    z-index: 900; opacity:0; pointer-events:none; transition: opacity .3s var(--ease);
-  }
-  .capture-overlay.is-open{ opacity:1; pointer-events:auto; }
-  .capture-card{
-    position: relative; width:100%; max-width: 420px;
-    background: var(--paper); border-radius: var(--radius-lg);
-    padding: 36px 30px; box-shadow: var(--shadow-md);
-    transform: translateY(16px) scale(.97); transition: transform .3s var(--ease);
-    border: 1px solid var(--line);
-  }
-  .capture-overlay.is-open .capture-card{ transform: translateY(0) scale(1); }
-  .capture-close{
-    position:absolute; top:14px; right:14px; width:36px; height:36px; border-radius:50%;
-    background: var(--cream-2); border:none; cursor:pointer; font-size:1.1rem; color: var(--ink);
-    display:flex; align-items:center; justify-content:center;
-  }
-  .capture-card h3{ font-size:1.4rem; margin-bottom:10px; padding-right: 30px; }
-  .capture-card p{ font-size:.92rem; margin-bottom: 18px; }
-  .capture-form{ display:flex; flex-direction:column; gap:12px; }
-  .capture-form input{
-    font-family: inherit; font-size:1rem; padding: 12px 14px;
-    border-radius: var(--radius-sm); border: 1.5px solid var(--line); background:#fff;
-  }
-  .capture-confirm{ display:none; text-align:center; font-weight:700; color: var(--blue); }
-  .capture-confirm.is-visible{ display:block; }
-  .capture-form.is-hidden{ display:none; }
 
   /* ===== Mobile nav ===== */
   @media (max-width: 900px){
@@ -603,21 +572,6 @@
   </div>
 </div>
 
-<!-- ============ CARD DE CAPTURA (mídia kit) ============ -->
-<div class="capture-overlay" id="captureOverlay" role="dialog" aria-modal="true" aria-labelledby="captureTitle" hidden>
-  <div class="capture-card">
-    <button class="capture-close" id="captureClose" type="button" aria-label="Fechar" data-i18n-aria-label="captureCloseAria">✕</button>
-    <h3 id="captureTitle" data-i18n="captureTitle">Quer meu mídia kit completo?</h3>
-    <p data-i18n="captureText">Deixa seu nome e e-mail que eu te envio o mídia kit com todos os detalhes do meu trabalho.</p>
-    <form class="capture-form" id="captureForm">
-      <input type="text" id="captureNome" name="captureNome" placeholder="Seu nome" required autocomplete="name" aria-label="Seu nome" data-i18n-placeholder="capturePlaceholderName" data-i18n-aria-label="capturePlaceholderName">
-      <input type="email" id="captureEmail" name="captureEmail" placeholder="Seu e-mail" required autocomplete="email" aria-label="Seu e-mail" data-i18n-placeholder="capturePlaceholderEmail" data-i18n-aria-label="capturePlaceholderEmail">
-      <button class="btn btn-orange" type="submit" data-i18n="captureSubmit">Quero receber</button>
-    </form>
-    <p class="capture-confirm" id="captureConfirm" data-i18n="captureConfirmText">Recebido! Em breve o mídia kit chega no seu e-mail.</p>
-  </div>
-</div>
-
 <script>
 (function(){
   "use strict";
@@ -698,14 +652,7 @@
       contactLinksAriaLabel: "Outros canais de contato",
       contactEmailLabel: "E-mail",
       footerEmailLabel: "E-mail",
-      footerRights: "Todos os direitos reservados.",
-      captureTitle: "Quer meu mídia kit completo?",
-      captureText: "Deixa seu nome e e-mail que eu te envio o mídia kit com todos os detalhes do meu trabalho.",
-      capturePlaceholderName: "Seu nome",
-      capturePlaceholderEmail: "Seu e-mail",
-      captureSubmit: "Quero receber",
-      captureConfirmText: "Recebido! Em breve o mídia kit chega no seu e-mail.",
-      captureCloseAria: "Fechar"
+      footerRights: "Todos os direitos reservados."
     },
     en: {
       skipLink: "Skip to content",
@@ -755,14 +702,7 @@
       contactLinksAriaLabel: "Other contact channels",
       contactEmailLabel: "Email",
       footerEmailLabel: "Email",
-      footerRights: "All rights reserved.",
-      captureTitle: "Want my full media kit?",
-      captureText: "Leave your name and email and I'll send you the media kit with all the details about my work.",
-      capturePlaceholderName: "Your name",
-      capturePlaceholderEmail: "Your email",
-      captureSubmit: "Send it to me",
-      captureConfirmText: "Got it! The media kit will land in your inbox soon.",
-      captureCloseAria: "Close"
+      footerRights: "All rights reserved."
     }
   };
 
@@ -1099,57 +1039,6 @@
     }
   }
 
-  function setupCaptureModal(){
-    var overlay = document.getElementById("captureOverlay");
-    var closeBtn = document.getElementById("captureClose");
-    var form = document.getElementById("captureForm");
-    var confirm = document.getElementById("captureConfirm");
-    var STORAGE_KEY = "ugcMidiaKitModalShown";
-
-    // Acesso defensivo ao sessionStorage: alguns navegadores (modo privado, iframes restritos)
-    // bloqueiam o storage e lançam erro só de ler ou escrever nele.
-    function wasAlreadyShown(){
-      try{ return !!sessionStorage.getItem(STORAGE_KEY); } catch(err){ return false; }
-    }
-    function markAsShown(){
-      try{ sessionStorage.setItem(STORAGE_KEY, "1"); } catch(err){}
-    }
-
-    function openModal(){
-      if (wasAlreadyShown()) return;
-      overlay.hidden = false;
-      requestAnimationFrame(function(){ overlay.classList.add("is-open"); });
-      markAsShown();
-    }
-
-    function closeModal(){
-      overlay.classList.remove("is-open");
-      window.setTimeout(function(){ overlay.hidden = true; }, 300);
-    }
-
-    closeBtn.addEventListener("click", closeModal);
-    overlay.addEventListener("click", function(e){
-      if (e.target === overlay) closeModal();
-    });
-    document.addEventListener("keydown", function(e){
-      if (e.key === "Escape" && overlay.classList.contains("is-open")) closeModal();
-    });
-
-    form.addEventListener("submit", function(e){
-      e.preventDefault();
-      if (!form.checkValidity()){
-        form.reportValidity();
-        return;
-      }
-      form.classList.add("is-hidden");
-      confirm.classList.add("is-visible");
-    });
-
-    if (!wasAlreadyShown()){
-      window.setTimeout(openModal, 7000);
-    }
-  }
-
   function setupFooterYear(){
     document.getElementById("anoAtual").textContent = new Date().getFullYear();
   }
@@ -1166,7 +1055,6 @@
     setupNav();
     setupReveal();
     setupContactForm();
-    setupCaptureModal();
     setupFooterYear();
     setupLangToggle();
     applyLanguage(currentLang);
