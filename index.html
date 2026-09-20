@@ -8,7 +8,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%F0%9F%A7%B6</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/banco.js"></script>
 <style>
@@ -41,7 +41,7 @@
     margin:0;
     background: var(--cream);
     color: var(--ink);
-    font-family: "Open Sans", system-ui, sans-serif;
+    font-family: "Baloo 2", system-ui, sans-serif;
     font-size: 16px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -51,8 +51,8 @@
   a{ color: inherit; text-decoration: none; }
   ul{ margin:0; padding:0; list-style:none; }
   h1,h2,h3,h4{
-    font-family: "Open Sans", system-ui, sans-serif;
-    font-weight: 600;
+    font-family: "Baloo 2", system-ui, sans-serif;
+    font-weight: 700;
     line-height: 1.12;
     margin: 0 0 .5em;
     letter-spacing: -0.01em;
@@ -69,7 +69,7 @@
   .section-head{ max-width: 640px; margin-bottom: 48px; }
   .eyebrow{
     display:inline-block;
-    font-family:"Open Sans", sans-serif;
+    font-family:"Baloo 2", sans-serif;
     font-size: .78rem;
     font-weight: 700;
     letter-spacing: .14em;
@@ -122,7 +122,7 @@
   }
   .nav-wrap{ height:100%; display:flex; align-items:center; justify-content:space-between; }
   .brand{
-    font-family:"Open Sans", system-ui, sans-serif; font-size: 1.35rem; font-weight:600; letter-spacing:-.01em;
+    font-family:"Baloo 2", system-ui, sans-serif; font-size: 1.35rem; font-weight:600; letter-spacing:-.01em;
   }
   .brand em{ font-style:italic; font-weight:700; color: var(--blue); }
   .nav-right{ display:flex; align-items:center; gap: 18px; }
@@ -139,7 +139,7 @@
   }
   .lang-toggle button{
     border:none; background:transparent; cursor:pointer;
-    font-family:"Open Sans", sans-serif; font-weight:700; font-size:.74rem; letter-spacing:.04em;
+    font-family:"Baloo 2", sans-serif; font-weight:700; font-size:.74rem; letter-spacing:.04em;
     color: rgba(255,255,255,0.65); padding: 6px 13px; border-radius: 999px;
     transition: background .2s var(--ease), color .2s var(--ease);
   }
@@ -172,22 +172,6 @@
     display:block; max-width: 100%; max-height: 800px; width:auto; height:auto;
     filter: drop-shadow(0 18px 30px rgba(20,17,13,0.16));
   }
-  .foto-balao{
-    position:absolute; display:inline-flex; align-items:center; gap:8px;
-    background:#fff; color: var(--ink); font-weight:700; font-size:.82rem;
-    padding:11px 18px; border-radius:999px; box-shadow: var(--shadow-md);
-    white-space:nowrap; border:1px solid var(--line);
-  }
-  .foto-balao::before{
-    content:""; width:18px; height:18px; flex:none; border-radius:50%;
-    background: var(--blue);
-    -webkit-mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M8 12l3 3 5-6'/></svg>") center/contain no-repeat;
-    mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M8 12l3 3 5-6'/></svg>") center/contain no-repeat;
-  }
-  .foto-balao-1{ top:4%; right:-10%; }
-  .foto-balao-2{ top:19%; right:-2%; }
-  .foto-balao-3{ top:34%; right:-16%; }
-
   .esteira-laranja{ background: var(--orange-dark); overflow:hidden; padding: 15px 0; }
   .esteira-trilha{
     display:flex; align-items:center; gap:14px; width:max-content;
@@ -266,7 +250,7 @@
   .work-card:hover .work-play{ transform: translate(-50%,-50%) scale(1.08); background:#fff; }
   .work-info{ padding: 16px 18px 20px; }
   .work-niche{ font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color: var(--blue); margin-bottom:6px; }
-  .work-title{ font-family:"Open Sans", system-ui, sans-serif; font-size:1.02rem; font-weight:600; margin-bottom:2px; }
+  .work-title{ font-family:"Baloo 2", system-ui, sans-serif; font-size:1.02rem; font-weight:600; margin-bottom:2px; }
   .work-brand{ font-size:.85rem; margin:0; color: var(--ink-soft); }
 
 
@@ -320,7 +304,7 @@
   /* ===== Footer ===== */
   .site-footer{ background: var(--orange); color: #fff; padding: 44px 0; }
   .footer-grid{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap: 20px; }
-  .footer-brand{ font-family:"Open Sans", system-ui, sans-serif; font-size:1.2rem; }
+  .footer-brand{ font-family:"Baloo 2", system-ui, sans-serif; font-size:1.2rem; }
   .footer-links{ display:flex; gap: 22px; flex-wrap:wrap; }
   .footer-links a{ font-size:.9rem; color: rgba(255,255,255,0.85); transition: color .2s var(--ease); }
   .footer-links a:hover{ color: var(--ink); }
@@ -408,11 +392,6 @@
     .hero-title-sm{ display:inline; }
     .hero-actions{ flex-direction:column; align-items:stretch; }
     .hero-foto{ max-height: 520px; }
-    .foto-balao{ font-size:.72rem; padding:8px 13px; gap:6px; }
-    .foto-balao::before{ width:15px; height:15px; }
-    .foto-balao-1{ top:2%; right:0; left:auto; }
-    .foto-balao-2{ top:20%; right:0; left:auto; }
-    .foto-balao-3{ top:38%; right:0; left:auto; }
     .esteira-trilha span{ font-size:.78rem; }
     .works-grid{ grid-template-columns: 1fr; }
     .footer-grid{ flex-direction:column; align-items:flex-start; }
@@ -474,9 +453,6 @@
                Pra trocar por outra foto: troque o arquivo img/karen-foto-capa.webp por uma nova,
                já com fundo removido e mesmo nome, ou aponte o src abaixo pra outro arquivo. -->
           <img class="hero-foto" src="img/karen-foto-capa.webp" alt="Karen Martins sorrindo, sentada">
-          <span class="foto-balao foto-balao-1" data-i18n="balaoFrase1">Criatividade que converte</span>
-          <span class="foto-balao foto-balao-2" data-i18n="balaoFrase2">Marcas na vida real.</span>
-          <span class="foto-balao foto-balao-3" data-i18n="balaoFrase3">Transformando ideias em conteúdo</span>
         </div>
       </div>
     </div>
@@ -679,9 +655,6 @@
       heroPhrase: "Do conceito à entrega, cada detalhe tem um propósito.",
       heroBtnContact: "Falar comigo",
       heroBtnWork: "Ver os trabalhos",
-      balaoFrase1: "Criatividade que converte",
-      balaoFrase2: "Marcas na vida real.",
-      balaoFrase3: "Transformando ideias em conteúdo",
       esteira1: "Conteúdos que convencem e convertem",
       esteira2: "Estratégia",
       esteira3: "Criativos",
@@ -739,9 +712,6 @@
       heroPhrase: "From concept to delivery, every detail has a purpose.",
       heroBtnContact: "Get in touch",
       heroBtnWork: "See the work",
-      balaoFrase1: "Creativity that converts",
-      balaoFrase2: "Real brands, real life.",
-      balaoFrase3: "Turning ideas into content",
       esteira1: "Content that convinces and converts",
       esteira2: "Strategy",
       esteira3: "Creatives",
