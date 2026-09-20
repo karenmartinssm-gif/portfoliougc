@@ -53,6 +53,8 @@ create table public.marcas (
   instagram text,
   email text,
   telefone text,
+  nicho text
+    check (nicho in ('beleza', 'moda', 'saude', 'culinaria', 'casa', 'tecnologia', 'pets', 'viagem', 'lifestyle', 'entretenimento')),
   situacao text not null default 'lead'
     check (situacao in ('lead', 'conversando', 'cliente', 'parada')),
   obs text,

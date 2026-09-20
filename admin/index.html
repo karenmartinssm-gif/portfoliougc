@@ -138,6 +138,19 @@
           <option value="cliente">Cliente</option>
           <option value="parada">Parada</option>
         </select>
+        <select class="select-filtro" id="filtroNicho">
+          <option value="">Todos os nichos</option>
+          <option value="beleza">Beleza &amp; Cuidados Pessoais</option>
+          <option value="moda">Moda &amp; Estilo</option>
+          <option value="saude">Saúde &amp; Bem-estar</option>
+          <option value="culinaria">Culinária</option>
+          <option value="casa">Casa &amp; Decor</option>
+          <option value="tecnologia">Tecnologia</option>
+          <option value="pets">Pets</option>
+          <option value="viagem">Viagem &amp; Turismo</option>
+          <option value="lifestyle">Lifestyle</option>
+          <option value="entretenimento">Entretenimento</option>
+        </select>
         <div class="ferramentas-espaco"></div>
         <button class="btn btn-ghost" id="btnImportarMarcas">
           <svg class="icon" viewBox="0 0 24 24"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 21h14"/></svg>
@@ -160,6 +173,7 @@
               <th>Marca</th>
               <th>Instagram</th>
               <th>E-mail</th>
+              <th>Nicho</th>
               <th>Situação</th>
               <th>Último contato</th>
               <th style="width:90px;">Contato</th>
@@ -351,7 +365,25 @@
         <div class="campo"><label for="marcaInstagram">Instagram</label><input type="text" id="marcaInstagram" placeholder="@marca"></div>
         <div class="campo"><label for="marcaTelefone">Telefone</label><input type="text" id="marcaTelefone" placeholder="(00) 00000-0000"></div>
       </div>
-      <div class="campo"><label for="marcaEmail">E-mail</label><input type="email" id="marcaEmail"></div>
+      <div class="campo-linha">
+        <div class="campo"><label for="marcaEmail">E-mail</label><input type="email" id="marcaEmail"></div>
+        <div class="campo">
+          <label for="marcaNicho">Nicho</label>
+          <select id="marcaNicho">
+            <option value="">Não definido</option>
+            <option value="beleza">Beleza &amp; Cuidados Pessoais</option>
+            <option value="moda">Moda &amp; Estilo</option>
+            <option value="saude">Saúde &amp; Bem-estar</option>
+            <option value="culinaria">Culinária</option>
+            <option value="casa">Casa &amp; Decor</option>
+            <option value="tecnologia">Tecnologia</option>
+            <option value="pets">Pets</option>
+            <option value="viagem">Viagem &amp; Turismo</option>
+            <option value="lifestyle">Lifestyle</option>
+            <option value="entretenimento">Entretenimento</option>
+          </select>
+        </div>
+      </div>
       <div class="campo-linha">
         <div class="campo">
           <label for="marcaSituacao">Situação</label>

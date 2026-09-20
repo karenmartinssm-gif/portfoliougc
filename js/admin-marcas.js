@@ -16,6 +16,19 @@ window.AdminMarcas = (function(){
     parada: "Parada"
   };
 
+  var rotuloNicho = {
+    beleza: "Beleza & Cuidados Pessoais",
+    moda: "Moda & Estilo",
+    saude: "Saúde & Bem-estar",
+    culinaria: "Culinária",
+    casa: "Casa & Decor",
+    tecnologia: "Tecnologia",
+    pets: "Pets",
+    viagem: "Viagem & Turismo",
+    lifestyle: "Lifestyle",
+    entretenimento: "Entretenimento"
+  };
+
   function ehExemplo(texto){
     return String(texto || "").indexOf("[Exemplo]") === 0;
   }
@@ -32,8 +45,10 @@ window.AdminMarcas = (function(){
   function marcasFiltradas(){
     var termo = document.getElementById("buscaMarcas").value.trim().toLowerCase();
     var situacao = document.getElementById("filtroSituacao").value;
+    var nicho = document.getElementById("filtroNicho").value;
     return marcasEmMemoria.filter(function(m){
       if (situacao && m.situacao !== situacao) return false;
+      if (nicho && m.nicho !== nicho) return false;
       if (!termo) return true;
       var alvo = ((m.marca || "") + " " + (m.instagram || "") + " " + (m.email || "")).toLowerCase();
       return alvo.indexOf(termo) !== -1;
@@ -45,11 +60,11 @@ window.AdminMarcas = (function(){
     var lista = marcasFiltradas();
 
     if (!marcasEmMemoria.length){
-      corpo.innerHTML = '<tr><td colspan="6" class="estado-vazio">Nenhuma marca cadastrada ainda. Clique em "Adicionar marca" ou espere o formulário do site trazer o primeiro lead.</td></tr>';
+      corpo.innerHTML = '<tr><td colspan="7" class="estado-vazio">Nenhuma marca cadastrada ainda. Clique em "Adicionar marca" ou espere o formulário do site trazer o primeiro lead.</td></tr>';
       return;
     }
     if (!lista.length){
-      corpo.innerHTML = '<tr><td colspan="6" class="estado-vazio">Nada encontrado com esse filtro.</td></tr>';
+      corpo.innerHTML = '<tr><td colspan="7" class="estado-vazio">Nada encontrado com esse filtro.</td></tr>';
       return;
     }
 
@@ -68,6 +83,7 @@ window.AdminMarcas = (function(){
         '<td>' + Core.escaparHtml(m.marca) + (exemplo ? '<span class="selo-exemplo">exemplo</span>' : '') + '</td>' +
         '<td>' + Core.escaparHtml(m.instagram || "-") + '</td>' +
         '<td>' + Core.escaparHtml(m.email || "-") + '</td>' +
+        '<td>' + Core.escaparHtml(rotuloNicho[m.nicho] || "-") + '</td>' +
         '<td><span class="pilula pilula-' + m.situacao + '">' + (rotuloSituacao[m.situacao] || m.situacao) + '</span></td>' +
         '<td>' + Core.formatarDataBR(m.ultimo_contato) + '</td>' +
         '<td><div class="contato-rapido">' + (botoesContato || "-") + '</div></td>' +
@@ -88,6 +104,7 @@ window.AdminMarcas = (function(){
     document.getElementById("marcaInstagram").value = marca.instagram || "";
     document.getElementById("marcaTelefone").value = marca.telefone || "";
     document.getElementById("marcaEmail").value = marca.email || "";
+    document.getElementById("marcaNicho").value = marca.nicho || "";
     document.getElementById("marcaSituacao").value = marca.situacao || "lead";
     document.getElementById("marcaUltimoContato").value = marca.ultimo_contato ? String(marca.ultimo_contato).slice(0, 10) : "";
     document.getElementById("marcaObs").value = marca.obs || "";
@@ -113,11 +130,11 @@ window.AdminMarcas = (function(){
   }
 
   function baixarCsv(){
-    var colunas = ["Marca", "Instagram", "E-mail", "Telefone", "Situação", "Observação", "Último contato"];
+    var colunas = ["Marca", "Instagram", "E-mail", "Telefone", "Nicho", "Situação", "Observação", "Último contato"];
     var linhas = marcasFiltradas().map(function(m){
       return [
         m.marca || "", m.instagram || "", m.email || "", m.telefone || "",
-        rotuloSituacao[m.situacao] || m.situacao || "", m.obs || "", Core.formatarDataBR(m.ultimo_contato)
+        rotuloNicho[m.nicho] || "", rotuloSituacao[m.situacao] || m.situacao || "", m.obs || "", Core.formatarDataBR(m.ultimo_contato)
       ];
     });
     Core.baixarCSV("marcas.csv", colunas, linhas);
@@ -125,12 +142,13 @@ window.AdminMarcas = (function(){
 
   /* ---------- Importar de uma planilha CSV ---------- */
 
-  var CAMPOS_IMPORTAVEIS = ["marca", "instagram", "telefone", "email", "situacao", "obs", "ultimo_contato"];
+  var CAMPOS_IMPORTAVEIS = ["marca", "instagram", "telefone", "email", "nicho", "situacao", "obs", "ultimo_contato"];
   var ROTULO_CAMPO_IMPORT = {
     marca: "Marca (obrigatório)",
     instagram: "Instagram",
     telefone: "Telefone",
     email: "E-mail",
+    nicho: "Nicho",
     situacao: "Situação",
     obs: "Observação",
     ultimo_contato: "Último contato"
@@ -140,6 +158,7 @@ window.AdminMarcas = (function(){
     instagram: ["instagram", "insta", "ig", "perfil", "usuario", "@"],
     telefone: ["telefone", "whatsapp", "whats", "celular", "fone", "phone"],
     email: ["email", "e-mail", "mail"],
+    nicho: ["nicho", "categoria", "segmento", "area", "nicho de atuacao"],
     situacao: ["situacao", "status", "etapa", "funil"],
     obs: ["obs", "observacao", "observacoes", "nota", "notas", "comentario", "descricao"],
     ultimo_contato: ["ultimo contato", "data", "last contact"]
@@ -226,6 +245,26 @@ window.AdminMarcas = (function(){
     if (/(convers|negocia|proposta|contatad|andamento)/.test(v)) return "conversando";
     if (/(parad|perdid|descart|cancel|inativ)/.test(v)) return "parada";
     return "lead";
+  }
+
+  // A coluna "nicho" só aceita um dos 10 valores certos. Se a planilha
+  // tiver uma palavra parecida (ex: "Beleza", "Pet", "Viagem"), tenta
+  // reconhecer; se não bater com nada, deixa em branco em vez de
+  // arriscar categorizar errado.
+  function normalizarNichoImport(valor){
+    var v = normalizarTexto(valor);
+    if (!v) return null;
+    if (/(belez|cuidado pessoal|cosmetic|skincare|maquiagem)/.test(v)) return "beleza";
+    if (/(moda|roupa|vestuario|fashion)/.test(v)) return "moda";
+    if (/(saude|bem estar|fitness|academia|wellness)/.test(v)) return "saude";
+    if (/(culinaria|gastronomi|comida|receita|food)/.test(v)) return "culinaria";
+    if (/(casa|decor|lar|home)/.test(v)) return "casa";
+    if (/(tecnologi|tech|eletronico)/.test(v)) return "tecnologia";
+    if (/(pet|animal|cachorro|gato)/.test(v)) return "pets";
+    if (/(viagem|turismo|travel)/.test(v)) return "viagem";
+    if (/(lifestyle|estilo de vida)/.test(v)) return "lifestyle";
+    if (/(entreteniment|humor|jogo|game)/.test(v)) return "entretenimento";
+    return null;
   }
 
   // Aceita data em ISO (2026-01-01) ou no formato brasileiro
@@ -348,6 +387,7 @@ window.AdminMarcas = (function(){
         instagram: pegarValorMapeado(linha, "instagram") || null,
         telefone: pegarValorMapeado(linha, "telefone") || null,
         email: pegarValorMapeado(linha, "email") || null,
+        nicho: normalizarNichoImport(pegarValorMapeado(linha, "nicho")),
         situacao: normalizarSituacaoImport(pegarValorMapeado(linha, "situacao")),
         obs: pegarValorMapeado(linha, "obs") || null,
         ultimo_contato: normalizarDataImport(pegarValorMapeado(linha, "ultimo_contato"))
@@ -398,8 +438,8 @@ window.AdminMarcas = (function(){
   function baixarModeloCsv(){
     Core.baixarCSV(
       "modelo-marcas.csv",
-      ["Marca", "Instagram", "Telefone", "E-mail", "Situação", "Observação", "Último contato"],
-      [["[Exemplo] Empresa Fictícia", "@exemplo", "(11) 91234-5678", "contato@exemplo.com", "Lead", "Vim da planilha de prospecção", "01/01/2026"]]
+      ["Marca", "Instagram", "Telefone", "E-mail", "Nicho", "Situação", "Observação", "Último contato"],
+      [["[Exemplo] Empresa Fictícia", "@exemplo", "(11) 91234-5678", "contato@exemplo.com", "Beleza & Cuidados Pessoais", "Lead", "Vim da planilha de prospecção", "01/01/2026"]]
     );
   }
 
@@ -422,6 +462,7 @@ window.AdminMarcas = (function(){
     document.getElementById("btnBaixarMarcas").addEventListener("click", baixarCsv);
     document.getElementById("buscaMarcas").addEventListener("input", renderizarTabela);
     document.getElementById("filtroSituacao").addEventListener("change", renderizarTabela);
+    document.getElementById("filtroNicho").addEventListener("change", renderizarTabela);
     configurarImportacao();
     document.getElementById("btnApagarMarca").addEventListener("click", async function(){
       var id = document.getElementById("marcaId").value;
@@ -438,6 +479,7 @@ window.AdminMarcas = (function(){
         instagram: document.getElementById("marcaInstagram").value.trim(),
         telefone: document.getElementById("marcaTelefone").value.trim(),
         email: document.getElementById("marcaEmail").value.trim(),
+        nicho: document.getElementById("marcaNicho").value || null,
         situacao: document.getElementById("marcaSituacao").value,
         ultimo_contato: document.getElementById("marcaUltimoContato").value || null,
         obs: document.getElementById("marcaObs").value.trim()
