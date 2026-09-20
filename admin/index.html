@@ -139,6 +139,10 @@
           <option value="parada">Parada</option>
         </select>
         <div class="ferramentas-espaco"></div>
+        <button class="btn btn-ghost" id="btnImportarMarcas">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 21h14"/></svg>
+          Importar CSV
+        </button>
         <button class="btn btn-ghost" id="btnBaixarMarcas">
           <svg class="icon" viewBox="0 0 24 24"><path d="M12 4v12M6 12l6 6 6-6"/><path d="M4 20h16"/></svg>
           Baixar CSV
@@ -370,6 +374,62 @@
         </div>
       </div>
     </form>
+  </div>
+</div>
+
+<!-- ===================== MODAL: IMPORTAR MARCAS DE CSV ===================== -->
+<div class="modal-overlay" id="modalImportarMarcas">
+  <div class="modal-card modal-largo">
+    <div class="modal-topo">
+      <h2>Importar marcas de uma planilha</h2>
+      <button class="modal-fechar" data-fechar-modal="modalImportarMarcas">✕</button>
+    </div>
+
+    <div id="importPasso1">
+      <p style="font-size:.86rem; color:var(--ink-soft); margin-bottom:14px;">
+        Envie um arquivo CSV com as marcas que você quer importar. O sistema tenta identificar
+        sozinho as colunas (marca, Instagram, telefone, e-mail, situação, observação, último
+        contato) — só a coluna com o nome da marca é obrigatória. Se sua planilha está em Excel
+        ou Google Sheets, use "Exportar como CSV" antes de subir aqui.
+      </p>
+      <div class="import-dropzone">
+        <input type="file" id="arquivoCsvMarcas" accept=".csv,text/csv">
+      </div>
+      <div class="modal-acoes">
+        <button type="button" class="btn btn-ghost btn-sm" id="btnBaixarModeloCsv">Baixar modelo de planilha</button>
+      </div>
+    </div>
+
+    <div id="importPasso2" style="display:none;">
+      <div class="faixa faixa-ok" id="importResumoLinhas" style="margin-bottom:14px;"></div>
+
+      <div class="import-mapeamento" id="importMapeamento"></div>
+
+      <p style="font-size:.78rem; color:var(--ink-faint); margin: 14px 0 8px;">Pré-visualização (primeiras linhas):</p>
+      <div class="tabela-wrap" style="max-height:220px;">
+        <table class="tabela">
+          <thead><tr id="importPreviewCabecalho"></tr></thead>
+          <tbody id="importPreviewCorpo"></tbody>
+        </table>
+      </div>
+
+      <div class="campo-erro" id="importErro" style="margin-top:10px;"></div>
+
+      <div class="modal-acoes-entre">
+        <button type="button" class="btn btn-ghost btn-sm" id="btnTrocarArquivoCsv">Trocar arquivo</button>
+        <div class="modal-acoes" style="margin:0;">
+          <button type="button" class="btn btn-ghost" data-fechar-modal="modalImportarMarcas">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="btnConfirmarImportacao">Importar</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="importPasso3" style="display:none;">
+      <div class="faixa faixa-ok" id="importSucessoTexto" style="margin-bottom:16px;"></div>
+      <div class="modal-acoes">
+        <button type="button" class="btn btn-primary" data-fechar-modal="modalImportarMarcas">Fechar</button>
+      </div>
+    </div>
   </div>
 </div>
 

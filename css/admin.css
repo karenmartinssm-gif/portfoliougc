@@ -312,6 +312,14 @@ tr.linha-favorita{ box-shadow: inset 3px 0 0 var(--orange); }
 .modal-acoes{ display:flex; justify-content:flex-end; gap:10px; margin-top:6px; }
 .modal-acoes-entre{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:6px; }
 
+/* ===== Importação de CSV (marcas) ===== */
+.import-dropzone{
+  border: 1.5px dashed var(--line); border-radius: var(--radius-md);
+  padding: 18px; text-align:center; background: var(--cream-2);
+}
+.import-dropzone input[type="file"]{ font-family:inherit; font-size:.83rem; width:100%; color: var(--ink-soft); }
+.import-mapeamento{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:6px; }
+
 /* ===== Calendário ===== */
 .calendario-topo{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:16px; }
 .calendario-nav{ display:flex; align-items:center; gap:8px; }
@@ -445,7 +453,7 @@ tr.linha-favorita{ box-shadow: inset 3px 0 0 var(--orange); }
   .admin-main{ margin-left:0; padding: 22px 18px 50px; }
   .kpi-faixa{ grid-auto-flow:row; grid-template-columns: repeat(2, 1fr); }
   .kpi{ border-right:none; border-bottom:1px solid var(--line); }
-  .campo-linha{ grid-template-columns: 1fr; }
+  .campo-linha, .import-mapeamento{ grid-template-columns: 1fr; }
   .calendario-dia{ min-height:72px; }
 }
 
