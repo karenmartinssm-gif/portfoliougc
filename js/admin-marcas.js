@@ -79,17 +79,23 @@ window.AdminMarcas = (function(){
     var lista = marcasFiltradas();
 
     if (!marcasEmMemoria.length){
-      corpo.innerHTML = '<tr><td colspan="6" class="estado-vazio">Nenhuma marca cadastrada ainda. Clique em "Adicionar marca" ou espere o formulário do site trazer o primeiro lead.</td></tr>';
+      corpo.innerHTML = '<tr><td colspan="7" class="estado-vazio">Nenhuma marca cadastrada ainda. Clique em "Adicionar marca" ou espere o formulário do site trazer o primeiro lead.</td></tr>';
+      atualizarResumoSelecao();
       return;
     }
     if (!lista.length){
-      corpo.innerHTML = '<tr><td colspan="6" class="estado-vazio">Nada encontrado com esse filtro.</td></tr>';
+      corpo.innerHTML = '<tr><td colspan="7" class="estado-vazio">Nada encontrado com esse filtro.</td></tr>';
+      atualizarResumoSelecao();
       return;
     }
 
     corpo.innerHTML = lista.map(function(m){
       var exemplo = ehExemplo(m.marca);
+      var temEmail = !!(m.email && m.email.trim());
       return '<tr data-id="' + m.id + '" class="' + (exemplo ? "linha-exemplo" : "") + (m.favorita ? " linha-favorita" : "") + '">' +
+        '<td><input type="checkbox" class="checkbox-marca" data-id="' + m.id + '"' +
+          (m.selecionada ? " checked" : "") + (temEmail ? "" : " disabled") +
+          (temEmail ? "" : ' title="Sem e-mail cadastrado"') + '></td>' +
         '<td><button class="estrela-btn' + (m.favorita ? " ativa" : "") + '" data-id="' + m.id + '" data-favorita="' + !!m.favorita + '" title="Fixar no topo">' +
           '<svg class="icon" viewBox="0 0 24 24" fill="' + (m.favorita ? "currentColor" : "none") + '"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 6.9L12 17.8 5.7 21l1.2-6.9-5-4.9 7-1z"/></svg>' +
         '</button></td>' +
@@ -110,11 +116,55 @@ window.AdminMarcas = (function(){
         alternarFavorita(botao.getAttribute("data-id"), botao.getAttribute("data-favorita") !== "true");
       });
     });
+    corpo.querySelectorAll(".checkbox-marca").forEach(function(caixa){
+      caixa.addEventListener("click", function(e){ e.stopPropagation(); });
+      caixa.addEventListener("change", function(){
+        alternarSelecao(caixa.getAttribute("data-id"), caixa.checked);
+      });
+    });
+
+    atualizarResumoSelecao();
   }
 
   async function alternarFavorita(id, novoValor){
     await Core.consultar(window.db.from("marcas").update({ favorita: novoValor }).eq("id", id), "marcas");
     await carregar();
+  }
+
+  /* ---------- Seleção pra prospecção ---------- */
+
+  function atualizarResumoSelecao(){
+    var total = marcasEmMemoria.filter(function(m){ return m.selecionada; }).length;
+    document.getElementById("selecaoResumoTexto").textContent =
+      total + " marca" + (total === 1 ? "" : "s") + " selecionada" + (total === 1 ? "" : "s");
+  }
+
+  async function alternarSelecao(id, novoValor){
+    var marca = marcasEmMemoria.find(function(m){ return m.id === id; });
+    if (marca) marca.selecionada = novoValor;
+    atualizarResumoSelecao();
+    await Core.consultar(window.db.from("marcas").update({ selecionada: novoValor }).eq("id", id), "marcas");
+  }
+
+  async function selecionarTodasDoFiltro(){
+    var idsComEmail = marcasFiltradas()
+      .filter(function(m){ return !!(m.email && m.email.trim()); })
+      .map(function(m){ return m.id; });
+    if (!idsComEmail.length) return;
+    idsComEmail.forEach(function(id){
+      var marca = marcasEmMemoria.find(function(m){ return m.id === id; });
+      if (marca) marca.selecionada = true;
+    });
+    renderizarTabela();
+    await Core.consultar(window.db.from("marcas").update({ selecionada: true }).in("id", idsComEmail), "marcas");
+  }
+
+  async function limparSelecao(){
+    var idsSelecionados = marcasEmMemoria.filter(function(m){ return m.selecionada; }).map(function(m){ return m.id; });
+    if (!idsSelecionados.length) return;
+    marcasEmMemoria.forEach(function(m){ m.selecionada = false; });
+    renderizarTabela();
+    await Core.consultar(window.db.from("marcas").update({ selecionada: false }).in("id", idsSelecionados), "marcas");
   }
 
   function abrirEdicao(id){
@@ -496,6 +546,8 @@ window.AdminMarcas = (function(){
     document.getElementById("buscaMarcas").addEventListener("input", renderizarTabela);
     document.getElementById("filtroSituacao").addEventListener("change", renderizarTabela);
     document.getElementById("filtroNicho").addEventListener("change", renderizarTabela);
+    document.getElementById("btnSelecionarTodasMarcas").addEventListener("click", selecionarTodasDoFiltro);
+    document.getElementById("btnLimparSelecaoMarcas").addEventListener("click", limparSelecao);
     configurarImportacao();
     document.getElementById("btnApagarMarca").addEventListener("click", async function(){
       var id = document.getElementById("marcaId").value;

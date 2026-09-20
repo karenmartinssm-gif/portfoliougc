@@ -13,8 +13,11 @@
   --ink-soft: #4a4640;
   --ink-faint: #8a8478;
   --blue: #0049a4;
+  --blue-dark: #002f6b;
   --blue-soft: rgba(0,73,164,0.08);
   --blue-soft-2: rgba(0,73,164,0.14);
+  --blue-2: #1f8fd6;
+  --blue-2-soft: rgba(31,143,214,0.10);
   --orange: #df7900;
   --green: #1f7a3d;
   --green-soft: rgba(31,122,61,0.10);
@@ -272,6 +275,9 @@ tr.linha-favorita{ box-shadow: inset 3px 0 0 var(--orange); }
 .pilula-pendente{ background: var(--yellow-soft); color: var(--yellow); }
 .pilula-pago{ background: var(--green-soft); color: var(--green); }
 
+.pilula-email-ok{ background: var(--green-soft); color: var(--green); }
+.pilula-email-erro{ background: var(--red-soft); color: var(--red); }
+
 .pilula-tipo-conteudo{ background: var(--blue-soft); color: var(--blue); }
 .pilula-tipo-publicidade{ background: rgba(223,121,0,0.12); color: var(--orange); }
 
@@ -292,6 +298,16 @@ tr.linha-favorita{ box-shadow: inset 3px 0 0 var(--orange); }
 .contato-rapido{ display:flex; gap:6px; }
 .contato-rapido a{ display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:50%; background: var(--cream-2); color: var(--ink-soft); }
 .contato-rapido a:hover{ background: var(--blue-soft); color: var(--blue); }
+
+/* ===== Resumo de seleção (marcas) ===== */
+.selecao-resumo{
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  padding: 10px 14px; margin-bottom:12px; background: var(--blue-soft); border-radius: var(--radius-sm);
+  font-size:.83rem; font-weight:700; color: var(--blue);
+}
+.selecao-resumo-acoes{ display:flex; gap:8px; flex-wrap:wrap; }
+.checkbox-marca{ width:16px; height:16px; cursor:pointer; }
+.checkbox-marca:disabled{ cursor:not-allowed; opacity:.4; }
 
 /* ===== Modal ===== */
 .modal-overlay{
@@ -319,6 +335,95 @@ tr.linha-favorita{ box-shadow: inset 3px 0 0 var(--orange); }
 }
 .import-dropzone input[type="file"]{ font-family:inherit; font-size:.83rem; width:100%; color: var(--ink-soft); }
 .import-mapeamento{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:6px; }
+
+/* ===== Prospecção ===== */
+.prospeccao-capa{
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+  border-radius: var(--radius-lg); padding: 30px 32px; color:#fff; margin-bottom:20px;
+}
+.prospeccao-capa-linha{ display:flex; align-items:flex-start; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+.prospeccao-capa-esquerda{ max-width:520px; }
+.prospeccao-capa-icone{
+  width:44px; height:44px; border-radius: var(--radius-sm); background: rgba(255,255,255,0.16);
+  display:flex; align-items:center; justify-content:center; color:#fff; margin-bottom:14px;
+}
+.prospeccao-capa h1{ color:#fff; font-size:1.5rem; margin-bottom:8px; }
+.prospeccao-capa-esquerda p{ color: rgba(255,255,255,0.82); margin:0; font-size:.92rem; }
+.prospeccao-capa-numero{ text-align:right; flex:none; }
+.prospeccao-capa-numero-valor{ font-size:2.6rem; font-weight:700; line-height:1; color:#fff; }
+.prospeccao-capa-numero-legenda{ font-size:.76rem; color: rgba(255,255,255,0.75); margin-top:4px; }
+.prospeccao-capa-etiquetas{ display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+.etiqueta-capa{
+  display:inline-flex; align-items:center; padding:5px 12px; border-radius:999px;
+  background: rgba(255,255,255,0.14); color:#fff; font-size:.74rem; font-weight:600;
+}
+
+.metricas-grade{ display:grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap:14px; margin-bottom:24px; }
+.metrica-cartao{
+  background: var(--paper); border:1px solid var(--line); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm); padding: 16px 18px; border-left: 4px solid var(--ink-faint);
+}
+.metrica-cartao-valor{ font-size:1.7rem; font-weight:700; line-height:1.1; color: var(--ink-faint); }
+.metrica-cartao-nome{ font-size:.78rem; color: var(--ink-soft); margin-top:4px; font-weight:600; }
+.metrica-cartao-contexto{ font-size:.7rem; color: var(--ink-faint); margin-top:4px; }
+.metrica-cartao-blue{ border-left-color: var(--blue); }
+.metrica-cartao-blue .metrica-cartao-valor{ color: var(--blue); }
+.metrica-cartao-green{ border-left-color: var(--green); }
+.metrica-cartao-green .metrica-cartao-valor{ color: var(--green); }
+.metrica-cartao-yellow{ border-left-color: var(--yellow); }
+.metrica-cartao-yellow .metrica-cartao-valor{ color: var(--yellow); }
+.metrica-cartao-red{ border-left-color: var(--red); }
+.metrica-cartao-red .metrica-cartao-valor{ color: var(--red); }
+.metrica-cartao-blue2{ border-left-color: var(--blue-2); }
+.metrica-cartao-blue2 .metrica-cartao-valor{ color: var(--blue-2); }
+
+.prospeccao-corpo{ display:grid; grid-template-columns: 1fr 1fr; gap:24px; align-items:start; }
+.prospeccao-contagem{ font-size:.82rem; color: var(--ink-soft); margin-bottom:12px; }
+.prospeccao-checkbox-linha{ display:flex; align-items:center; gap:8px; font-size:.83rem; font-weight:600; cursor:pointer; }
+
+.prospeccao-toggle-linha{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:18px; }
+.prospeccao-toggle{ display:inline-flex; background: var(--cream-2); border-radius:999px; padding:3px; gap:2px; }
+.prospeccao-toggle-btn{
+  border:none; background:transparent; cursor:pointer; padding:7px 14px; border-radius:999px;
+  font-family:inherit; font-size:.78rem; font-weight:700; color: var(--ink-soft);
+  transition: background .15s var(--ease), color .15s var(--ease);
+}
+.prospeccao-toggle-btn.ativo{ background: var(--paper); color: var(--blue); box-shadow: var(--shadow-sm); }
+
+.campo-codigo{ font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size:.8rem; }
+.prospeccao-dica{ font-size:.76rem; color: var(--ink-faint); margin-top:8px; }
+.prospeccao-acoes-envio{ display:flex; gap:10px; margin-top:18px; flex-wrap:wrap; }
+.prospeccao-optout-linha{ display:flex; gap:8px; flex-wrap:wrap; }
+.prospeccao-optout-linha input{
+  flex:1; min-width:200px; font-family:inherit; font-size:.86rem; padding:9px 12px;
+  border-radius: var(--radius-sm); border:1.3px solid var(--line); background:#fff; color: var(--ink);
+}
+
+.prospeccao-preview-coluna{ position:sticky; top:20px; }
+.prospeccao-preview-palco{
+  background: var(--cream-2); border-radius: var(--radius-lg); padding:22px;
+}
+.prospeccao-preview-janela{
+  background:#fff; border-radius: var(--radius-md); box-shadow: var(--shadow-md); overflow:hidden;
+}
+.prospeccao-preview-cabecalho{ padding:18px 20px; border-bottom:1px solid var(--line); display:flex; gap:12px; align-items:flex-start; }
+.prospeccao-preview-avatar{
+  width:38px; height:38px; border-radius:50%; background: var(--blue); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-weight:700; flex:none; font-size:.95rem;
+}
+.prospeccao-preview-assunto{ font-weight:700; font-size:1.02rem; color: var(--ink); margin-bottom:3px; word-break:break-word; }
+.prospeccao-preview-remetente{ font-size:.78rem; color: var(--ink-soft); }
+.prospeccao-preview-corpo{ padding:22px 20px; font-size:.9rem; line-height:1.6; color: var(--ink); max-height:460px; overflow-y:auto; }
+.prospeccao-preview-corpo img{ max-width:100%; }
+
+.prospeccao-fila-item{
+  display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  padding:14px; border:1px solid var(--line); border-radius: var(--radius-sm); margin-bottom:10px;
+}
+.prospeccao-fila-item-info{ flex:1; min-width:180px; }
+.prospeccao-fila-item-marca{ font-weight:700; font-size:.88rem; }
+.prospeccao-fila-item-email{ font-size:.76rem; color: var(--ink-faint); }
+.prospeccao-fila-item-acoes{ display:flex; gap:8px; flex-wrap:wrap; }
 
 /* ===== Calendário ===== */
 .calendario-topo{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:16px; }
@@ -455,6 +560,10 @@ tr.linha-favorita{ box-shadow: inset 3px 0 0 var(--orange); }
   .kpi{ border-right:none; border-bottom:1px solid var(--line); }
   .campo-linha, .import-mapeamento{ grid-template-columns: 1fr; }
   .calendario-dia{ min-height:72px; }
+  .prospeccao-corpo{ grid-template-columns: 1fr; }
+  .prospeccao-preview-coluna{ position:static; }
+  .prospeccao-capa-numero{ text-align:left; }
+  .prospeccao-capa-linha{ flex-direction:column; }
 }
 
 @media (max-width: 560px){

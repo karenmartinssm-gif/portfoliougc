@@ -42,6 +42,10 @@
           <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
           Marcas
         </div>
+        <div class="admin-nav-item" data-aba="prospeccao">
+          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          Prospecção
+        </div>
       </div>
       <div class="admin-nav-grupo">
         <p class="admin-nav-titulo">Minha rotina</p>
@@ -166,10 +170,19 @@
         </button>
       </div>
 
+      <div class="selecao-resumo" id="selecaoResumoMarcas">
+        <span id="selecaoResumoTexto">0 marcas selecionadas</span>
+        <div class="selecao-resumo-acoes">
+          <button type="button" class="btn btn-ghost btn-sm" id="btnSelecionarTodasMarcas">Selecionar todas do filtro</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="btnLimparSelecaoMarcas">Limpar seleção</button>
+        </div>
+      </div>
+
       <div class="tabela-wrap">
         <table class="tabela">
           <thead>
             <tr>
+              <th style="width:30px;"></th>
               <th style="width:36px;"></th>
               <th>Marca</th>
               <th>Instagram</th>
@@ -180,6 +193,182 @@
           </thead>
           <tbody id="corpoTabelaMarcas"></tbody>
         </table>
+      </div>
+    </section>
+
+    <!-- ===================== ABA: PROSPECÇÃO ===================== -->
+    <section class="aba-conteudo" id="aba-prospeccao" style="display:none;">
+
+      <div id="prosSemEmail" style="display:none;">
+        <div class="cartao" style="padding:32px; text-align:center;">
+          <h2 style="margin-bottom:10px;">Sua base ainda está sem e-mail</h2>
+          <p style="max-width:440px; margin:0 auto 18px;">
+            Pra mandar prospecção, primeiro você precisa ter pelo menos uma marca
+            com e-mail cadastrado na aba Marcas. Cadastre uma a uma ou importe
+            uma planilha inteira de uma vez.
+          </p>
+          <button class="btn btn-primary" id="prosBtnIrParaMarcas">Ir para a aba Marcas</button>
+        </div>
+      </div>
+
+      <div id="prosConteudo" style="display:none;">
+
+        <!-- Bloco 1: capa -->
+        <div class="prospeccao-capa">
+          <div class="prospeccao-capa-linha">
+            <div class="prospeccao-capa-esquerda">
+              <div class="prospeccao-capa-icone">
+                <svg class="icon" viewBox="0 0 24 24" style="width:22px; height:22px;"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              </div>
+              <h1>Prospecção</h1>
+              <p>Mande seu e-mail de apresentação pra várias marcas da sua base de uma vez, cada uma chamada pelo nome.</p>
+            </div>
+            <div class="prospeccao-capa-numero">
+              <p class="prospeccao-capa-numero-valor" id="prosCapaTotalEnviados">-</p>
+              <p class="prospeccao-capa-numero-legenda">enviados até agora</p>
+            </div>
+          </div>
+          <div class="prospeccao-capa-etiquetas">
+            <span class="etiqueta-capa">Teste antes sempre</span>
+            <span class="etiqueta-capa">A chave vive no Supabase</span>
+            <span class="etiqueta-capa">Quem responde SAIR sai da lista</span>
+          </div>
+        </div>
+
+        <!-- Bloco 2: cartões coloridos -->
+        <div class="metricas-grade" id="prosMetricas"></div>
+
+        <!-- Bloco 3: composer + prévia -->
+        <div class="prospeccao-corpo">
+
+          <div class="prospeccao-form">
+
+            <div class="cartao" style="padding:22px;">
+              <h3 style="margin-bottom:6px;">Pra quem vai</h3>
+              <p style="font-size:.8rem; margin-bottom:14px;">Os e-mails vêm da sua aba Marcas.</p>
+
+              <div class="campo" style="margin-bottom:12px;">
+                <label for="prosDestinatarios">Lista de destinatários</label>
+                <select id="prosDestinatarios"></select>
+              </div>
+
+              <p class="prospeccao-contagem" id="prosContagemTexto">-</p>
+
+              <label class="prospeccao-checkbox-linha">
+                <input type="checkbox" id="prosPularEnviados" checked>
+                Pular quem já recebeu este mesmo assunto
+              </label>
+            </div>
+
+            <div class="cartao" style="padding:22px; margin-top:16px;">
+              <div class="prospeccao-toggle-linha">
+                <div class="prospeccao-toggle" id="prosToggleModoEscrita">
+                  <button type="button" class="prospeccao-toggle-btn ativo" data-modo-escrita="texto">Texto fácil</button>
+                  <button type="button" class="prospeccao-toggle-btn" data-modo-escrita="html">HTML</button>
+                </div>
+                <div class="prospeccao-toggle" id="prosToggleModoEnvio">
+                  <button type="button" class="prospeccao-toggle-btn ativo" data-modo-envio="resend">Enviar automático</button>
+                  <button type="button" class="prospeccao-toggle-btn" data-modo-envio="rascunho">Rascunho (Gmail)</button>
+                </div>
+              </div>
+
+              <div class="campo" style="margin-bottom:12px;">
+                <label for="prosAssunto">Assunto</label>
+                <input type="text" id="prosAssunto" placeholder="Ex: Vamos criar conteúdo juntas, {{marca}}?">
+              </div>
+
+              <div id="prosModoTexto">
+                <div class="campo">
+                  <label for="prosCorpoTexto">Mensagem</label>
+                  <textarea id="prosCorpoTexto" rows="10" placeholder="Oi {{nome}}, tudo bem? Meu nome é Karen e eu curto muito o trabalho da {{marca}}..."></textarea>
+                </div>
+                <p class="prospeccao-dica">Use {{nome}} e {{marca}} onde quiser que entre o nome da marca. Links que você escrever viram clicáveis sozinhos.</p>
+              </div>
+
+              <div id="prosModoHtml" style="display:none;">
+                <div class="campo">
+                  <label for="prosCorpoHtml">HTML do e-mail</label>
+                  <textarea id="prosCorpoHtml" rows="10" class="campo-codigo" placeholder="&lt;p&gt;Oi {{nome}}...&lt;/p&gt;"></textarea>
+                </div>
+                <button type="button" class="btn btn-ghost btn-sm" id="prosBtnComecarModelo" style="margin-top:8px;">Começar do modelo pronto</button>
+                <p class="prospeccao-dica">O que você colar aqui é exatamente o que sai. Se apagar o rodapé de descadastro, a gente avisa antes de disparar.</p>
+              </div>
+
+              <div class="campo-linha" style="margin-top:14px;">
+                <div class="campo"><label for="prosBotaoTexto">Texto do botão (opcional)</label><input type="text" id="prosBotaoTexto" placeholder="Ex: Ver meu portfólio"></div>
+                <div class="campo"><label for="prosBotaoLink">Link do botão</label><input type="url" id="prosBotaoLink" placeholder="https://www.kaamartins.com"></div>
+              </div>
+
+              <div class="prospeccao-acoes-envio">
+                <button type="button" class="btn btn-ghost" id="prosBtnTeste">Enviar teste pra mim</button>
+                <button type="button" class="btn btn-primary" id="prosBtnDisparar">Disparar</button>
+              </div>
+              <p class="prospeccao-dica" id="prosAvisoModo"></p>
+            </div>
+
+            <!-- Fila do modo rascunho -->
+            <div class="cartao" id="prosFilaRascunho" style="padding:22px; margin-top:16px; display:none;">
+              <h3 style="margin-bottom:12px;">Fila de rascunhos</h3>
+              <div id="prosFilaLista"></div>
+            </div>
+
+            <!-- Progresso do disparo automático -->
+            <div class="cartao" id="prosProgressoCartao" style="padding:22px; margin-top:16px; display:none;">
+              <p id="prosProgressoTexto" style="font-weight:700; margin-bottom:10px;">Enviando...</p>
+              <div class="barra-progresso"><div class="barra-progresso-preenche" id="prosProgressoBarra" style="width:0%;"></div></div>
+            </div>
+
+            <!-- Resultado do disparo -->
+            <div id="prosResultado" style="margin-top:16px; display:none;"></div>
+
+            <!-- Descadastro manual -->
+            <div class="cartao" style="padding:22px; margin-top:16px;">
+              <h3 style="margin-bottom:6px;">Descadastro manual</h3>
+              <p style="font-size:.8rem; margin-bottom:12px;">Quando alguém responder SAIR no seu e-mail, cole o e-mail dela aqui pra nunca mais mandar.</p>
+              <div class="prospeccao-optout-linha">
+                <input type="email" id="prosOptoutEmail" placeholder="email@marca.com">
+                <button type="button" class="btn btn-ghost btn-sm" id="prosBtnOptoutAdd">Adicionar ao descadastro</button>
+              </div>
+              <p class="campo-erro" id="prosOptoutMsg"></p>
+            </div>
+
+          </div>
+
+          <div class="prospeccao-preview-coluna">
+            <div class="prospeccao-preview-palco">
+              <button type="button" class="btn btn-ghost btn-sm" id="prosBtnTelaCheia" style="margin-bottom:12px;">Ver em tela cheia</button>
+              <div class="prospeccao-preview-janela" id="prosPreviewJanela"></div>
+            </div>
+            <p class="prospeccao-dica" style="margin-top:10px;">Lembre-se de mandar o teste pra você mesma e abrir no celular antes de disparar.</p>
+          </div>
+
+        </div>
+
+        <!-- Histórico -->
+        <div class="cartao" style="padding:22px; margin-top:24px;">
+          <div class="ferramentas" style="margin-bottom:14px;">
+            <h3 style="margin:0;">Histórico de envios</h3>
+            <div class="ferramentas-espaco"></div>
+            <div class="ferramentas-busca">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+              <input type="text" id="prosHistoricoBusca" placeholder="Buscar por e-mail">
+            </div>
+          </div>
+          <div class="tabela-wrap">
+            <table class="tabela">
+              <thead>
+                <tr>
+                  <th>Para quem</th>
+                  <th>Assunto</th>
+                  <th>Quando</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="prosHistoricoCorpo"></tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -465,6 +654,32 @@
   </div>
 </div>
 
+<!-- ===================== MODAL: PRÉVIA EM TELA CHEIA (prospecção) ===================== -->
+<div class="modal-overlay" id="prosModalTelaCheia">
+  <div class="modal-card modal-largo" style="max-width:640px;">
+    <div class="modal-topo">
+      <h2>Prévia do e-mail</h2>
+      <button class="modal-fechar" data-fechar-modal="prosModalTelaCheia">✕</button>
+    </div>
+    <div id="prosPreviewTelaCheiaJanela"></div>
+  </div>
+</div>
+
+<!-- ===================== MODAL: CONFIRMAR DISPARO (prospecção) ===================== -->
+<div class="modal-overlay" id="prosModalConfirmar">
+  <div class="modal-card">
+    <div class="modal-topo">
+      <h2>Confirmar disparo</h2>
+      <button class="modal-fechar" data-fechar-modal="prosModalConfirmar">✕</button>
+    </div>
+    <p id="prosModalConfirmarTexto" style="margin-bottom:18px;"></p>
+    <div class="modal-acoes">
+      <button type="button" class="btn btn-ghost" data-fechar-modal="prosModalConfirmar">Cancelar</button>
+      <button type="button" class="btn btn-primary" id="prosBtnConfirmarDisparo">Sim, disparar</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="modalCalendario">
   <div class="modal-card">
     <div class="modal-topo">
@@ -596,6 +811,7 @@
 <script src="../js/admin-core.js"></script>
 <script src="../js/admin-portfolio.js"></script>
 <script src="../js/admin-marcas.js"></script>
+<script src="../js/admin-prospeccao.js"></script>
 <script src="../js/admin-calendario.js"></script>
 <script src="../js/admin-campanhas.js"></script>
 <script src="../js/admin-checklist.js"></script>

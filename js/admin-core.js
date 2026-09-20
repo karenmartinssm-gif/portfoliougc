@@ -51,10 +51,10 @@ window.AdminCore = (function(){
     avisosMostrados[chave] = true;
 
     var textoAmigavel = "Não consegui carregar \"" + nomeAmigavel + "\". ";
-    if (/relation .* does not exist/i.test(mensagem) || /does not exist/i.test(mensagem)){
-      textoAmigavel += "Parece que essa tabela ainda não existe no banco. Confira se você rodou o arquivo banco.sql inteiro no Supabase.";
-    } else if (/column .* does not exist/i.test(mensagem)){
-      textoAmigavel += "Parece que falta uma coluna no banco. Confira o arquivo banco.sql.";
+    if (/relation .* does not exist/i.test(mensagem) || /does not exist/i.test(mensagem) || /could not find the table/i.test(mensagem)){
+      textoAmigavel += "Parece que essa tabela ainda não existe no banco. Confira se você rodou os arquivos SQL do projeto (banco.sql e disparo.sql) no Supabase.";
+    } else if (/column .* does not exist/i.test(mensagem) || /could not find the .* column/i.test(mensagem)){
+      textoAmigavel += "Parece que falta uma coluna no banco. Confira os arquivos banco.sql e disparo.sql.";
     } else if (/JWT|permission denied|RLS/i.test(mensagem)){
       textoAmigavel += "Parece um problema de permissão (RLS). Confira se o SQL de segurança foi executado.";
     } else {
@@ -168,6 +168,7 @@ window.AdminCore = (function(){
   function carregarAba(nomeAba){
     if (nomeAba === "portfolio" && window.AdminPortfolio) window.AdminPortfolio.carregar();
     if (nomeAba === "marcas" && window.AdminMarcas) window.AdminMarcas.carregar();
+    if (nomeAba === "prospeccao" && window.AdminProspeccao) window.AdminProspeccao.carregar();
     if (nomeAba === "calendario" && window.AdminCalendario) window.AdminCalendario.carregar();
     if (nomeAba === "campanhas" && window.AdminCampanhas) window.AdminCampanhas.carregar();
     if (nomeAba === "checklist" && window.AdminChecklist) window.AdminChecklist.carregar();
