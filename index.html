@@ -253,26 +253,33 @@
   .works-grid::-webkit-scrollbar{ display:none; }
   .work-card{
     display:block; flex: 0 0 calc((100% - 4*22px)/5); min-width:0; scroll-snap-align:start;
-    transition: opacity .3s var(--ease);
-  }
-  .work-card.is-hidden{ display:none; }
-  .work-media{
     border-radius: var(--radius-md); overflow:hidden; box-shadow: var(--shadow-sm);
     transition: transform .3s var(--ease), box-shadow .3s var(--ease);
   }
-  .work-card:hover .work-media{ transform: translateY(-4px); box-shadow: var(--shadow-md); }
-  .work-play{
+  .work-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .work-card.is-hidden{ display:none; }
+  .work-media{ position:relative; }
+  .work-media .media-placeholder{ border-radius:0; box-shadow:none; }
+  .work-badge{
+    position:absolute; top:10px; left:10px; z-index:2;
+    background: rgba(20,17,13,0.72); color:#fff; font-size:.64rem; font-weight:700;
+    text-transform:uppercase; letter-spacing:.05em; padding:5px 10px; border-radius:999px;
+  }
+  .media-placeholder .work-play{
     position:absolute; top:50%; left:50%; transform: translate(-50%,-50%);
     width:52px; height:52px; border-radius:50%;
-    background: rgba(255,255,255,0.92); color: var(--blue);
+    background: var(--orange); color: #fff;
     display:flex; align-items:center; justify-content:center;
     box-shadow: var(--shadow-md); font-size:.95rem; padding-left:3px;
     transition: transform .25s var(--ease), background .25s var(--ease);
   }
-  .work-card:hover .work-play{ transform: translate(-50%,-50%) scale(1.08); background:#fff; }
-  .work-info{ padding: 12px 2px 0; background:transparent; }
-  .work-niche{ font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color: var(--blue); margin-bottom:4px; }
-  .work-title{ font-family:"Open Sans", system-ui, sans-serif; font-size:1.02rem; font-weight:600; margin:0; }
+  .work-card:hover .media-placeholder .work-play{ transform: translate(-50%,-50%) scale(1.08); background: var(--orange-dark); }
+  .work-overlay{
+    position:absolute; left:0; right:0; bottom:0; z-index:2;
+    padding: 40px 14px 12px;
+    background: linear-gradient(to top, rgba(15,13,10,0.88) 0%, rgba(15,13,10,0.45) 55%, rgba(15,13,10,0) 100%);
+  }
+  .work-title{ font-family:"Open Sans", system-ui, sans-serif; font-size:1rem; font-weight:700; color:#fff; margin:0; }
 
 
   /* ===== Contato ===== */
@@ -782,9 +789,11 @@
     grid.innerHTML = works.map(function(w){
       var idYoutube = idDoYoutube(w.link);
       var capa = idYoutube ? ("https://img.youtube.com/vi/" + idYoutube + "/hqdefault.jpg") : null;
+      var etiqueta = '<span class="work-badge">' + escapeHtml(nicheLabel(w.niche, lang)) + '</span>';
+      var overlay = '<div class="work-overlay"><h3 class="work-title">' + escapeHtml(w.title) + '</h3></div>';
       var midia = capa
-        ? '<div class="work-media"><div class="media-placeholder ratio-4-5" style="background-image:url(\'' + capa + '\'); background-size:cover; background-position:center;"><span class="work-play" aria-hidden="true">▶</span></div></div>'
-        : '<div class="work-media"><div class="media-placeholder ratio-4-5"><span>' + escapeHtml(w.format) + '</span></div></div>';
+        ? '<div class="work-media">' + etiqueta + overlay + '<div class="media-placeholder ratio-9-16" style="background-image:url(\'' + capa + '\'); background-size:cover; background-position:center;"><span class="work-play" aria-hidden="true">▶</span></div></div>'
+        : '<div class="work-media">' + etiqueta + overlay + '<div class="media-placeholder ratio-9-16"><span>' + escapeHtml(w.format) + '</span></div></div>';
       // Vídeos do YouTube abrem dentro do próprio portfólio, num modal.
       // Os outros (Instagram, TikTok etc) continuam abrindo em outra aba,
       // porque essas plataformas não deixam mostrar o vídeo dentro de outro site.
@@ -793,10 +802,6 @@
           (idYoutube ? ' data-youtube-id="' + escapeHtml(idYoutube) + '"' : '') +
           ' href="' + escapeHtml(w.link || "#") + '" target="_blank" rel="noopener">' +
           midia +
-          '<div class="work-info">' +
-            '<p class="work-niche">' + escapeHtml(nicheLabel(w.niche, lang)) + '</p>' +
-            '<h3 class="work-title">' + escapeHtml(w.title) + '</h3>' +
-          '</div>' +
         '</a>'
       );
     }).join("");
