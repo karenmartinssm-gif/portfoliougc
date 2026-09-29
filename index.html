@@ -229,6 +229,15 @@
 
   /* ===== Trabalhos ===== */
   .trabalhos{ background: var(--cream); }
+  .works-section-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:20px; max-width:none; }
+  .works-nav{ display:flex; gap:8px; flex:none; }
+  .works-nav-btn{
+    width:38px; height:38px; border-radius:50%; border:1.5px solid var(--line);
+    background: var(--paper); color: var(--ink); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition: background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+  }
+  .works-nav-btn:hover{ border-color: var(--blue); color: var(--blue); }
+  .works-nav-btn:disabled{ opacity:.35; cursor:not-allowed; border-color: var(--line); color: var(--ink); }
   .filter-bar{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom: 36px; }
   .filter-btn{
     padding: 10px 20px; border-radius: 999px; border:1.5px solid var(--line);
@@ -237,15 +246,21 @@
   }
   .filter-btn:hover{ border-color: var(--blue); color: var(--blue); }
   .filter-btn.is-active{ background: var(--ink); border-color: var(--ink); color: var(--cream); }
-  .works-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
-  .work-card{
-    border-radius: var(--radius-md); overflow:hidden; background: var(--paper);
-    border:1px solid var(--line); box-shadow: var(--shadow-sm);
-    transition: transform .3s var(--ease), box-shadow .3s var(--ease), opacity .3s var(--ease);
+  .works-grid{
+    display:flex; gap: 22px; overflow-x:auto; scroll-behavior:smooth; scroll-snap-type:x mandatory;
+    padding-bottom:6px; scrollbar-width:none; -ms-overflow-style:none;
   }
-  .work-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .works-grid::-webkit-scrollbar{ display:none; }
+  .work-card{
+    display:block; flex: 0 0 calc((100% - 4*22px)/5); min-width:0; scroll-snap-align:start;
+    transition: opacity .3s var(--ease);
+  }
   .work-card.is-hidden{ display:none; }
-  .work-media .media-placeholder{ border-radius:0; }
+  .work-media{
+    border-radius: var(--radius-md); overflow:hidden; box-shadow: var(--shadow-sm);
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+  }
+  .work-card:hover .work-media{ transform: translateY(-4px); box-shadow: var(--shadow-md); }
   .work-play{
     position:absolute; top:50%; left:50%; transform: translate(-50%,-50%);
     width:52px; height:52px; border-radius:50%;
@@ -255,10 +270,9 @@
     transition: transform .25s var(--ease), background .25s var(--ease);
   }
   .work-card:hover .work-play{ transform: translate(-50%,-50%) scale(1.08); background:#fff; }
-  .work-info{ padding: 16px 18px 20px; }
-  .work-niche{ font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color: var(--blue); margin-bottom:6px; }
-  .work-title{ font-family:"Open Sans", system-ui, sans-serif; font-size:1.02rem; font-weight:600; margin-bottom:2px; }
-  .work-brand{ font-size:.85rem; margin:0; color: var(--ink-soft); }
+  .work-info{ padding: 12px 2px 0; background:transparent; }
+  .work-niche{ font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color: var(--blue); margin-bottom:4px; }
+  .work-title{ font-family:"Open Sans", system-ui, sans-serif; font-size:1.02rem; font-weight:600; margin:0; }
 
 
   /* ===== Contato ===== */
@@ -357,7 +371,7 @@
     .hero-grid{ padding-bottom: 0; }
     .sobre-grid{ gap: 32px; }
     .sobre-media{ display:none; }
-    .works-grid{ grid-template-columns: repeat(2, 1fr); }
+    .work-card{ flex-basis: calc((100% - 22px)/2); }
   }
 
   @media (max-width: 640px){
@@ -369,7 +383,8 @@
     .hero-actions{ flex-direction:column; align-items:stretch; }
     .hero-foto{ max-height: 520px; }
     .esteira-trilha span{ font-size:.78rem; }
-    .works-grid{ grid-template-columns: 1fr; }
+    .work-card{ flex-basis: 82%; }
+    .works-section-head{ align-items:flex-start; }
     .footer-grid{ flex-direction:column; align-items:flex-start; }
   }
 
@@ -478,10 +493,20 @@
   <!-- ============ 4. TRABALHOS POR NICHO ============ -->
   <section id="trabalhos" class="section trabalhos">
     <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow" data-i18n="trabalhosEyebrow">Portfólio</p>
-        <h2 class="sobre-title" data-i18n="trabalhosTitle">Conteúdos <em>UGC</em></h2>
-        <p data-i18n="trabalhosDesc">Filtre por área para ver exemplos de conteúdo em cada nicho que atendo.</p>
+      <div class="section-head works-section-head reveal">
+        <div>
+          <p class="eyebrow" data-i18n="trabalhosEyebrow">Portfólio</p>
+          <h2 class="sobre-title" data-i18n="trabalhosTitle">Conteúdos <em>UGC</em></h2>
+          <p data-i18n="trabalhosDesc">Filtre por área para ver exemplos de conteúdo em cada nicho que atendo.</p>
+        </div>
+        <div class="works-nav">
+          <button type="button" class="works-nav-btn" id="worksPrev" aria-label="Anterior" data-i18n-aria-label="worksPrevAria">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="works-nav-btn" id="worksNext" aria-label="Próximo" data-i18n-aria-label="worksNextAria">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
       </div>
       <div class="filter-bar" id="filterBar" role="group" aria-label="Filtrar trabalhos por nicho" data-i18n-aria-label="filterAriaLabel"></div>
       <div class="works-grid" id="worksGrid"></div>
@@ -633,6 +658,8 @@
       trabalhosTitle: 'Conteúdos <em>UGC</em>',
       trabalhosDesc: "Filtre por área para ver exemplos de conteúdo em cada nicho que atendo.",
       filterAriaLabel: "Filtrar trabalhos por nicho",
+      worksPrevAria: "Ver trabalhos anteriores",
+      worksNextAria: "Ver mais trabalhos",
       contatoEyebrow: "Contato",
       contatoTitle: 'Vamos criar conteúdos <em>juntos</em>?',
       contatoDesc: "Me conta um pouco sobre a sua marca e o que você precisa. Eu respondo rápido.",
@@ -682,6 +709,8 @@
       trabalhosTitle: '<em>UGC</em> Content',
       trabalhosDesc: "Filter by area to see content examples in each niche I work with.",
       filterAriaLabel: "Filter work by niche",
+      worksPrevAria: "See previous work",
+      worksNextAria: "See more work",
       contatoEyebrow: "Contact",
       contatoTitle: "Let's create content <em>together</em>?",
       contatoDesc: "Tell me a bit about your brand and what you need. I reply fast.",
@@ -762,16 +791,17 @@
       return (
         '<a class="work-card reveal is-visible' + (activeFilter !== "todos" && w.niche !== activeFilter ? ' is-hidden' : '') + '" data-niche="' + escapeHtml(w.niche) + '"' +
           (idYoutube ? ' data-youtube-id="' + escapeHtml(idYoutube) + '"' : '') +
-          ' href="' + escapeHtml(w.link || "#") + '" target="_blank" rel="noopener" style="display:block;">' +
+          ' href="' + escapeHtml(w.link || "#") + '" target="_blank" rel="noopener">' +
           midia +
           '<div class="work-info">' +
-            '<p class="work-niche">' + escapeHtml(nicheLabel(w.niche, lang)) + (w.destaque ? ' · ' + escapeHtml(w.destaque) : '') + '</p>' +
+            '<p class="work-niche">' + escapeHtml(nicheLabel(w.niche, lang)) + '</p>' +
             '<h3 class="work-title">' + escapeHtml(w.title) + '</h3>' +
-            '<p class="work-brand">' + escapeHtml(w.brand) + '</p>' +
           '</div>' +
         '</a>'
       );
     }).join("");
+
+    requestAnimationFrame(atualizarBotoesCarrossel);
   }
 
   // Busca os vídeos publicados no admin (tabela "videos" do Supabase).
@@ -816,6 +846,8 @@
         var match = filter === "todos" || card.getAttribute("data-niche") === filter;
         card.classList.toggle("is-hidden", !match);
       });
+      grid.scrollTo({ left: 0 });
+      atualizarBotoesCarrossel();
     });
 
     // Clicar num vídeo do YouTube abre ele num modal aqui dentro do
@@ -828,6 +860,29 @@
       e.preventDefault();
       abrirModalVideo(idYoutube);
     });
+  }
+
+  // Deixa/apaga as setas do carrossel de trabalhos conforme dá ou não
+  // pra rolar mais pra cada lado.
+  function atualizarBotoesCarrossel(){
+    var grid = document.getElementById("worksGrid");
+    var btnPrev = document.getElementById("worksPrev");
+    var btnNext = document.getElementById("worksNext");
+    if (!grid || !btnPrev || !btnNext) return;
+    var maxScroll = grid.scrollWidth - grid.clientWidth;
+    btnPrev.disabled = grid.scrollLeft <= 4;
+    btnNext.disabled = maxScroll <= 4 || grid.scrollLeft >= maxScroll - 4;
+  }
+
+  function setupWorksCarousel(){
+    var grid = document.getElementById("worksGrid");
+    var btnPrev = document.getElementById("worksPrev");
+    var btnNext = document.getElementById("worksNext");
+    btnPrev.addEventListener("click", function(){ grid.scrollBy({ left: -grid.clientWidth, behavior: "smooth" }); });
+    btnNext.addEventListener("click", function(){ grid.scrollBy({ left: grid.clientWidth, behavior: "smooth" }); });
+    grid.addEventListener("scroll", atualizarBotoesCarrossel);
+    window.addEventListener("resize", atualizarBotoesCarrossel);
+    atualizarBotoesCarrossel();
   }
 
   function abrirModalVideo(idYoutube){
@@ -1048,6 +1103,7 @@
     renderContactLinks();
 
     setupWorksFilter();
+    setupWorksCarousel();
     setupModalVideo();
     setupNav();
     setupReveal();
