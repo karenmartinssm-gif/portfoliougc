@@ -32,6 +32,7 @@ create table public.videos (
   formato text not null,
   marca text not null,
   destaque text,                          -- ex: "2,4M views" (pode ficar em branco)
+  conteudo_autoral boolean not null default true, -- marca vídeos feitos por você (não parceria paga)
   ordem integer not null default 0,       -- define a ordem de exibição no site
   visivel boolean not null default true,  -- o olhinho de mostrar/esconder do admin mexe aqui
   criado_em timestamptz not null default now()
@@ -60,6 +61,7 @@ create table public.marcas (
   favorita boolean not null default false,
   obs text,
   ultimo_contato date,
+  lida boolean not null default false, -- mensagens novas do formulário do site chegam como "não lida"
   criado_em timestamptz not null default now()
 );
 

@@ -34,6 +34,11 @@
     <nav class="admin-nav" aria-label="Navegação do painel">
       <div class="admin-nav-grupo">
         <p class="admin-nav-titulo">Meu site</p>
+        <div class="admin-nav-item" data-aba="caixaentrada">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+          Caixa de entrada
+          <span class="nav-badge" id="badgeCaixaEntrada" style="display:none;"></span>
+        </div>
         <div class="admin-nav-item" data-aba="portfolio">
           <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M9 9l6 3-6 3z"/></svg>
           Portfólio
@@ -74,6 +79,25 @@
   <main class="admin-main">
 
     <div id="avisoEstrutura"></div>
+
+    <!-- ===================== ABA: CAIXA DE ENTRADA ===================== -->
+    <section class="aba-conteudo" id="aba-caixaentrada" style="display:none;">
+      <div class="admin-header">
+        <h1>Caixa de entrada</h1>
+        <p>As mensagens que caem no formulário de contato do seu site, uma por uma.</p>
+      </div>
+
+      <div class="ferramentas">
+        <button type="button" class="btn btn-ghost btn-sm" id="btnAtivarNotificacoes" style="display:none;">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          Ativar notificações no navegador
+        </button>
+        <div class="ferramentas-espaco"></div>
+        <button type="button" class="btn btn-ghost btn-sm" id="btnMarcarTodasLidas">Marcar todas como lidas</button>
+      </div>
+
+      <div id="listaCaixaEntrada"></div>
+    </section>
 
     <!-- ===================== ABA: PORTFÓLIO ===================== -->
     <section class="aba-conteudo" id="aba-portfolio">
@@ -528,6 +552,11 @@
         <div class="campo"><label for="videoMarca">Marca</label><input type="text" id="videoMarca" required></div>
         <div class="campo"><label for="videoDestaque">Destaque</label><input type="text" id="videoDestaque" placeholder="Ex: 2,4M views"></div>
       </div>
+      <div class="campo-linha">
+        <label style="display:flex; align-items:center; gap:8px; font-size:.83rem; font-weight:600; color:var(--ink-soft);">
+          <input type="checkbox" id="videoConteudoAutoral" style="width:16px; height:16px; accent-color:var(--blue);"> Conteúdo autoral (feito por você, não é parceria paga)
+        </label>
+      </div>
       <div class="campo-erro" id="erroVideo"></div>
       <div class="modal-acoes-entre">
         <button type="button" class="btn btn-danger btn-sm" id="btnApagarVideo" style="display:none;">Apagar</button>
@@ -809,6 +838,7 @@
 
 <script src="../js/biblioteca.js"></script>
 <script src="../js/admin-core.js"></script>
+<script src="../js/admin-caixaentrada.js"></script>
 <script src="../js/admin-portfolio.js"></script>
 <script src="../js/admin-marcas.js"></script>
 <script src="../js/admin-prospeccao.js"></script>

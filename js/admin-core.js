@@ -166,6 +166,7 @@ window.AdminCore = (function(){
   }
 
   function carregarAba(nomeAba){
+    if (nomeAba === "caixaentrada" && window.AdminCaixaEntrada) window.AdminCaixaEntrada.carregar();
     if (nomeAba === "portfolio" && window.AdminPortfolio) window.AdminPortfolio.carregar();
     if (nomeAba === "marcas" && window.AdminMarcas) window.AdminMarcas.carregar();
     if (nomeAba === "prospeccao" && window.AdminProspeccao) window.AdminProspeccao.carregar();

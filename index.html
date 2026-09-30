@@ -188,7 +188,7 @@
   .esteira-ponto{ opacity:.55; }
   @keyframes esteiraMove{
     from{ transform: translateX(0); }
-    to{ transform: translateX(-33.3333%); }
+    to{ transform: translateX(-50%); }
   }
 
   .media-placeholder{
@@ -280,6 +280,38 @@
     background: linear-gradient(to top, rgba(15,13,10,0.88) 0%, rgba(15,13,10,0.45) 55%, rgba(15,13,10,0) 100%);
   }
   .work-title{ font-family:"Open Sans", system-ui, sans-serif; font-size:1rem; font-weight:700; color:#fff; margin:0; }
+  .work-autoral{ display:block; font-size:.7rem; font-weight:600; color: rgba(255,255,255,0.72); margin-top:4px; }
+
+
+  /* ===== O que posso criar ===== */
+  .criar{
+    background-color: var(--cream);
+    background-image:
+      linear-gradient(rgba(20,17,13,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(20,17,13,0.07) 1px, transparent 1px);
+    background-size: 26px 26px, 26px 26px;
+  }
+  .criar-grid-secao{ display:grid; grid-template-columns: 0.85fr 1.15fr; gap:50px; align-items:start; }
+  .criar-copy .sobre-title{ font-size: clamp(1.7rem, 2.6vw, 2.1rem); line-height:1.2; }
+  .criar-copy p{ font-size:.98rem; max-width:40ch; margin-bottom:26px; }
+  .criar-cards{ display:grid; grid-template-columns: repeat(2, 1fr); gap:30px 22px; margin-top:6px; }
+  .criar-card{
+    position:relative; background: var(--paper); border:1px solid var(--line); border-radius: var(--radius-md);
+    padding: 30px 22px 24px; box-shadow: var(--shadow-sm);
+  }
+  .criar-card-badge{
+    position:absolute; top:0; left:20px; transform:translateY(-50%);
+    background: var(--orange-dark); color:#fff; font-size:.68rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:.04em; padding:7px 15px; border-radius:999px; white-space:nowrap;
+  }
+  .criar-card p{ font-size:.86rem; color: var(--ink-soft); margin:0; }
+
+  @media (max-width: 860px){
+    .criar-grid-secao{ grid-template-columns: 1fr; gap:34px; }
+  }
+  @media (max-width: 560px){
+    .criar-cards{ grid-template-columns: 1fr; }
+  }
 
 
   /* ===== Contato ===== */
@@ -293,13 +325,14 @@
     font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em;
     color: var(--ink-soft);
   }
-  .form-row input, .form-row textarea{
+  .form-row input, .form-row textarea, .form-row select{
     font-family: inherit; font-size:.95rem; padding: 12px 14px;
     border-radius: var(--radius-sm); border: 1.5px solid var(--line);
     background: var(--paper); color: var(--ink);
   }
   .form-row input::placeholder, .form-row textarea::placeholder{ color: rgba(20,17,13,0.35); }
   .form-row textarea{ resize: vertical; min-height: 100px; }
+  .form-row select{ cursor:pointer; }
   .form-note{ font-size:.75rem; color: var(--ink-soft); }
   .btn-contato{
     display:inline-flex; align-items:center; justify-content:center; gap:8px;
@@ -437,9 +470,9 @@
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy reveal">
-        <p class="eyebrow" data-i18n="heroEyebrow">UGC Creator - Disponível 2026</p>
+        <p class="eyebrow" data-i18n="heroEyebrow">UGC Creator · Agenda aberta</p>
         <h1 data-i18n="heroTitle"><span class="hero-title-lg">Conteúdo pensado<br>para marcas, criado<br>para <em>pessoas</em>.</span><span class="hero-title-sm">Conteúdo pensado<br>para marcas, criado<br>para <em>pessoas</em>.</span></h1>
-        <p class="hero-phrase" data-i18n="heroPhrase">Do conceito à entrega, cada detalhe tem um propósito.</p>
+        <p class="hero-phrase" data-i18n="heroPhrase">Vídeos UGC com roteiro, gancho e intenção, feitos para parecer recomendação de amiga e performar como anúncio.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#contato" data-i18n="heroBtnContact">Falar comigo</a>
           <a class="btn btn-ghost" href="#trabalhos" data-i18n="heroBtnWork">Ver os trabalhos</a>
@@ -459,18 +492,20 @@
   <!-- ============ FAIXA LARANJA (esteira contínua) ============ -->
   <div class="esteira-laranja" aria-hidden="true">
     <div class="esteira-trilha">
-      <span data-i18n="esteira1">Conteúdos que convencem e convertem</span><span class="esteira-ponto">•</span>
-      <span data-i18n="esteira2">Estratégia</span><span class="esteira-ponto">•</span>
-      <span data-i18n="esteira3">Criativos</span><span class="esteira-ponto">•</span>
-      <span data-i18n="esteira4">Storytelling</span><span class="esteira-ponto">•</span>
-      <span data-i18n="esteira1">Conteúdos que convencem e convertem</span><span class="esteira-ponto">•</span>
-      <span data-i18n="esteira2">Estratégia</span><span class="esteira-ponto">•</span>
-      <span data-i18n="esteira3">Criativos</span><span class="esteira-ponto">•</span>
-      <span data-i18n="esteira4">Storytelling</span><span class="esteira-ponto">•</span>
-      <span data-i18n="esteira1">Conteúdos que convencem e convertem</span><span class="esteira-ponto">•</span>
-      <span data-i18n="esteira2">Estratégia</span><span class="esteira-ponto">•</span>
-      <span data-i18n="esteira3">Criativos</span><span class="esteira-ponto">•</span>
-      <span data-i18n="esteira4">Storytelling</span><span class="esteira-ponto">•</span>
+      <span data-i18n="esteira1">Unboxing</span><span class="esteira-ponto">•</span>
+      <span data-i18n="esteira2">Review</span><span class="esteira-ponto">•</span>
+      <span data-i18n="esteira3">Tutorial</span><span class="esteira-ponto">•</span>
+      <span data-i18n="esteira4">Depoimento</span><span class="esteira-ponto">•</span>
+      <span data-i18n="esteira5">Antes e depois</span><span class="esteira-ponto">•</span>
+      <span data-i18n="esteira6">PT/EN</span><span class="esteira-ponto">•</span>
+      <span data-i18n="esteira7">Pronto para anúncio</span><span class="esteira-ponto">•</span>
+      <span data-i18n="esteira1">Unboxing</span><span class="esteira-ponto">•</span>
+      <span data-i18n="esteira2">Review</span><span class="esteira-ponto">•</span>
+      <span data-i18n="esteira3">Tutorial</span><span class="esteira-ponto">•</span>
+      <span data-i18n="esteira4">Depoimento</span><span class="esteira-ponto">•</span>
+      <span data-i18n="esteira5">Antes e depois</span><span class="esteira-ponto">•</span>
+      <span data-i18n="esteira6">PT/EN</span><span class="esteira-ponto">•</span>
+      <span data-i18n="esteira7">Pronto para anúncio</span><span class="esteira-ponto">•</span>
     </div>
   </div>
 
@@ -486,12 +521,12 @@
         <p data-i18n="sobreP1">Sou formada em Engenharia mas trabalho com marketing e gestão de projetos em uma agência de publicidade. Sempre estive entre dois mundos diferentes, mas que fazem muito sentido para mim: a estratégia e a criatividade.</p>
         <p data-i18n="sobreP2">Foi justamente dessa combinação que nasceu minha vontade de criar conteúdo. Como UGC Creator, gosto de transformar experiências reais com produtos em conteúdos que parecem uma conversa: naturais, leves e autênticos, mas com intenção por trás de cada escolha.</p>
         <p data-i18n="sobreP3">Meu olhar estratégico vem da experiência com marketing e campanhas; meu lado criativo vem da paixão por criar, testar, comunicar e encontrar novas formas de contar uma história.</p>
+        <p data-i18n="sobreP4">Na prática, isso significa que eu não só gravo: eu penso no roteiro, no gancho dos primeiros segundos e em como aquele vídeo vai ser usado pela sua marca.</p>
         <div class="persona-badges">
-          <span data-i18n="badge30">30 anos</span>
+          <span data-i18n="badgeBilingue">Bilíngue PT/EN</span>
+          <span data-i18n="badgeEngenharia">Engenharia + Marketing</span>
+          <span data-i18n="badgeAgencia">Experiência em agência</span>
           <span data-i18n="badgeSP">Interior de SP</span>
-          <span data-i18n="badgeBilingue">Bilíngue</span>
-          <span data-i18n="badgeGateira">Gateira</span>
-          <span data-i18n="badgeGeminiana">Geminiana</span>
         </div>
       </div>
     </div>
@@ -520,6 +555,36 @@
     </div>
   </section>
 
+  <!-- ============ 5. O QUE POSSO CRIAR ============ -->
+  <section id="criar" class="section criar">
+    <div class="container criar-grid-secao">
+      <div class="criar-copy reveal">
+        <p class="eyebrow" data-i18n="criarEyebrow">Formatos</p>
+        <h2 class="sobre-title" data-i18n="criarTitle">O que eu posso <em>criar</em><br>para a sua marca?</h2>
+        <p data-i18n="criarDesc">Cada conteúdo nasce com uma missão: atrair, convencer ou vender. Me conta onde a sua marca quer chegar que eu indico o formato certo.</p>
+        <a class="btn btn-primary" href="#contato" data-i18n="criarBtn">Quero um orçamento →</a>
+      </div>
+      <div class="criar-cards reveal">
+        <div class="criar-card">
+          <span class="criar-card-badge" data-i18n="criar1Badge">Performance &amp; ADS</span>
+          <p data-i18n="criar1Desc">Vídeos com gancho forte nos primeiros segundos, feitos para rodar em Meta, TikTok e YouTube.</p>
+        </div>
+        <div class="criar-card">
+          <span class="criar-card-badge" data-i18n="criar2Badge">UGC Orgânico</span>
+          <p data-i18n="criar2Desc">Vídeos com começo, meio e fim. Histórias reais que prendem a atenção, geram identificação e fazem o público lembrar da sua marca.</p>
+        </div>
+        <div class="criar-card">
+          <span class="criar-card-badge" data-i18n="criar3Badge">UGC para e-commerce</span>
+          <p data-i18n="criar3Desc">Seu produto em uso real, do jeito que um cliente mostraria. Vídeos que respondem às dúvidas e dão segurança na hora de comprar.</p>
+        </div>
+        <div class="criar-card">
+          <span class="criar-card-badge" data-i18n="criar4Badge">Pacotes mensais</span>
+          <p data-i18n="criar4Desc">Conteúdo recorrente para a sua marca manter a constância, com planejamento e entregas todo mês e sem precisar recomeçar do zero.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
 
   <!-- ============ 7. BORA CRIAR JUNTOS ============ -->
   <section id="contato" class="section contato">
@@ -527,7 +592,7 @@
       <div class="reveal">
         <p class="eyebrow" data-i18n="contatoEyebrow">Contato</p>
         <h2 class="sobre-title" data-i18n="contatoTitle">Vamos criar conteúdos <em>juntos</em>?</h2>
-        <p data-i18n="contatoDesc">Me conta um pouco sobre a sua marca e o que você precisa. Eu respondo rápido.</p>
+        <p data-i18n="contatoDesc">Me conta sobre a sua marca e o que você precisa. Respondo em até 24h úteis.</p>
 
         <div class="contact-links" aria-label="Outros canais de contato" data-i18n-aria-label="contactLinksAriaLabel">
           <a class="contact-link" id="emailLink" href="#">
@@ -563,7 +628,14 @@
           </div>
           <div class="form-row">
             <label for="orcamento" data-i18n="formLabelOrcamento">Orçamento estimado</label>
-            <input type="text" id="orcamento" name="orcamento" data-i18n-placeholder="formPlaceholderOrcamento" placeholder="Ex: R$ 1.000 a R$ 5.000">
+            <select id="orcamento" name="orcamento">
+              <option value="" data-i18n="formOrcamentoOpcao0">Selecione uma faixa</option>
+              <option value="Até R$ 500" data-i18n="formOrcamentoOpcao1">Até R$ 500</option>
+              <option value="R$ 500 a R$ 1.500" data-i18n="formOrcamentoOpcao2">R$ 500 a R$ 1.500</option>
+              <option value="R$ 1.500 a R$ 3.000" data-i18n="formOrcamentoOpcao3">R$ 1.500 a R$ 3.000</option>
+              <option value="Acima de R$ 3.000" data-i18n="formOrcamentoOpcao4">Acima de R$ 3.000</option>
+              <option value="Ainda não sei" data-i18n="formOrcamentoOpcao5">Ainda não sei</option>
+            </select>
           </div>
           <div class="form-row">
             <label for="mensagem" data-i18n="formLabelMensagem">Conta sobre o projeto</label>
@@ -642,42 +714,64 @@
       navContato: "Contato",
       navToggleOpen: "Abrir menu",
       navToggleClose: "Fechar menu",
-      heroEyebrow: "UGC Creator - Disponível 2026",
+      heroEyebrow: "UGC Creator · Agenda aberta",
       heroTitle: '<span class="hero-title-lg">Conteúdo pensado<br>para marcas, criado<br>para <em>pessoas</em>.</span><span class="hero-title-sm">Conteúdo pensado<br>para marcas, criado<br>para <em>pessoas</em>.</span>',
-      heroPhrase: "Do conceito à entrega, cada detalhe tem um propósito.",
+      heroPhrase: "Vídeos UGC com roteiro, gancho e intenção, feitos para parecer recomendação de amiga e performar como anúncio.",
       heroBtnContact: "Falar comigo",
       heroBtnWork: "Ver os trabalhos",
-      esteira1: "Conteúdos que convencem e convertem",
-      esteira2: "Estratégia",
-      esteira3: "Criativos",
-      esteira4: "Storytelling",
+      esteira1: "Unboxing",
+      esteira2: "Review",
+      esteira3: "Tutorial",
+      esteira4: "Depoimento",
+      esteira5: "Antes e depois",
+      esteira6: "PT/EN",
+      esteira7: "Pronto para anúncio",
       sobreEyebrow: "Sobre mim",
       sobreTitle: 'Oi, eu sou a <em>Karen</em>',
       sobreP1: "Sou formada em Engenharia mas trabalho com marketing e gestão de projetos em uma agência de publicidade. Sempre estive entre dois mundos diferentes, mas que fazem muito sentido para mim: a estratégia e a criatividade.",
       sobreP2: "Foi justamente dessa combinação que nasceu minha vontade de criar conteúdo. Como UGC Creator, gosto de transformar experiências reais com produtos em conteúdos que parecem uma conversa: naturais, leves e autênticos, mas com intenção por trás de cada escolha.",
       sobreP3: "Meu olhar estratégico vem da experiência com marketing e campanhas; meu lado criativo vem da paixão por criar, testar, comunicar e encontrar novas formas de contar uma história.",
-      badge30: "30 anos",
+      sobreP4: "Na prática, isso significa que eu não só gravo: eu penso no roteiro, no gancho dos primeiros segundos e em como aquele vídeo vai ser usado pela sua marca.",
       badgeSP: "Interior de SP",
-      badgeBilingue: "Bilíngue",
-      badgeGateira: "Gateira",
-      badgeGeminiana: "Geminiana",
+      badgeBilingue: "Bilíngue PT/EN",
+      badgeEngenharia: "Engenharia + Marketing",
+      badgeAgencia: "Experiência em agência",
+      criarEyebrow: "Formatos",
+      criarTitle: 'O que eu posso <em>criar</em><br>para a sua marca?',
+      criarDesc: "Cada conteúdo nasce com uma missão: atrair, convencer ou vender. Me conta onde a sua marca quer chegar que eu indico o formato certo.",
+      criarBtn: "Quero um orçamento →",
+      criar1Badge: "Performance & ADS",
+      criar1Desc: "Vídeos com gancho forte nos primeiros segundos, feitos para rodar em Meta, TikTok e YouTube.",
+      criar2Badge: "UGC Orgânico",
+      criar2Desc: "Vídeos com começo, meio e fim. Histórias reais que prendem a atenção, geram identificação e fazem o público lembrar da sua marca.",
+      criar3Badge: "UGC para e-commerce",
+      criar3Desc: "Seu produto em uso real, do jeito que um cliente mostraria. Vídeos que respondem às dúvidas e dão segurança na hora de comprar.",
+      criar4Badge: "Pacotes mensais",
+      criar4Desc: "Conteúdo recorrente para a sua marca manter a constância, com planejamento e entregas todo mês e sem precisar recomeçar do zero.",
       trabalhosEyebrow: "Portfólio",
       trabalhosTitle: 'Conteúdos <em>UGC</em>',
       trabalhosDesc: "Filtre por área para ver exemplos de conteúdo em cada nicho que atendo.",
+      trabalhosAutoral: "Conteúdo autoral",
       filterAriaLabel: "Filtrar trabalhos por nicho",
       worksPrevAria: "Ver trabalhos anteriores",
       worksNextAria: "Ver mais trabalhos",
       contatoEyebrow: "Contato",
       contatoTitle: 'Vamos criar conteúdos <em>juntos</em>?',
-      contatoDesc: "Me conta um pouco sobre a sua marca e o que você precisa. Eu respondo rápido.",
+      contatoDesc: "Me conta sobre a sua marca e o que você precisa. Respondo em até 24h úteis.",
       formLabelNome: "Nome",
       formLabelEmail: "E-mail",
       formLabelMarca: "Marca / Empresa",
       formLabelOrcamento: "Orçamento estimado",
-      formPlaceholderOrcamento: "Ex: R$ 1.000 a R$ 5.000",
+      formOrcamentoOpcao0: "Selecione uma faixa",
+      formOrcamentoOpcao1: "Até R$ 500",
+      formOrcamentoOpcao2: "R$ 500 a R$ 1.500",
+      formOrcamentoOpcao3: "R$ 1.500 a R$ 3.000",
+      formOrcamentoOpcao4: "Acima de R$ 3.000",
+      formOrcamentoOpcao5: "Ainda não sei",
       formLabelMensagem: "Conta sobre o projeto",
       formPlaceholderProjeto: "Categoria, formato, prazo, objetivo da campanha...",
       formNote: "Os campos são obrigatórios.",
+      formErrorRequired: "Ops, faltou preencher esse campo.",
       formSubmit: "Enviar mensagem",
       formConfirmTitle: "Mensagem recebida!",
       formConfirmText: "Obrigada por chamar. Eu volto o quanto antes pelo e-mail ou WhatsApp que você deixou.",
@@ -693,42 +787,64 @@
       navContato: "Contact",
       navToggleOpen: "Open menu",
       navToggleClose: "Close menu",
-      heroEyebrow: "UGC Creator - Available 2026",
+      heroEyebrow: "UGC Creator · Open for bookings",
       heroTitle: '<span class="hero-title-lg">Content made for<br>brands, created for<br><em>people</em>.</span><span class="hero-title-sm">Content made for<br>brands, created for<br><em>people</em>.</span>',
-      heroPhrase: "From concept to delivery, every detail has a purpose.",
+      heroPhrase: "UGC videos with script, hook and intent, made to feel like a friend's recommendation and perform like an ad.",
       heroBtnContact: "Get in touch",
       heroBtnWork: "See the work",
-      esteira1: "Content that convinces and converts",
-      esteira2: "Strategy",
-      esteira3: "Creatives",
-      esteira4: "Storytelling",
+      esteira1: "Unboxing",
+      esteira2: "Review",
+      esteira3: "Tutorial",
+      esteira4: "Testimonial",
+      esteira5: "Before and after",
+      esteira6: "PT/EN",
+      esteira7: "Ad-ready",
       sobreEyebrow: "About me",
       sobreTitle: "Hi, I'm <em>Karen</em>",
       sobreP1: "I have a degree in Engineering, but I work with marketing and project management at an advertising agency. I've always lived between two different worlds that make a lot of sense together for me: strategy and creativity.",
       sobreP2: "It was exactly that combination that sparked my drive to create content. As a UGC Creator, I love turning real experiences with products into content that feels like a conversation: natural, light and authentic, but with intention behind every choice.",
       sobreP3: "My strategic eye comes from my experience with marketing and campaigns; my creative side comes from my passion for creating, testing, communicating and finding new ways to tell a story.",
-      badge30: "30 years old",
+      sobreP4: "In practice, that means I don't just film: I think through the script, the hook for the first few seconds, and how your brand will actually use that video.",
       badgeSP: "SP countryside",
-      badgeBilingue: "Bilingual",
-      badgeGateira: "Cat lover",
-      badgeGeminiana: "Gemini",
+      badgeBilingue: "Bilingual PT/EN",
+      badgeEngenharia: "Engineering + Marketing",
+      badgeAgencia: "Agency experience",
+      criarEyebrow: "Formats",
+      criarTitle: 'What can I <em>create</em><br>for your brand?',
+      criarDesc: "Every piece of content has a mission: to attract, convince or sell. Tell me where your brand wants to go and I'll point you to the right format.",
+      criarBtn: "Get a quote →",
+      criar1Badge: "Performance & Ads",
+      criar1Desc: "Videos with a strong hook in the first seconds, made to run on Meta, TikTok and YouTube.",
+      criar2Badge: "Organic UGC",
+      criar2Desc: "Videos with a beginning, middle and end. Real stories that hold attention, build connection and make people remember your brand.",
+      criar3Badge: "UGC for e-commerce",
+      criar3Desc: "Your product in real use, the way a customer would show it. Videos that answer questions and build confidence to buy.",
+      criar4Badge: "Monthly packages",
+      criar4Desc: "Recurring content to keep your brand consistent, with planning and deliveries every month, never starting from scratch.",
       trabalhosEyebrow: "Portfolio",
       trabalhosTitle: '<em>UGC</em> Content',
       trabalhosDesc: "Filter by area to see content examples in each niche I work with.",
+      trabalhosAutoral: "Self-made content",
       filterAriaLabel: "Filter work by niche",
       worksPrevAria: "See previous work",
       worksNextAria: "See more work",
       contatoEyebrow: "Contact",
       contatoTitle: "Let's create content <em>together</em>?",
-      contatoDesc: "Tell me a bit about your brand and what you need. I reply fast.",
+      contatoDesc: "Tell me about your brand and what you need. I reply within 24 business hours.",
       formLabelNome: "Name",
       formLabelEmail: "Email",
       formLabelMarca: "Brand / Company",
       formLabelOrcamento: "Estimated budget",
-      formPlaceholderOrcamento: "Ex: $200 to $1,000",
+      formOrcamentoOpcao0: "Select a range",
+      formOrcamentoOpcao1: "Up to $100",
+      formOrcamentoOpcao2: "$100 to $300",
+      formOrcamentoOpcao3: "$300 to $600",
+      formOrcamentoOpcao4: "Above $600",
+      formOrcamentoOpcao5: "Not sure yet",
       formLabelMensagem: "Tell me about the project",
       formPlaceholderProjeto: "Category, format, deadline, campaign goal...",
       formNote: "All fields are required.",
+      formErrorRequired: "Oops, this field is required.",
       formSubmit: "Send message",
       formConfirmTitle: "Message received!",
       formConfirmText: "Thanks for reaching out. I'll get back to you soon via the email or WhatsApp you left.",
@@ -790,7 +906,8 @@
       var idYoutube = idDoYoutube(w.link);
       var capa = idYoutube ? ("https://img.youtube.com/vi/" + idYoutube + "/hqdefault.jpg") : null;
       var etiqueta = '<span class="work-badge">' + escapeHtml(nicheLabel(w.niche, lang)) + '</span>';
-      var overlay = '<div class="work-overlay"><h3 class="work-title">' + escapeHtml(w.title) + '</h3></div>';
+      var autoral = w.conteudo_autoral ? '<span class="work-autoral">' + escapeHtml(translations[lang].trabalhosAutoral) + '</span>' : '';
+      var overlay = '<div class="work-overlay"><h3 class="work-title">' + escapeHtml(w.title) + '</h3>' + autoral + '</div>';
       var midia = capa
         ? '<div class="work-media">' + etiqueta + overlay + '<div class="media-placeholder ratio-9-16" style="background-image:url(\'' + capa + '\'); background-size:cover; background-position:center;"><span class="work-play" aria-hidden="true">▶</span></div></div>'
         : '<div class="work-media">' + etiqueta + overlay + '<div class="media-placeholder ratio-9-16"><span>' + escapeHtml(w.format) + '</span></div></div>';
@@ -1046,6 +1163,17 @@
   function setupContactForm(){
     var form = document.getElementById("contactForm");
     var confirm = document.getElementById("formConfirm");
+
+    // Troca a mensagem padrão do navegador ("preencha este campo")
+    // pela nossa própria, no idioma certo.
+    form.querySelectorAll("[required]").forEach(function(campo){
+      campo.addEventListener("invalid", function(){
+        campo.setCustomValidity(translations[currentLang].formErrorRequired);
+      });
+      campo.addEventListener("input", function(){ campo.setCustomValidity(""); });
+      campo.addEventListener("change", function(){ campo.setCustomValidity(""); });
+    });
+
     form.addEventListener("submit", async function(e){
       e.preventDefault();
       if (!form.checkValidity()){

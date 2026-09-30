@@ -231,6 +231,7 @@ window.AdminPortfolio = (function(){
     document.getElementById("videoFormato").value = video.formato || "";
     document.getElementById("videoMarca").value = video.marca || "";
     document.getElementById("videoDestaque").value = video.destaque || "";
+    document.getElementById("videoConteudoAutoral").checked = !!video.conteudo_autoral;
     document.getElementById("btnApagarVideo").style.display = "";
     document.getElementById("erroVideo").textContent = "";
     Core.abrirModal("modalVideo");
@@ -294,7 +295,8 @@ window.AdminPortfolio = (function(){
         nicho: document.getElementById("videoNicho").value.trim(),
         formato: document.getElementById("videoFormato").value.trim(),
         marca: document.getElementById("videoMarca").value.trim(),
-        destaque: document.getElementById("videoDestaque").value.trim()
+        destaque: document.getElementById("videoDestaque").value.trim(),
+        conteudo_autoral: document.getElementById("videoConteudoAutoral").checked
       };
       var erroCaixa = document.getElementById("erroVideo");
       erroCaixa.textContent = "";
