@@ -599,9 +599,9 @@
             <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg></span>
             <span id="emailLabel">seuemail@email.com</span>
           </a>
-          <a class="contact-link instagram" id="instagramLink" href="#" target="_blank" rel="noopener">
-            <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg></span>
-            <span id="instagramLabel">@seuusuario</span>
+          <a class="contact-link tiktok" id="tiktokLink" href="#" target="_blank" rel="noopener">
+            <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg></span>
+            <span id="tiktokLabel">@seuusuario</span>
           </a>
           <a class="contact-link whatsapp" id="whatsappLink" href="#" target="_blank" rel="noopener">
             <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
@@ -659,7 +659,7 @@
   <div class="container footer-grid">
     <p class="footer-brand">Karen Martins</p>
     <nav class="footer-links" aria-label="Redes sociais">
-      <a id="footerInstagram" href="#" target="_blank" rel="noopener">Instagram</a>
+      <a id="footerTiktok" href="#" target="_blank" rel="noopener">TikTok</a>
       <a id="footerWhatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a>
       <a id="footerEmail" href="#" data-i18n="footerEmailLabel">E-mail</a>
     </nav>
@@ -701,7 +701,7 @@
     whatsappNumber: "5515997970141", // formato internacional, usado no link wa.me
     whatsappDisplay: "(15) 99797-0141",
     email: "contato.kaamartins@gmail.com",
-    instagramUser: "kaa.martins"
+    tiktokUser: "ka.martns"
   };
 
   // Textos estáticos do site (cabeçalho, capa, sobre, formulários, rodapé, card de captura).
@@ -1047,8 +1047,8 @@
     var waLabel = document.getElementById("whatsappLabel");
     var emailLink = document.getElementById("emailLink");
     var emailLabel = document.getElementById("emailLabel");
-    var igLink = document.getElementById("instagramLink");
-    var igLabel = document.getElementById("instagramLabel");
+    var ttLink = document.getElementById("tiktokLink");
+    var ttLabel = document.getElementById("tiktokLabel");
 
     waLink.href = "https://wa.me/" + contactInfo.whatsappNumber;
     waLabel.textContent = contactInfo.whatsappDisplay;
@@ -1056,10 +1056,10 @@
     emailLink.href = "mailto:" + contactInfo.email;
     emailLabel.textContent = contactInfo.email;
 
-    igLink.href = "https://instagram.com/" + contactInfo.instagramUser;
-    igLabel.textContent = "@" + contactInfo.instagramUser;
+    ttLink.href = "https://www.tiktok.com/@" + contactInfo.tiktokUser;
+    ttLabel.textContent = "@" + contactInfo.tiktokUser;
 
-    document.getElementById("footerInstagram").href = "https://instagram.com/" + contactInfo.instagramUser;
+    document.getElementById("footerTiktok").href = "https://www.tiktok.com/@" + contactInfo.tiktokUser;
     document.getElementById("footerWhatsapp").href = "https://wa.me/" + contactInfo.whatsappNumber;
     document.getElementById("footerEmail").href = "mailto:" + contactInfo.email;
   }
