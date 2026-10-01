@@ -896,7 +896,31 @@
   }
   function capaYoutube(link){
     var id = idDoYoutube(link);
-    return id ? ("https://img.youtube.com/vi/" + id + "/hqdefault.jpg") : null;
+    return id ? ("https://img.youtube.com/vi/" + id + "/maxresdefault.jpg") : null;
+  }
+
+  // A capa em "hqdefault" é pequena (480x360) e fica borrada quando o
+  // card é maior que isso na tela. O YouTube tem uma versão em alta
+  // resolução ("maxresdefault"), só que nem todo vídeo tem uma —
+  // quando não tem, ele devolve uma imagem cinza pequena no lugar.
+  // Por isso a gente sempre mostra a hqdefault primeiro (garantida) e,
+  // por baixo dos panos, testa a maxresdefault: se for uma foto de
+  // verdade (bem maior que a imagem cinza de "não existe"), troca a
+  // capa do card por ela, bem mais nítida.
+  function melhorarCapasParaAltaResolucao(){
+    document.querySelectorAll(".work-card[data-youtube-id]").forEach(function(card){
+      var idYoutube = card.getAttribute("data-youtube-id");
+      var urlAlta = "https://img.youtube.com/vi/" + idYoutube + "/maxresdefault.jpg";
+      var placeholder = card.querySelector(".media-placeholder");
+      if (!placeholder) return;
+      var teste = new Image();
+      teste.onload = function(){
+        if (teste.naturalWidth > 120){
+          placeholder.style.backgroundImage = "url('" + urlAlta + "')";
+        }
+      };
+      teste.src = urlAlta;
+    });
   }
 
   // Filtro de nichos + galeria de trabalhos.
@@ -943,6 +967,7 @@
     }).join("");
 
     requestAnimationFrame(atualizarBotoesCarrossel);
+    melhorarCapasParaAltaResolucao();
   }
 
   // Busca os vídeos publicados no admin (tabela "videos" do Supabase).
