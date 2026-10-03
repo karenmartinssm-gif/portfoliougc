@@ -239,14 +239,6 @@
   }
   .works-nav-btn:hover{ border-color: var(--blue); color: var(--blue); }
   .works-nav-btn:disabled{ opacity:.35; cursor:not-allowed; border-color: var(--line); color: var(--ink); }
-  .filter-bar{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom: 36px; }
-  .filter-btn{
-    padding: 10px 20px; border-radius: 999px; border:1.5px solid var(--line);
-    background: var(--paper); font-weight:600; font-size:.88rem; color: var(--ink-soft);
-    cursor:pointer; transition: all .25s var(--ease);
-  }
-  .filter-btn:hover{ border-color: var(--blue); color: var(--blue); }
-  .filter-btn.is-active{ background: var(--ink); border-color: var(--ink); color: var(--cream); }
   .works-grid{
     display:flex; gap: 22px; overflow-x:auto; scroll-behavior:smooth; scroll-snap-type:x mandatory;
     padding-bottom:6px; scrollbar-width:none; -ms-overflow-style:none;
@@ -258,7 +250,6 @@
     transition: transform .3s var(--ease), box-shadow .3s var(--ease);
   }
   .work-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-md); }
-  .work-card.is-hidden{ display:none; }
   .work-media{ position:relative; }
   .work-media .media-placeholder{ border-radius:0; box-shadow:none; }
   .work-badge{
@@ -560,7 +551,7 @@
         <div>
           <p class="eyebrow" data-i18n="trabalhosEyebrow">Portfólio</p>
           <h2 class="sobre-title" data-i18n="trabalhosTitle">Conteúdos <em>UGC</em></h2>
-          <p data-i18n="trabalhosDesc">Filtre por área para ver exemplos de conteúdo em cada nicho que atendo.</p>
+          <p data-i18n="trabalhosDesc">Cada produto pede uma abordagem. Explore diferentes formatos de conteúdo que posso criar para sua marca.</p>
         </div>
         <div class="works-nav">
           <button type="button" class="works-nav-btn" id="worksPrev" aria-label="Anterior" data-i18n-aria-label="worksPrevAria">
@@ -571,7 +562,6 @@
           </button>
         </div>
       </div>
-      <div class="filter-bar" id="filterBar" role="group" aria-label="Filtrar trabalhos por nicho" data-i18n-aria-label="filterAriaLabel"></div>
       <div class="works-grid" id="worksGrid"></div>
     </div>
   </section>
@@ -707,14 +697,12 @@
      porque o site tem alternância de idioma no cabeçalho.
   ========================================================= */
 
-  // Trabalhos por nicho (seção 4). Antes esses vídeos ficavam fixos aqui.
+  // Trabalhos (seção 4). Antes esses vídeos ficavam fixos aqui.
   // Agora eles vêm do banco de dados (tabela "videos"), editados pelo
   // admin em admin/index.html. Veja a função carregarVideosDoBanco()
-  // mais abaixo. "todos" é sempre a primeira opção do filtro; as demais
-  // aparecem sozinhas, de acordo com os nichos que existirem no banco.
-  var niches = [
-    { id: "todos", label: { pt: "Todos", en: "All" } }
-  ];
+  // mais abaixo. "niches" só serve pra escrever o nome do nicho na
+  // etiqueta de cada card.
+  var niches = [];
   var works = [];
 
   // Contato
@@ -770,9 +758,8 @@
       criar4Desc: "Conteúdo recorrente para a sua marca manter a constância, com planejamento e entregas todo mês e sem precisar recomeçar do zero.",
       trabalhosEyebrow: "Portfólio",
       trabalhosTitle: 'Conteúdos <em>UGC</em>',
-      trabalhosDesc: "Filtre por área para ver exemplos de conteúdo em cada nicho que atendo.",
+      trabalhosDesc: "Cada produto pede uma abordagem. Explore diferentes formatos de conteúdo que posso criar para sua marca.",
       trabalhosAutoral: "Conteúdo autoral",
-      filterAriaLabel: "Filtrar trabalhos por nicho",
       worksPrevAria: "Ver trabalhos anteriores",
       worksNextAria: "Ver mais trabalhos",
       contatoEyebrow: "Contato",
@@ -842,9 +829,8 @@
       criar4Desc: "Recurring content to keep your brand consistent, with planning and deliveries every month, never starting from scratch.",
       trabalhosEyebrow: "Portfolio",
       trabalhosTitle: '<em>UGC</em> Content',
-      trabalhosDesc: "Filter by area to see content examples in each niche I work with.",
+      trabalhosDesc: "Every product calls for its own approach. Explore the different content formats I can create for your brand.",
       trabalhosAutoral: "Self-made content",
-      filterAriaLabel: "Filter work by niche",
       worksPrevAria: "See previous work",
       worksNextAria: "See more work",
       contatoEyebrow: "Contact",
@@ -923,20 +909,12 @@
     });
   }
 
-  // Filtro de nichos + galeria de trabalhos.
+  // Galeria de trabalhos.
   // "title", "format" e "marca" vêm do banco em um idioma só (o que a
   // Karen digitou no admin), por isso não usam [lang] como o resto do
   // site: aparecem do mesmo jeito nas duas versões, pt e en.
   function renderWorks(lang){
-    var filterBar = document.getElementById("filterBar");
     var grid = document.getElementById("worksGrid");
-    var previousFilter = filterBar.querySelector(".filter-btn.is-active");
-    var activeFilter = previousFilter ? previousFilter.getAttribute("data-filter") : "todos";
-    if (!niches.some(function(n){ return n.id === activeFilter; })) activeFilter = "todos";
-
-    filterBar.innerHTML = niches.map(function(n){
-      return '<button type="button" class="filter-btn' + (n.id === activeFilter ? ' is-active' : '') + '" data-filter="' + escapeHtml(n.id) + '">' + escapeHtml(n.label[lang]) + '</button>';
-    }).join("");
 
     if (!works.length){
       grid.innerHTML = '<p class="work-empty-state" style="color:var(--ink-soft); font-size:.95rem;">' +
@@ -958,7 +936,7 @@
       // Os outros (Instagram, TikTok etc) continuam abrindo em outra aba,
       // porque essas plataformas não deixam mostrar o vídeo dentro de outro site.
       return (
-        '<a class="work-card reveal is-visible' + (activeFilter !== "todos" && w.niche !== activeFilter ? ' is-hidden' : '') + '" data-niche="' + escapeHtml(w.niche) + '"' +
+        '<a class="work-card reveal is-visible" data-niche="' + escapeHtml(w.niche) + '"' +
           (idYoutube ? ' data-youtube-id="' + escapeHtml(idYoutube) + '"' : '') +
           ' href="' + escapeHtml(w.link || "#") + '" target="_blank" rel="noopener">' +
           midia +
@@ -988,9 +966,7 @@
       works.forEach(function(w){
         if (w.niche && nichosUnicos.indexOf(w.niche) === -1) nichosUnicos.push(w.niche);
       });
-      niches = [{ id: "todos", label: { pt: "Todos", en: "All" } }].concat(
-        nichosUnicos.map(function(n){ return { id: n, label: { pt: n, en: n } }; })
-      );
+      niches = nichosUnicos.map(function(n){ return { id: n, label: { pt: n, en: n } }; });
 
       renderWorks(currentLang);
     } catch(erroInesperado){
@@ -999,22 +975,8 @@
     }
   }
 
-  function setupWorksFilter(){
-    var filterBar = document.getElementById("filterBar");
+  function setupWorksCards(){
     var grid = document.getElementById("worksGrid");
-    filterBar.addEventListener("click", function(e){
-      var btn = e.target.closest(".filter-btn");
-      if (!btn) return;
-      filterBar.querySelectorAll(".filter-btn").forEach(function(b){ b.classList.remove("is-active"); });
-      btn.classList.add("is-active");
-      var filter = btn.getAttribute("data-filter");
-      grid.querySelectorAll(".work-card").forEach(function(card){
-        var match = filter === "todos" || card.getAttribute("data-niche") === filter;
-        card.classList.toggle("is-hidden", !match);
-      });
-      grid.scrollTo({ left: 0 });
-      atualizarBotoesCarrossel();
-    });
 
     // Clicar num vídeo do YouTube abre ele num modal aqui dentro do
     // portfólio, em vez de abrir o YouTube numa aba nova.
@@ -1279,7 +1241,7 @@
     renderWorks(currentLang);
     renderContactLinks();
 
-    setupWorksFilter();
+    setupWorksCards();
     setupWorksCarousel();
     setupModalVideo();
     setupNav();
