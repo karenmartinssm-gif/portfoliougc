@@ -1,0 +1,1 @@
+import{r as t}from"./react-Dz3lnw4F.js";import{G as d}from"./index-6RHFkEFw.js";function y(o,n){const[u,l]=t.useState(null),[c,a]=t.useState(!0),[f,r]=t.useState(null),s=t.useCallback(o,n),e=t.useCallback(async()=>{a(!0),r(null);try{l(await s())}catch(i){r(d(i))}finally{a(!1)}},[s]);return t.useEffect(()=>{e()},[e]),{data:u,loading:c,error:f,reload:e}}export{y as u};
